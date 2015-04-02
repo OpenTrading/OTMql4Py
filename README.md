@@ -9,17 +9,18 @@ https://sites.google.com/site/prof7bit/metatrader-python-integration
 with contributions by C. Polymeris 
 http://chiselapp.com/user/polymeris/repository/metatraderpy/index
 
-** This is a work in progress - a pre-developers version **
+**This is a work in progress - a pre-developers version.**
 
 It works well on builds > 6xx, but the documentation of the changes to the
 original code still need writing, as well as more tests and testing on
 different versions. Only Python 2.7.x is supported.
 
 The project wiki should be open for editing by anyone logged into GitHub:
-** Please report any system it works or doesn't work on in the wiki:
+**Please report any system it works or doesn't work on in the wiki:
 include the Metatrader build number, the origin of the metatrader exe,
-the Windows version, and the Python version and origin of the Python. **
-This code in known to run under Linux Wine (1.7.x).
+the Windows version, and the Python version and origin of the Python.**
+This code in known to run under Linux Wine (1.7.x), so this project
+bridges Metatrader to Python under Linux.
 
 ### Installation
 
