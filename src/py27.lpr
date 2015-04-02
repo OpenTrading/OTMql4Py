@@ -6,7 +6,7 @@ uses
   dynlibs, classes, sysutils, windows;
 
 const
-  PyDllName = 'python26.dll';
+  PyDllName = 'python27.dll';
   Py_Eval_Input = 258;
 
 
@@ -333,7 +333,7 @@ exports
   PyListAppend,
   PyListSize;
 
-{$IFDEF WINDOWS}{$R py27.rc}{$ENDIF}
+//{$IFDEF WINDOWS}{$R py27.rc}{$ENDIF}
 
 initialization
   PyStatus := 0;

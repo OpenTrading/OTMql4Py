@@ -2,7 +2,7 @@
 <CONFIG>
   <ProjectOptions>
     <PathDelim Value="\"/>
-    <Version Value="7"/>
+    <Version Value="8"/>
     <General>
       <Flags>
         <MainUnitHasCreateFormStatements Value="False"/>
@@ -10,7 +10,6 @@
         <Runnable Value="False"/>
       </Flags>
       <MainUnit Value="0"/>
-      <TargetFileExt Value=".exe"/>
       <Title Value="py27"/>
       <UseAppBundle Value="False"/>
       <ActiveEditorIndexAtStart Value="0"/>
@@ -20,7 +19,7 @@
       <AutoIncrementBuild Value="True"/>
       <CurrentVersionNr Value="1"/>
       <CurrentMajorRevNr Value="3"/>
-      <CurrentBuildNr Value="78"/>
+      <CurrentBuildNr Value="79"/>
       <CompanyName Value="Bernd Kreuss"/>
       <FileDescription Value="Python-2.7 wrapper for Metatrader 4"/>
       <InternalName Value="py27"/>
@@ -191,13 +190,13 @@
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
-    <Version Value="8"/>
+    <Version Value="9"/>
     <PathDelim Value="\"/>
     <Target>
       <Filename Value="py27.dll"/>
     </Target>
     <SearchPaths>
-      <IncludeFiles Value="$(ProjOutDir)\"/>
+      <IncludeFiles Value="$(ProjOutDir)"/>
     </SearchPaths>
     <Parsing>
       <SyntaxOptions>
@@ -218,11 +217,13 @@
         <StripSymbols Value="True"/>
       </Debugging>
       <LinkSmart Value="True"/>
+      <Options>
+        <ExecutableType Value="Library"/>
+      </Options>
     </Linking>
     <Other>
       <WriteFPCLogo Value="False"/>
-      <CustomOptions Value="-a -WR
-"/>
+      <CustomOptions Value="-a -WR"/>
       <CompilerPath Value="$(CompPath)"/>
     </Other>
   </CompilerOptions>

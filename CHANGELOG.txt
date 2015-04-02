@@ -1,3 +1,9 @@
+commit 5a2d09fde9b2d082c93e3b9d2ac85b55ec113897
+Date:   Thu Apr 2 04:17:19 2015 +0300
+
+    Made purely syntatic changes in the src file of
+    py26 -> py27 and Python-2.6 -> Python 2.7
+
 commit 56920b1ccfab0f0406e838bfa46ed175193027b6
 Date:   Thu Apr 2 04:01:15 2015 +0300
 
