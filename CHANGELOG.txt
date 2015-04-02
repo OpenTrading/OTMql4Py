@@ -1,3 +1,8 @@
+commit c676b55d8624000c643fa76067ada3c2303ed6a4
+Date:   Thu Apr 2 16:23:08 2015 +0300
+
+    Updated the Readme.
+
 commit 14ad3e32bf18c46ec5ffb18d27f14d25a7b17166
 Date:   Thu Apr 2 04:57:03 2015 +0300
 
