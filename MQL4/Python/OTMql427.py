@@ -303,12 +303,14 @@ def test():
     oFd.close()
     assert sContents.find("Level 4") > 0
     assert sContents.find("NONO") < 0
-    
+
+def vTestTkinter():
     if 0:
         bStartTkinter()
         assert __root__
         sShowError('Foo','Bar')
 
+def vTestMessageBox():
     i = iMessageBox("Hi there", "Yes No Cancel",
                     MB_YESNOCANCEL, MB_ICONINFORMATION)
     if i == IDCANCEL:

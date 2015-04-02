@@ -3,7 +3,7 @@
 
 ### OTMql4Py - MQL4 bindings for Python
 
-Based in work by Bernard Kreuss
+Based in work by Bernd Kreuss
 https://sites.google.com/site/prof7bit/metatrader-python-integration
 
 with contributions by C. Polymeris 
@@ -30,11 +30,11 @@ the folder MQL4 over the MQL4 folder of your Metatrader installation. It will
 not overwrite any system files.
 
 You already should have the python27.dll and any other Python dlls
-that you will call (e.g. pythoncom27.dll pythoncomloader27.dll pywintypes.dll)
-installed into your windows system folder (e.g. c:\windows\system32)
+that you will call (e.g. `pythoncom27.dll` `pythoncomloader27.dll` `pywintypes.dll`)
+installed into your windows system folder (e.g. `c:\windows\system32`)
 
 You may have to set the environment variable PYTHONHOME to the root
-of you Python installation (e.g. c:\Python27 ).
+of you Python installation (e.g. `c:\Python27` ).
 
 ### Source
 
@@ -57,5 +57,5 @@ the important pages back into the documentation in the share/doc directory.
 You will need to be signed into github.com to see or edit in the wiki.
 
 If you know of any threads in the forums that discuss this code,
-please post a message to say this project is now on github.com.
-
+please post a message to say this project is now on github.com at
+https://github.com/OpenTrading/OTMql4Py/

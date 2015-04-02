@@ -30,11 +30,11 @@ int OnInit() {
 
     sRetval=PyEvalString("sys.stdout.name");
     if (StringFind(sRetval, "<stdout>", 0) == 0) {
-    Print("ERROR: NOT opened sys.stdout.name= " + sRetval);
+      Print("ERROR: NOT opened sys.stdout.name= " + sRetval);
     } else if (StringFind(sRetval, "_test_stdout.txt", 0) < 0) {
-    Print("ERROR: _test_stdout.txt not in sys.stdout.name= " + sRetval);
+      Print("ERROR: _test_stdout.txt not in sys.stdout.name= " + sRetval);
     } else {
-    Print("INFO: PyEvalString sys.stdout.name= " + sRetval);
+      Print("INFO: PyEvalString sys.stdout.name= " + sRetval);
     }
 
     sArg="import OTMql427";
@@ -49,25 +49,19 @@ int OnInit() {
     sArg="OTMql427.iMessageBox('Hi there', 'Yes No Cancel', 3, 64)";
     sRetval = PyEvalString(sArg);
 
-    /*
-    vPyExecuteUnicode("import sys");
-    vPyExecuteUnicode("sys.last_type=''");
-    vPyExecuteUnicode("sys.last_value=''");
-    */
-
     vPyExecuteUnicode("sFoobar = 'foobar'");
     sRetval=PyEvalString("sFoobar");
     if (StringFind(sRetval, "foobar", 0) == 0) {
-    Print("INFO: sFoobar = " + sRetval);
+      Print("INFO: sFoobar = " + sRetval);
     } else {
-    Print("ERROR: sFoobar = " + sRetval);
+      Print("ERROR: sFoobar = " + sRetval);
     }
     /*
     sRetval=sPySafeEval("bad");
     if (sRetval != "") {
-    Print("ERROR: NOT null return= " + sRetval);
+      Print("ERROR: NOT null return= " + sRetval);
     } else {
-    Print("INFO: null return for bad= " + sRetval);
+      Print("INFO: null return for bad= " + sRetval);
     }
     */
     Print("INFO: vPyExecuteUnicode bad coming up");
@@ -77,9 +71,9 @@ int OnInit() {
     vPyExecuteUnicode("sFoobar = str(sys.last_type) + ' ' + str(sys.last_value)");
     sRetval=PyEvalString("sFoobar");
     if (StringFind(sRetval, "NameError", 0) < 0) {
-    Print("ERROR: vPyExecuteUnicode bad -> sys.last_type + sys.last_value= " + sRetval);
+      Print("ERROR: vPyExecuteUnicode bad -> sys.last_type + sys.last_value= " + sRetval);
     } else {
-    Print("INFO: vPyExecuteUnicode bad -> sys.last_type + sys.last_value= " + sRetval);
+      Print("INFO: vPyExecuteUnicode bad -> sys.last_type + sys.last_value= " + sRetval);
     }
 
     sRetval=PyEvalString("str(sys.last_type) + ' ' + str(sys.last_value)");
@@ -105,17 +99,17 @@ int OnInit() {
 
     sRetval=PyEval("syntax : error");
     if (StringFind(sRetval, "ERROR:", 0) == 0) {
-    Print("INFO: syntax : error detected:= " + sRetval);
+      Print("INFO: syntax : error detected:= " + sRetval);
     } else {
-    Print("ERROR: syntax : error NOT detected:= " + sRetval);
-    return(-1);
+      Print("ERROR: syntax : error NOT detected:= " + sRetval);
+      return(-1);
     }
 
     sRetval=PyEval("runtimeerror");
     if (StringFind(sRetval, "ERROR:", 0) == 0) {
-    Print("INFO: runtimeerror detected:= " + sRetval);
+      Print("INFO: runtimeerror detected:= " + sRetval);
     } else {
-    Print("ERROR: runtimeerror NOT detected:= " + sRetval);
+      Print("ERROR: runtimeerror NOT detected:= " + sRetval);
     return(-1);
     }
     */
@@ -147,9 +141,7 @@ void OnTick() {
       shift += 1; // = Bars - 100
       tNextbartime=tTime;
       bNewBar=true;
-    }
-    else
-    {
+    } else {
       bNewBar=false;
       iTicks+=1;
     }
@@ -167,11 +159,9 @@ void OnTick() {
 }
 
 
-void vManageLowerStatus(string addstatus)
-    {
+void vManageLowerStatus(string addstatus) {
     ObjectDelete("Lower_Status");
-    if(addstatus!="")
-      {
+    if (addstatus!="") {
       ObjectCreate("Lower_Status", OBJ_LABEL, 0, 0, 0);// Creating obj.
       ObjectSet("Lower_Status", OBJPROP_CORNER,3);    // Reference corner
       ObjectSet("Lower_Status", OBJPROP_XDISTANCE, 2);// X coordinate
