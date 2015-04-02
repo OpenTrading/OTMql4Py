@@ -1,3 +1,11 @@
+commit fd9e87ae189f785e3d9f0e748351b3fbe85c9bb0
+Date:   Thu Apr 2 03:29:51 2015 +0300
+
+    Added the py27.dll from the contribution by C. Polymeris (cpolymeris@gmail.com)
+    http://chiselapp.com/user/polymeris/repository/metatraderpy/index
+    
+    It works, and we'll add the source code soon.
+
 commit bc7fe104e996acb4fffa1375bb306fd5c4b107ac
 Date:   Thu Apr 2 03:24:19 2015 +0300
 
