@@ -11,7 +11,7 @@
       </Flags>
       <MainUnit Value="0"/>
       <TargetFileExt Value=".exe"/>
-      <Title Value="py26"/>
+      <Title Value="py27"/>
       <UseAppBundle Value="False"/>
       <ActiveEditorIndexAtStart Value="0"/>
     </General>
@@ -22,10 +22,10 @@
       <CurrentMajorRevNr Value="3"/>
       <CurrentBuildNr Value="78"/>
       <CompanyName Value="Bernd Kreuss"/>
-      <FileDescription Value="Python-2.6 wrapper for Metatrader 4"/>
-      <InternalName Value="py26"/>
+      <FileDescription Value="Python-2.7 wrapper for Metatrader 4"/>
+      <InternalName Value="py27"/>
       <LegalCopyright Value="Bernd Kreuss"/>
-      <OriginalFilename Value="py26.dll"/>
+      <OriginalFilename Value="py27.dll"/>
     </VersionInfo>
     <PublishOptions>
       <Version Value="2"/>
@@ -42,7 +42,7 @@
     </RunParams>
     <Units Count="3">
       <Unit0>
-        <Filename Value="py26.lpr"/>
+        <Filename Value="py27.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="project1"/>
         <CursorPos X="1" Y="117"/>
@@ -69,123 +69,123 @@
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="py26.lpr"/>
+        <Filename Value="py27.lpr"/>
         <Caret Line="320" Column="16" TopLine="300"/>
       </Position1>
       <Position2>
-        <Filename Value="py26.lpr"/>
+        <Filename Value="py27.lpr"/>
         <Caret Line="305" Column="4" TopLine="292"/>
       </Position2>
       <Position3>
-        <Filename Value="py26.lpr"/>
+        <Filename Value="py27.lpr"/>
         <Caret Line="313" Column="19" TopLine="296"/>
       </Position3>
       <Position4>
-        <Filename Value="py26.lpr"/>
+        <Filename Value="py27.lpr"/>
         <Caret Line="315" Column="4" TopLine="296"/>
       </Position4>
       <Position5>
-        <Filename Value="py26.lpr"/>
+        <Filename Value="py27.lpr"/>
         <Caret Line="299" Column="13" TopLine="293"/>
       </Position5>
       <Position6>
-        <Filename Value="py26.lpr"/>
+        <Filename Value="py27.lpr"/>
         <Caret Line="296" Column="1" TopLine="285"/>
       </Position6>
       <Position7>
-        <Filename Value="py26.lpr"/>
+        <Filename Value="py27.lpr"/>
         <Caret Line="293" Column="1" TopLine="285"/>
       </Position7>
       <Position8>
-        <Filename Value="py26.lpr"/>
+        <Filename Value="py27.lpr"/>
         <Caret Line="296" Column="1" TopLine="285"/>
       </Position8>
       <Position9>
-        <Filename Value="py26.lpr"/>
+        <Filename Value="py27.lpr"/>
         <Caret Line="51" Column="46" TopLine="39"/>
       </Position9>
       <Position10>
-        <Filename Value="py26.lpr"/>
+        <Filename Value="py27.lpr"/>
         <Caret Line="49" Column="36" TopLine="40"/>
       </Position10>
       <Position11>
-        <Filename Value="py26.lpr"/>
+        <Filename Value="py27.lpr"/>
         <Caret Line="78" Column="15" TopLine="67"/>
       </Position11>
       <Position12>
-        <Filename Value="py26.lpr"/>
+        <Filename Value="py27.lpr"/>
         <Caret Line="76" Column="3" TopLine="65"/>
       </Position12>
       <Position13>
-        <Filename Value="py26.lpr"/>
+        <Filename Value="py27.lpr"/>
         <Caret Line="71" Column="79" TopLine="58"/>
       </Position13>
       <Position14>
-        <Filename Value="py26.lpr"/>
+        <Filename Value="py27.lpr"/>
         <Caret Line="82" Column="13" TopLine="71"/>
       </Position14>
       <Position15>
-        <Filename Value="py26.lpr"/>
+        <Filename Value="py27.lpr"/>
         <Caret Line="51" Column="28" TopLine="41"/>
       </Position15>
       <Position16>
-        <Filename Value="py26.lpr"/>
+        <Filename Value="py27.lpr"/>
         <Caret Line="76" Column="8" TopLine="68"/>
       </Position16>
       <Position17>
-        <Filename Value="py26.lpr"/>
+        <Filename Value="py27.lpr"/>
         <Caret Line="78" Column="8" TopLine="68"/>
       </Position17>
       <Position18>
-        <Filename Value="py26.lpr"/>
+        <Filename Value="py27.lpr"/>
         <Caret Line="76" Column="3" TopLine="69"/>
       </Position18>
       <Position19>
-        <Filename Value="py26.lpr"/>
+        <Filename Value="py27.lpr"/>
         <Caret Line="77" Column="1" TopLine="65"/>
       </Position19>
       <Position20>
-        <Filename Value="py26.lpr"/>
+        <Filename Value="py27.lpr"/>
         <Caret Line="75" Column="80" TopLine="65"/>
       </Position20>
       <Position21>
-        <Filename Value="py26.lpr"/>
+        <Filename Value="py27.lpr"/>
         <Caret Line="338" Column="17" TopLine="319"/>
       </Position21>
       <Position22>
-        <Filename Value="py26.lpr"/>
+        <Filename Value="py27.lpr"/>
         <Caret Line="97" Column="26" TopLine="82"/>
       </Position22>
       <Position23>
-        <Filename Value="py26.lpr"/>
+        <Filename Value="py27.lpr"/>
         <Caret Line="53" Column="1" TopLine="47"/>
       </Position23>
       <Position24>
-        <Filename Value="py26.lpr"/>
+        <Filename Value="py27.lpr"/>
         <Caret Line="52" Column="29" TopLine="41"/>
       </Position24>
       <Position25>
-        <Filename Value="py26.lpr"/>
+        <Filename Value="py27.lpr"/>
         <Caret Line="53" Column="28" TopLine="42"/>
       </Position25>
       <Position26>
-        <Filename Value="py26.lpr"/>
+        <Filename Value="py27.lpr"/>
         <Caret Line="55" Column="4" TopLine="44"/>
       </Position26>
       <Position27>
-        <Filename Value="py26.lpr"/>
+        <Filename Value="py27.lpr"/>
         <Caret Line="53" Column="76" TopLine="50"/>
       </Position27>
       <Position28>
-        <Filename Value="py26.lpr"/>
+        <Filename Value="py27.lpr"/>
         <Caret Line="86" Column="63" TopLine="75"/>
       </Position28>
       <Position29>
-        <Filename Value="py26.lpr"/>
+        <Filename Value="py27.lpr"/>
         <Caret Line="150" Column="5" TopLine="139"/>
       </Position29>
       <Position30>
-        <Filename Value="py26.lpr"/>
+        <Filename Value="py27.lpr"/>
         <Caret Line="341" Column="1" TopLine="326"/>
       </Position30>
     </JumpHistory>
@@ -194,7 +194,7 @@
     <Version Value="8"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="py26.dll"/>
+      <Filename Value="py27.dll"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)\"/>

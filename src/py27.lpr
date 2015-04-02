@@ -1,4 +1,4 @@
-library py26;
+library py27;
 
 {$mode objfpc}{$H+}
 
@@ -333,7 +333,7 @@ exports
   PyListAppend,
   PyListSize;
 
-{$IFDEF WINDOWS}{$R py26.rc}{$ENDIF}
+{$IFDEF WINDOWS}{$R py27.rc}{$ENDIF}
 
 initialization
   PyStatus := 0;
