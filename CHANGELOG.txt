@@ -1,3 +1,16 @@
+commit 9b1429125eaeee9cea17de9ebf38b10f6ffe7a3b
+Date:   Thu Apr 2 03:53:47 2015 +0300
+
+    We've checked in the original files from Bernd Kreuss
+    http://sites.google.com/site/prof7bit/metatrader-python-integration/py26-dll-source.rar
+    
+    THESE ARE NOT THE FILES USED TO BUILD THE DLL.
+    
+    They're checked in for historical purposes, and we will rename them
+    to py27.* and drop support for Python 2.6.
+    
+    Then we will update them with the files used to generate the py27.dll
+
 commit fd9e87ae189f785e3d9f0e748351b3fbe85c9bb0
 Date:   Thu Apr 2 03:29:51 2015 +0300
 
