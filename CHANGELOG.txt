@@ -1,3 +1,13 @@
+commit 53bd17b619036e4eedeb3f0ed9a46f77f029dda9
+Date:   Mon Apr 13 09:33:25 2015 +0300
+
+    Converted the testing EA into a script as OTMql4PyTest.mq4.
+
+commit 2b3f481042eeddedea62c1d0b9cf6d187618b548
+Date:   Thu Apr 2 20:01:13 2015 +0300
+
+    Moved libraries into Libraries/OTMql4 to keep things tidy.
+
 commit d1636a95889fce92b84d13ccad4db0ef6b4831ed
 Date:   Thu Apr 2 16:33:22 2015 +0300
 

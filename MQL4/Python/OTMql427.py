@@ -196,6 +196,7 @@ def sShowInfo(sTitle, sMsg):
         __outfile__.write('INFO : ' + sTitle + ' ' + sMsg + '\n')
 
 def bStartFile(sStdout):
+    # idempotent
     global __outfile__
 
     # __outfile__ is None:
