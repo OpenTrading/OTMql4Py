@@ -11,7 +11,7 @@
 extern string sStdOutFile="_test_null_stdout.txt";
 
 int OnInit() {
-    string sArg, sRetval;
+    string uArg, uRetval;
 
     if (iPyInit(sStdOutFile) != 0) {
 	return(-1);
@@ -19,9 +19,9 @@ int OnInit() {
 
     Print("Called iPyInit");
     /* too long to fit a log line */
-    sArg="str(sys.path[0])";
-    sRetval = PyEvalString(sArg);
-    Print("sys.path = "+sRetval);
+    uArg="str(sys.path[0])";
+    uRetval = uPyEvalUnicode(uArg);
+    Print("sys.path = "+uRetval);
     return (0);
 }
 int iTick=0;
@@ -33,5 +33,5 @@ void OnTick () {
 
 void OnDeinit(const int iReason) {
     //? if (iReason == INIT_FAILED) { return ; }
-    PyDeInit();
+    vPyDeInit();
 }

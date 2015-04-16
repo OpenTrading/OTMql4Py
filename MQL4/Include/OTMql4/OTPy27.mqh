@@ -327,13 +327,13 @@ void vPyOutEmpty() {
 // or the system will crash, as documented in the Python manual.
 void vPyPrintAndClearLastError() {
     // PyErrPrint();
-    PyExec("sys.exc_clear()");
+    vPyExecuteUnicode("sys.exc_clear()");
 
     string uSource="hasattr(sys, 'last_type') and str(sys.last_value) or ''";
     int p_res = iPyEvaluateUnicode(uSource);
     if (p_res <= 0) {
 	Print("ERROR: vPyPrintAndClearLastError - failed evaluating: " + uSource);
-	PyExec("sys.exc_clear()");
+	vPyExecuteUnicode("sys.exc_clear()");
 	return;
     }
     string res = uPyGetUnicodeFromPointer(p_res);
@@ -380,7 +380,7 @@ int iPyEvalInt(string uSource) {
     int p_res = iPyEvaluateUnicode(uSource);
     if (p_res <= 0) {
 	Print("ERROR: PyEvalInt - failed evaluating: " + uSource);
-	PyExec("sys.exc_clear()");
+	vPyExecuteUnicode("sys.exc_clear()");
 	return (0);
     }
     int res = PyGetInt(p_res);
@@ -396,7 +396,7 @@ double fPyEvalDouble(string uSource) {
     int p_res = iPyEvaluateUnicode(uSource);
     if (p_res <= 0) {
 	Print("ERROR: PyEvalDouble - failed evaluating: " + uSource);
-	PyExec("sys.exc_clear()");
+	vPyExecuteUnicode("sys.exc_clear()");
 	// FixMe: need NaN
 	return (0.0);
     }
@@ -413,7 +413,7 @@ string uPyEvalUnicode(string uSource) {
     int p_res = iPyEvaluateUnicode(uSource);
     if (p_res <= 0) {
 	Print("ERROR: uPyEvalUnicode - failed evaluating: " + uSource);
-	PyExec("sys.exc_clear()");
+	vPyExecuteUnicode("sys.exc_clear()");
 	//vPyPrintAndClearLastError();
 	return ("");
     }
@@ -577,7 +577,7 @@ void vPyDeInit() {
     fPythonUsers -= 1.0;
 
     if (PyIsInitialized() && fPythonUsers < 0.1) {
-	PyExec("OTMql427.vPyDeInit()");
+	vPyExecuteUnicode("OTMql427.vPyDeInit()");
 	fPythonUsers=0.0;
     }
 

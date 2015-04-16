@@ -2,6 +2,7 @@
 ## Open Trading Metaquotes4 Python Bridge
 
 ### OTMql4Py - MQL4 bindings for Python
+https://github.com/OpenTrading/OTMql4Py/
 
 Based in work by Bernd Kreuss
 https://sites.google.com/site/prof7bit/metatrader-python-integration
