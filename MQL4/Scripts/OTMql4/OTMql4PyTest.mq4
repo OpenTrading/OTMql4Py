@@ -92,10 +92,10 @@ string eTestImport() {
     vPyExecuteUnicode("sFoobar = '%s : %s' % (sys.last_type, sys.last_value,)");
     uRetval=uPyEvalUnicode("sFoobar");
     if (StringFind(uRetval, "exceptions.SystemError", 0) >= 0) {
-      // We are seeing this during testing under adverse conditions
-      uRetval = "PANIC: import OTMql427 failed - we MUST restart Mt4"  + uRetval;
-      vAlert(uRetval);
-      return(uRetval);
+	// Were seeing this during testing under adverse conditions
+	uRetval = "PANIC: import OTMql427 failed - we MUST restart Mt4"  + uRetval;
+	vAlert(uRetval);
+	return(uRetval);
     }
 
     vPyExecuteUnicode("sFoobar = str(dir(OTMql427))");
@@ -122,12 +122,12 @@ string eTestSyntaxError() {
 
     uRetval=uPySafeEval("syntax : error");
     if (StringFind(uRetval, "ERROR:", 0) == 0) {
-      Print("INFO: syntax : error detected:= " + uRetval);
-      return("");
+	Print("INFO: syntax : error detected:= " + uRetval);
+	return("");
     } else {
-      uRetval = "ERROR: syntax : error NOT detected:= " + uRetval;
-      Print(uRetval);
-      return(uRetval);
+	uRetval = "ERROR: syntax : error NOT detected:= " + uRetval;
+	Print(uRetval);
+	return(uRetval);
     }
 }
 
@@ -137,12 +137,12 @@ string eTestRuntimeError() {
 
     uRetval=uPySafeEval("runtimeerror");
     if (StringFind(uRetval, "ERROR:", 0) == 0) {
-      Print("INFO: runtimeerror detected:= " + uRetval);
-      return("");
+	Print("INFO: runtimeerror detected:= " + uRetval);
+	return("");
     } else {
-      uRetval ="ERROR: runtimeerror NOT detected:= " + uRetval;
-      Print(uRetval);
-      return(uRetval);
+	uRetval ="ERROR: runtimeerror NOT detected:= " + uRetval;
+	Print(uRetval);
+	return(uRetval);
     }
 }
 
@@ -150,7 +150,7 @@ void OnStart() {
     string uRetval = "";
 
     if (iPyInit(sStdOutFile) != 0) {
-      return;
+	return;
     }
     // groan - need an Mt4 eval!
     if ( bTestStdout == true ) {
@@ -184,14 +184,14 @@ void OnDeinit(const int iReason) {
     // It is untested as to whether this will cause access violations.
 
     /*
-    See http://docs.mql4.com/check/UninitializeReason
-    0	Script finished its execution independently.
-    REASON_REMOVE	1	Expert removed from chart.
-    REASON_RECOMPILE	2	Expert recompiled.
-    REASON_CHARTCHANGE	3	symbol or timeframe changed on the chart.
-    REASON_CHARTCLOSE	4	Chart closed.
-    REASON_PARAMETERS	5	Inputs parameters was changed by user.
-    REASON_ACCOUNT	6	Other account activated.
+      See http://docs.mql4.com/check/UninitializeReason
+      0	Script finished its execution independently.
+      REASON_REMOVE	1	Expert removed from chart.
+      REASON_RECOMPILE	2	Expert recompiled.
+      REASON_CHARTCHANGE	3	symbol or timeframe changed on the chart.
+      REASON_CHARTCLOSE	4	Chart closed.
+      REASON_PARAMETERS	5	Inputs parameters was changed by user.
+      REASON_ACCOUNT	6	Other account activated.
     */
 
     // recompiling and reloading should not require reinitializing.

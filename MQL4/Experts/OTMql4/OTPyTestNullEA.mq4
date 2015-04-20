@@ -8,17 +8,19 @@
 
 #include <OTMql4/OTPy27.mqh>
 
-extern string sStdOutFile="_test_null_stdout.txt";
+extern string sStdOutFile="_test_PyTestNullEA.txt";
 
 int OnInit() {
+    int iRetval;
     string uArg, uRetval;
 
-    if (iPyInit(sStdOutFile) != 0) {
-	return(-1);
+    iRetval = iPyInit(sStdOutFile);
+    if (iRetval != 0) {
+	return(iRetval);
     }
 
     Print("Called iPyInit");
-    /* too long to fit a log line */
+    /* sys.path is too long to fit a log line */
     uArg="str(sys.path[0])";
     uRetval = uPyEvalUnicode(uArg);
     Print("sys.path = "+uRetval);

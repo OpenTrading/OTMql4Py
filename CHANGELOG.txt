@@ -1,3 +1,8 @@
+commit 63400f9b73f2b3c6d14a83574d8dd1a6a132b697
+Date:   Mon Apr 20 10:05:06 2015 +0300
+
+    Compiled MQL4/Libraries/OTMql4/py27.dll from our source.
+
 commit c0e17d6a7c8bed16a770ef9cb14b853aad4c7f97
 Date:   Thu Apr 16 21:01:50 2015 +0300
 
