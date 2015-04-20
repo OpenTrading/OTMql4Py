@@ -92,7 +92,7 @@ string eTestImport() {
     vPyExecuteUnicode("sFoobar = '%s : %s' % (sys.last_type, sys.last_value,)");
     uRetval=uPyEvalUnicode("sFoobar");
     if (StringFind(uRetval, "exceptions.SystemError", 0) >= 0) {
-      // Were seeing this during testing under adverse conditions
+      // We are seeing this during testing under adverse conditions
       uRetval = "PANIC: import OTMql427 failed - we MUST restart Mt4"  + uRetval;
       vAlert(uRetval);
       return(uRetval);

@@ -1,3 +1,10 @@
+commit c0e17d6a7c8bed16a770ef9cb14b853aad4c7f97
+Date:   Thu Apr 16 21:01:50 2015 +0300
+
+    Compiled new py27.dll from our source.
+    
+    Old dll is now py27.dll.bak.
+
 commit 7b09f46e6be4c81020e8f3678cbab4393412a27e
 Date:   Thu Apr 16 20:54:05 2015 +0300
 
