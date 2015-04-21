@@ -1,3 +1,13 @@
+commit 5e7cfb413165f2304aad2065e59d716c4a2d5e81
+Date:   Tue Apr 21 19:42:44 2015 +0300
+
+    You can now run ZeroMQ on Python under Mt4.
+    Install pyzmq into your Python, and you can use ZeroMQ.
+    
+    The beginings of a test is in
+    MQL4/Experts/OTMql4/OTPyTestZmqEA.mq4
+    More examples and documentayion will follow.
+
 commit c7695bc6184231f53711875a4ba3506d881cc595
 Date:   Mon Apr 20 14:59:06 2015 +0300
 

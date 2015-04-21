@@ -197,7 +197,7 @@ void OnTick() {
     string uType;
     bool bRetval;
     string s;
-    string uMess;
+    string uMess, uRetval;
 
     fPY_ZMQ_CONTEXT_USERS=GlobalVariableGet("fPyZmqContextUsers");
     if (fPY_ZMQ_CONTEXT_USERS < 0.5) {
