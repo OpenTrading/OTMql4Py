@@ -1,3 +1,9 @@
+commit c7695bc6184231f53711875a4ba3506d881cc595
+Date:   Mon Apr 20 14:59:06 2015 +0300
+
+    Broke the Python code out into a module.
+    MQL4/Python/OTMql427.py  ->  MQL4/Python/OTMql427/__init__.py
+
 commit 63400f9b73f2b3c6d14a83574d8dd1a6a132b697
 Date:   Mon Apr 20 10:05:06 2015 +0300
 

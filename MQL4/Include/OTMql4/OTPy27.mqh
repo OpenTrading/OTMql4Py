@@ -294,7 +294,7 @@ int iPyInit(string sStdOut) {
 	    Print("ERROR: failed OTMql427.ePyInit - " + uRetval + "");
 	    // no panic
 	} else {
-	    Print("INFO: Python stdout file: " + sStdOut);
+	    Print("INFO: Python stdout to file: " + sStdOut);
 	    sArg="sys.stdout.flush()";
 	    vPyExecuteUnicode(sArg);
 	}
@@ -349,9 +349,9 @@ string uPySafeEval(string uSource) {
 
       In the caller you should have something like:
 
-      if (StringFind(res, "ERROR:", 0) == 0) {
+      if (StringFind(uRetval, "ERROR:", 0) == 0) {
         Print("Error in Python evaluating: " + uSource + "\n" + res);
-        <do something as a result of the failure
+        <do something as a result of the failure>
       }
 
       */
