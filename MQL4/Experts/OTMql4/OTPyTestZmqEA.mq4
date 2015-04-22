@@ -32,6 +32,10 @@ int iACCNUM;
 int iTick=0;
 int iBar=1;
 
+string uOTPyZmqProcessCmd(string uCmd) {
+    return("");
+}
+
 void vPanic(string uReason) {
     "A panic prints an error message and then aborts";
     vError("PANIC: " + uReason);
@@ -188,8 +192,72 @@ void OnTimer() {
     } else {
 	vWarn("OnTimer: " +uRetval);
     }
+    /*
+      We listen on every timer as well as every tick
+      to make sure the channel is still responsive 
+      even when the market is closed or there is no connection.
+    */
+    vListen();
 }
 
+void vListen() {
+    string uRetval, uMsg, uDeferMsg, uMess;
+    string uType="retval";
+    
+    uMsg = uPySafeEval(uCHART_NAME+".sRecvOnListener()");
+    if (StringFind(uMsg, "ERROR:", 0) >= 0) {
+	uMsg = "ERROR: sRecvOnListener " +" failed: "  + uMsg;
+	vWarn("vListen: " +uMsg);
+	return;
+    }
+
+    vDebug("vListen: got" +uMsg);
+    // the uMsg may be empty - we are non-blocking
+    if (uMsg == "") {
+	uRetval = "";
+    } else if (StringFind(uMsg, "exec", 0) == 0) {
+	// execs are executed immediately and return a result on the wire
+	// They're things that take less than a tick to evaluate
+	//vTrace("Processing immediate exec message: " + uMsg);
+	uRetval = uOTPyZmqProcessCmd(uMsg);
+    } else if (StringFind(uMsg, "cmd", 0) == 0) {
+	uDeferMsg = uMsg;
+	uRetval = "";
+    } else {
+        vError("Internal error, not cmd or exec: " + uMsg);
+	uRetval = "";
+    }
+	
+    uRetval = uPySafeEval(uCHART_NAME+".eSendOnListener('retval|" + uRetval +"')");
+    if (StringFind(uRetval, "ERROR:", 0) >= 0) {
+	uRetval = "ERROR: eSendOnListener " +" failed: "  + uRetval;
+	vWarn("vListen: " +uRetval);
+	return;
+    }
+    // unused: if uRetval != ""
+
+    //? maybe should sleep a second here to let the REP go back?
+    Sleep(1000);
+    
+    vTrace("Processing defered cmd message: " + uDeferMsg);
+    uMess = uOTPyZmqProcessCmd(uDeferMsg);
+    
+    uRetval = uPySafeEval(uCHART_NAME+".eSendOnSpeaker('" +uType +"', '" +uMess +"')");
+    if (StringFind(uRetval, "ERROR:", 0) >= 0) {
+	uRetval = "ERROR: eSendOnSpeaker " +uType +" failed: "  + uRetval;
+	vWarn("vTick: " +uRetval);
+	return;
+    }
+    // the uRetval should be empty - otherwise its an error
+    if (uRetval == "") {
+	vDebug("vTick: " +uRetval);
+	//? maybe should sleep a second here to let the PUB go?
+	Sleep(1000);
+    } else {
+	vWarn("vTick: " +uRetval);
+    }
+}
+	
 void OnTick() {
     static datetime tNextbartime;
 
@@ -240,8 +308,15 @@ void OnTick() {
     if (uRetval == "") {
 	vDebug("OnTick: " +uRetval);
     } else {
-	vWarn("OnTimer: " +uRetval);
+	vWarn("OnTick: " +uRetval);
     }
+    
+    /*
+      We listen on every timer as well as every tick
+      to make sure the channel is still responsive 
+      even when the market is closed or there is no connection.
+    */
+    vListen();
 }
 
 void OnDeinit(const int iReason) {

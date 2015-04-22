@@ -1,3 +1,9 @@
+commit c8874d7ea0fa5c4b07789ae157a0e2e0041d20fb
+Date:   Wed Apr 22 01:26:39 2015 +0300
+
+    Added some intro documentation on PyZmq:
+    share/doc/05PyZmq.txt
+
 commit 5e7cfb413165f2304aad2065e59d716c4a2d5e81
 Date:   Tue Apr 21 19:42:44 2015 +0300
 

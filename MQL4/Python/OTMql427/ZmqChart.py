@@ -51,7 +51,7 @@ class ZmqChart(Mq4Chart):
         We bind on our Metatrader end, and connect from the scripts.
         """
         if self.oListenerReqrepSocket is None:
-            oListenerReqrepSocket = oCONTEXT.socket(zmq.SUB)
+            oListenerReqrepSocket = oCONTEXT.socket(zmq.REP)
             assert self.iListenerPort
             oListenerReqrepSocket.bind('tcp://%s:%d' % (self.sIpAddress, self.iListenerPort,))
             time.sleep(0.1)
@@ -62,7 +62,23 @@ class ZmqChart(Mq4Chart):
             self.eBindSpeaker()
         assert self.oSpeakerPubsubSocket
         self.oSpeakerPubsubSocket.send_multipart([sTopic, sMsg])
-
+        return ""
+    
+    def sRecvOnListener(self):
+        if self.oListenerReqrepSocket is None:
+            self.eBindListener()
+        assert self.oSpeakerPubsubSocket
+        # non-blocking
+        sRetval = self.oListenerReqrepSocket.recv()
+        return sRetval
+    
+    def eSendOnListener(self, sMsg):
+        if self.oListenerReqrepSocket is None:
+            self.eBindListener()
+        assert self.oSpeakerPubsubSocket
+        self.oListenerReqrepSocket.send(sMsg)
+        return ""
+    
     def bCloseContextSockets(self, lOptions):
         global oCONTEXT
         if self.oListenerReqrepSocket:
