@@ -48,7 +48,13 @@ The `iPyInit` initialization creates a temporary global veriable called
 `vPyDeInit` decrements it by one each time it is called, and if `fPythonUsers`
 is zero, then it calls `OTMql427.vPyDeInit` to unload the Python interpreter.
 `fPythonUsers` should always be equal to the number of charts and scripts
-Python is being used on.
+Python is being used on. Unfortunately, if your recompile your expert
+while Python is loaded, then Mt4 will deinit your expert and re-init the
+expert. If you only had one chart using Python (fPythonUsers=1), then
+this will unload Python when Mt4 deinits the expert, and when Mt4 re-inits
+the Python, it will fail to initialize the `py27.dll` properly. If Mt4
+`OnInit` had a required `reason` argument the way `OnDeinit` does, we
+could work around this, but it doesn't. Suggestions welcome...
 
 The `iPyInit` initialization also creates a persistent global veriable called
 "fDebugLevel" which is used by the logging code, and it ranges from 0 to 5:

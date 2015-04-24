@@ -1,3 +1,12 @@
+commit 26337dfe123a7adb7fb60104cd3d560c45c3b808
+Date:   Wed Apr 22 14:44:21 2015 +0300
+
+    Implemented the return REQ/REP channel for testing the sending
+    of commands to Mt4 from OTZmqRequest.py. It's not wired up
+    to ProcessCmd yet - which is next to do..
+    
+    That's the good news; the bad news is that it's crashing Mt4.
+
 commit c8874d7ea0fa5c4b07789ae157a0e2e0041d20fb
 Date:   Wed Apr 22 01:26:39 2015 +0300
 

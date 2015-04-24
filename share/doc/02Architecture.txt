@@ -1,0 +1,40 @@
+### Mt4 and Python Architecture
+
+Mt4 runs an expert attached to a chart in a thread.
+Python in a Mt4 expert starts a main thread that is unique to the
+application, and starts another worker thread. The main thread is blocked
+until Python is unloaded, and everything takes place in the worker thread.
+The worker thread can start more threads.
+
+You can send commands from Mt4 to Python, but Python can't send commands
+to Mt4. So what you can do is queue if things for Mt4 to do, and
+periodically get Mt4 to ask Python if it has anything it wants Mt4 to do.
+It's easiest to think of registering an EventTimer with you expert, and
+to have `OnTimer` function periodically ask Python if it has any work.
+(Remeber that `EventTimer` events fire even if the market is closed or
+you have no connection, unlike `OnTick` events.)
+
+The problem is that Mt4 does not have an eval command, so if Python wants
+Mt4 to do something, like `OrderSend`, we can't just pass a string to Mt4
+that says `OrderSend(...)` and expect Mt4 to eval it. So what we have done
+is write a simplistic replacement to what should be an `Eval` command in
+Mt4, that will parse as string and execute it. See that function
+`zMt4LibProcessCmd` in `MQL4/Libraries/OTMql4/OTLibMt4ProcessCmd.mq4`
+of  the `OTMql4Lib` package (https://github.com/OpenTrading/OTMql4Lib/).
+See also `OTLibProcessCmd.mq4` for an example of how to extend
+`zMt4LibProcessCmd` to process your own functions.
+
+This is not a proper replacement to an `Eval` function. It only executes
+commands that it knows about, and has no ability to decipher complex commands.
+Still, it allows Python to make decisions and ask Mt4 to do thinngs,
+which is enough for order and account processing. You can use this for
+bi-directional interaction with a program outside of Mt4. For example,
+you could use a call from `OnTick` into Python to send tick and bar info
+to another program, and then use a call from `OnTimer` into Python to
+ask if there is is any request back from the program that it wants Mt4
+to evaluate.
+
+You may also want to use threads and queues within Python to make sure
+that any command that you ask Python to execute is accomplished within
+the time it takes to get the next tick. It is untested as to whether
+the Python dispatched from `OnTick` can block the chart or not.

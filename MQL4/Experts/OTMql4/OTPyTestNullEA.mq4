@@ -8,7 +8,7 @@
 
 #include <OTMql4/OTPy27.mqh>
 
-extern string sStdOutFile="_test_PyTestNullEA.txt";
+extern string sStdOutFile="../../logs/_test_PyTestNullEA.txt";
 
 int OnInit() {
     int iRetval;

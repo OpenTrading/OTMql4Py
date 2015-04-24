@@ -15,9 +15,10 @@ extern string uStdOutFile="_test_PyTestZmqEA.txt";
 #include <OTMql4/OTZmqBarInfo.mqh>
 
 #include <OTMql4/OTLibLog.mqh>
+#include <OTMql4/OTLibStrings.mqh>
 //#include <OTMql4/OTZmqProcessCmd.mqh>
 #include <OTMql4/OTPy27.mqh>
-#include <OTMql4/OTPyZmq.mqh>
+//unused #include <OTMql4/OTPyZmq.mqh>
 
 #include <WinUser32.mqh>
 
@@ -29,8 +30,8 @@ string uSYMBOL;
 int iTIMEFRAME;
 int iACCNUM;
 
-int iTick=0;
-int iBar=1;
+int iTICK=0;
+int iBAR=1;
 
 string uOTPyZmqProcessCmd(string uCmd) {
     return("");
@@ -47,33 +48,11 @@ int iIsEA=1;
 string uCHART_NAME="";
 double fDebugLevel=0;
 
-string sStringReplace(string uHaystack, string uNeedle, string replace="") {
-    string left, right;
-    int start=0;
-    int rlen = StringLen(replace);
-    int nlen = StringLen(uNeedle);
-    
-    while (start > -1) {
-	start = StringFind(uHaystack, uNeedle, start);
-	if (start > -1) {	
-	    if(start > 0) {
-		left = StringSubstr(uHaystack, 0, start);
-	    } else {
-		left="";
-	    }
-	    right = StringSubstr(uHaystack, start + nlen);
-	    uHaystack = left + replace + right;
-	    start = start + rlen;
-	}	
-    }
-    return (uHaystack);
-}
-
 string uSafeString(string uSymbol) {
-    uSymbol = sStringReplace(uSymbol, "!", "");
-    uSymbol = sStringReplace(uSymbol, "#", "");
-    uSymbol = sStringReplace(uSymbol, "-", "");
-    uSymbol = sStringReplace(uSymbol, ".", "");
+    uSymbol = uStringReplace(uSymbol, "!", "");
+    uSymbol = uStringReplace(uSymbol, "#", "");
+    uSymbol = uStringReplace(uSymbol, "-", "");
+    uSymbol = uStringReplace(uSymbol, ".", "");
     return(uSymbol);
 }
 
@@ -264,7 +243,7 @@ void OnTick() {
     bool bNewBar=false;
     string uType;
     bool bRetval;
-    string s;
+    string uInfo;
     string uMess, uRetval;
 
     fPY_ZMQ_CONTEXT_USERS=GlobalVariableGet("fPyZmqContextUsers");
@@ -283,20 +262,20 @@ void OnTick() {
     string sTime = TimeToStr(tTime, TIME_DATE|TIME_MINUTES) + " ";
 
     if (tTime != tNextbartime) {
-        iBar += 1; // = Bars - 100
-	bNewBar=true;
-	iTick=0;
-	uType="bar";
-	tNextbartime=tTime;
-	s=sBarInfo();
+        iBAR += 1; // = Bars - 100
+	bNewBar = true;
+	iTICK = 0;
+	tNextbartime = tTime;
+	uInfo = sBarInfo();
+	uType = "bar";
     } else {
-        bNewBar=false;
-	iTick+=1;
-	uType="tick";
-	s=iTick;
+        bNewBar = false;
+	iTICK += 1;
+	uInfo = iTICK;
+	uType = "tick";
     }
 
-    uMess  = iACCNUM +"|" +uSYMBOL +"|" +iTIMEFRAME +"|" + Bid +"|" + Ask +"|" + s +"|" + sTime;
+    uMess  = iACCNUM +"|" +uSYMBOL +"|" +iTIMEFRAME +"|" +Bid +"|" +Ask +"|" +uInfo +"|" +sTime;
 
     uRetval = uPySafeEval(uCHART_NAME+".eSendOnSpeaker('" +uType +"', '" +uMess +"')");
     if (StringFind(uRetval, "ERROR:", 0) >= 0) {

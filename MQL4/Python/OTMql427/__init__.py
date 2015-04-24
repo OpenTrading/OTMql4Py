@@ -240,11 +240,20 @@ def eStartFile(sStdout):
     
     if sSTDOUT_FD is None:
         try:
-            sStdout=os.path.join(os.path.dirname(__file__), sStdout)
+            if os.path.isabs(sStdout):
+                # absolute filename
+                pass
+            elif sStdout.find('..') >= 0 or sStdout.find('\\') >= 0:
+                # relative pathname to this directory e.g. ..\..\Foo
+                sStdout=os.path.join(os.path.dirname(__file__), sStdout)
+            else:
+                # stick in ..\..\Logs
+                sStdout=os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'Logs', sStdout)
+            # dont delete it - it may be a pipe
             sSTDOUT_FD = open(sStdout, 'w', 1)
             sys.stdout = sys.stderr = sSTDOUT_FD
             assert sys.stdout != sys.__stdout__
-
+            # we should always see our version in the log
             print sys.version
             sys.stdout.flush()
             assert os.path.isfile(sStdout)

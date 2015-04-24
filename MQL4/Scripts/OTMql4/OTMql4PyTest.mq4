@@ -9,7 +9,7 @@
 
 #include <WinUser32.mqh>
 
-extern string sStdOutFile="_test_stdout.txt";
+extern string sStdOutFile="_test_OTMql4PyTest.txt";
 
 /*
 We will put each test as a boolean external input so the user
