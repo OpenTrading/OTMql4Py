@@ -1,3 +1,11 @@
+commit 15053ebb820a9b7953acbb0a1aee8649d4e85b20
+Date:   Fri Apr 24 18:13:13 2015 +0300
+
+    Introduced the Python lgging functions - still need testing.
+    
+    Wrote up some documentation on bi-directional architecture for
+    Python and Mt4.
+
 commit 26337dfe123a7adb7fb60104cd3d560c45c3b808
 Date:   Wed Apr 22 14:44:21 2015 +0300
 

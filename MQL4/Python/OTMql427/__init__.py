@@ -1,4 +1,4 @@
-# -*-mode: python; py-indent-offset: 4; tab-width: 8; coding: utf-8-dos -*-
+# -*-mode: python; py-indent-offset: 4; indent-tabs-mode: nil; encoding: utf-8-dos; coding: utf-8 -*-
 
 import sys, os, thread, threading
 
@@ -14,7 +14,8 @@ atexit._exithandlers = atexit._exithandlers[:-1]
 # at shutdown
 import logging
 oLOG = logging
-def vShutupShutdown(*args, **dArgs): pass
+def vShutupShutdown(*args, **dArgs):
+    pass
 oLOG.shutdown = vShutupShutdown
 
 def sPySafeEval(sPyCode):
@@ -36,7 +37,7 @@ def sPySafeEval(sPyCode):
     traps errors, and calls sys.exc_clear() if there is an error.
 
     """
-    
+
     dGlobals = sys.modules['__main__'].__dict__
     s = "try:\n    sRetval=" + sPyCode + "\nexcept Exception,e:\n    sRetval='ERROR: '+str(e)"
     try:
@@ -45,7 +46,7 @@ def sPySafeEval(sPyCode):
         sRetval = "ERROR: Python error compiling " + sPyCode+ ': '+str(e)
         sys.exc_clear()
         return sRetval
-    
+
     try:
         eval(k, dGlobals, dGlobals)
         if dGlobals['sRetval']:
@@ -56,7 +57,7 @@ def sPySafeEval(sPyCode):
         sRetval = "ERROR: Python error evaling " + sPyCode+ ': '+str(e)
         sys.exc_clear()
         return sRetval
-    
+
     if sRetval.find('ERROR:') == 0:
         sys.exc_clear()
     return sRetval
@@ -65,7 +66,7 @@ def sPySafeEval(sPyCode):
 try:
     import win32ui, win32con
 
-    def iMessageBox (sMsg, sTitle, iType, iIcon):
+    def iMessageBox(sMsg, sTitle, iType, iIcon):
         """
         A frivolity that demonstrates that Mark Hammond's
         win32 code is all callable by Python under Mt4.
@@ -75,7 +76,7 @@ try:
         win32ui.PumpWaitingMessages()
         return i
 except ImportError:
-    def iMessageBox (sMsg, sTitle, iType, iIcon):
+    def iMessageBox(sMsg, sTitle, iType, iIcon):
         return -1
 
 # from win32con
@@ -103,7 +104,7 @@ IDNO = 7
 IDCLOSE = 8
 IDHELP = 9
 
-lLOG_ARRAY=["CRITICAL", "ERROR", "WARNING", "INFO", "DEBUG", "TRACE"]
+lLOG_ARRAY = ["CRITICAL", "ERROR", "WARNING", "INFO", "DEBUG", "TRACE"]
 
 def vLog(iLevel, sMsg, *lArgs, **dKeys):
     """
@@ -125,12 +126,11 @@ From OFLibLogging.mqh:
 #define LOG_TRACE 5
 #define LOG_MAX 5
     """
-    import threading, thread
     iId = thread.get_ident()
     try:
         assert 0 <= int(iLevel) <= 5
     except:
-        iLevel=4
+        iLevel = 4
     try:
         # oLOG.log(50 - iLevel*4, sMsg)
         if iLevel <= 0:
@@ -168,18 +168,18 @@ def bStartTkinter():
 
     We are not planning to take this any further.
     """
-    
+
     global oTKINTER_ROOT, sSTDOUT_FD
     import Tkinter
     if oTKINTER_ROOT is None:
         if not hasattr(sys, 'argv'):
             # __file__
-            sys.argv=['py27.py']
+            sys.argv = ['py27.py']
         try:
             # should start this in a thread and leave it running?
-            oTKINTER_ROOT=Tkinter.Tk()
+            oTKINTER_ROOT = Tkinter.Tk()
             oTKINTER_ROOT.withdraw()
-        except Exception ,e:
+        except Exception, e:
             sShowError('bStartTkinter', "Error starting Tkinter\n%s" % (e,))
             return False
 
@@ -190,20 +190,20 @@ def bStartTkinter():
             try:
                 import TkFileIO
                 # _default_root
-                oTop=oTKINTER_ROOT
-                frame = TkFileIO.MainFrame(oTop, title ='Python IO')
+                oTop = oTKINTER_ROOT
+                frame = TkFileIO.MainFrame(oTop, title='Python IO')
                 oTop.deiconify()
                 oTop.tkraise()
-                # i=oTop.tk.dooneevent()
+                # i = oTop.tk.dooneevent()
                 oTop.update()
-                sys.stdout=frame.shell
-                sys.stderr=frame.shell
+                sys.stdout = frame.shell
+                sys.stderr = frame.shell
                 print "INFO: bStartTkinter: Started TkFileIO"
                 oTop.update()
-            except Exception ,e:
+            except Exception, e:
                 sShowError('bStartTkinter', "Error starting TkFileIO\n%s" % (e,))
                 # return False
-        
+
         return True
 
     elif oTKINTER_ROOT.__class__ == Tkinter.Tk:
@@ -212,8 +212,8 @@ def bStartTkinter():
     else:
         sShowError('bStartTkinter', "Error starting Tkinter - %s" % (
             oTKINTER_ROOT.__class__,))
-        return False        
-        
+        return False
+
 def sShowError(sTitle, sMsg):
     global oTKINTER_ROOT
     if oTKINTER_ROOT:
@@ -221,9 +221,9 @@ def sShowError(sTitle, sMsg):
         tkMessageBox.showerror(sTitle, sMsg)
     elif sSTDOUT_FD:
         sSTDOUT_FD.write('ERROR : ' + sTitle + ' ' + sMsg + '\n')
-        
+
 def sShowInfo(sTitle, sMsg):
-    global oTKINTER_ROOT
+    global oTKINTER_ROOT, sSTDOUT_FD
     if oTKINTER_ROOT is not None:
         import tkMessageBox
         tkMessageBox.showinfo(sTitle, sMsg)
@@ -237,7 +237,7 @@ def eStartFile(sStdout):
     if sStdout == "":
         # setting sStdout = "" means dont log to file
         return ""
-    
+
     if sSTDOUT_FD is None:
         try:
             if os.path.isabs(sStdout):
@@ -245,10 +245,12 @@ def eStartFile(sStdout):
                 pass
             elif sStdout.find('..') >= 0 or sStdout.find('\\') >= 0:
                 # relative pathname to this directory e.g. ..\..\Foo
-                sStdout=os.path.join(os.path.dirname(__file__), sStdout)
+                sStdout = os.path.join(os.path.dirname(__file__), sStdout)
             else:
                 # stick in ..\..\Logs
-                sStdout=os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'Logs', sStdout)
+                sStdout = os.path.join(
+                    os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
+                    'Logs', sStdout)
             # dont delete it - it may be a pipe
             sSTDOUT_FD = open(sStdout, 'w', 1)
             sys.stdout = sys.stderr = sSTDOUT_FD
@@ -261,14 +263,14 @@ def eStartFile(sStdout):
             # may be in trouble logging here if stdout was not opened
             sys.exc_clear()
             return str(e)
-        
+
         try:
-            # oLOG.basicConfig(level=logging.DEBUG)
+            # oLOG.basicConfig(level = logging.DEBUG)
             print "vPyInit - Opened %s %s" % (sSTDOUT_FD.name, sStdout,)
             print "vPyInit - Thread " + threading.currentThread().getName() + \
                   " number " + str(thread.get_ident())
             return ""
-        except Exception,e:
+        except Exception, e:
             sMsg = "vPyInit - Error opening %s\n%s" % (sStdout, str(e),)
             sys.exc_clear()
             print sMsg
@@ -278,7 +280,7 @@ def eStartFile(sStdout):
         # sSTDOUT_FD.seek(0, 0)
         # sSTDOUT_FD.truncate(0)
         return ""
-    
+
 def ePyInit(sStdout):
     return eStartFile(sStdout)
 
@@ -292,21 +294,21 @@ def vPyDeInit():
         try:
             sys.stdout = sys.__stdout__
             sys.stderr = sys.__stderr__
-            sName=sSTDOUT_FD.name
+            sName = sSTDOUT_FD.name
             # sShowInfo('vPyDeInit', "Closing %s" % (sName,))
             sSTDOUT_FD.write('INFO : vPyDeInit ' + "Closing outfile %s\n" % (sName,))
             # oLOG.shutdown()
             sSTDOUT_FD.flush()
             sSTDOUT_FD.close()
-            sSTDOUT_FD=None
-        except Exception,e:
+            sSTDOUT_FD = None
+        except Exception, e:
             # You probably have not stdout so no point in logging it!
             print "Error closing %s\n%s" % (sSTDOUT_FD, str(e),)
             sys.exc_clear()
-        
+
     if oTKINTER_ROOT:
         oTKINTER_ROOT.destroy()
-        oTKINTER_ROOT=None
+        oTKINTER_ROOT = None
 
     sys.exc_clear()
 
@@ -323,7 +325,7 @@ def test():
     assert sys.stderr != sys.__stderr__
 
     # This can't be done under doctest
-    s=sPySafeEval('foobar')
+    s = sPySafeEval('foobar')
     assert s.find('ERROR:') == 0
     assert s == "ERROR: name 'foobar' is not defined"
 
@@ -344,8 +346,8 @@ def test():
     assert sSTDOUT_FD is None
 
     # should check contents of test.txt
-    oFd=open('test.txt', 'r')
-    sContents=oFd.read()
+    oFd = open('test.txt', 'r')
+    sContents = oFd.read()
     oFd.close()
     assert sContents.find("Level 4") > 0
     assert sContents.find("NONO") < 0
@@ -354,7 +356,7 @@ def vTestTkinter():
     if False:
         bStartTkinter()
         assert oTKINTER_ROOT
-        sShowError('Foo','Bar')
+        sShowError('Foo', 'Bar')
 
 def vTestMessageBox():
     i = iMessageBox("Hi there", "Yes No Cancel",

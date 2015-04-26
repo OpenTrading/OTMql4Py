@@ -1,19 +1,19 @@
-# -*-mode: python; py-indent-offset: 4; tab-width: 8; coding: utf-8-dos -*-
+# -*-mode: python; py-indent-offset: 4; indent-tabs-mode: nil; encoding: utf-8-dos; coding: utf-8 -*-
 
 """
 A Mq4Chart object is a simple abstraction to encapsulate a Mt4 chart.
 """
 
-import sys, traceback, logging
+import sys, logging
 
-oLOG=logging
+oLOG = logging
 
 # For convenience, define true and false so we can use the MQ4 variables
 try:
     __builtins__.true
 except AttributeError:
-    __builtins__['true']=True
-    __builtins__['false']=False
+    __builtins__['true'] = True
+    __builtins__['false'] = False
 
 def sSafeSymbol(s):
     for elt in ['!', '-', '#', '.']:
@@ -21,42 +21,42 @@ def sSafeSymbol(s):
     return s
 
 class Mq4Chart(object):
-    
-    _lCharts=list()
-    _dCharts=dict()
-    _dChartNames=dict()
-    
+
+    _lCharts = list()
+    _dCharts = dict()
+    _dChartNames = dict()
+
     def __init__(self, sSymbol, iPeriod, iIsEA, dParams=None):
-        self.sChartName="oChart"+"_"+sSafeSymbol(sSymbol) + "_"+str(iPeriod)+"_"+str(iIsEA)
-        self.sSymbol=sSymbol
-        self.iPeriod=iPeriod
-        self.iIsEA=iIsEA
-        
-        if dParams is None: dParams=dict()
-        self.dParams=dParams
-        
+        self.sChartName = "oChart"+"_"+sSafeSymbol(sSymbol) + "_"+str(iPeriod)+"_"+str(iIsEA)
+        self.sSymbol = sSymbol
+        self.iPeriod = iPeriod
+        self.iIsEA = iIsEA
+
+        if dParams is None: dParams = dict()
+        self.dParams = dParams
+
         # FixMe: see if it's already there
         self.vAdd(id(self))
 
     def vAdd(self, iId):
-        self.iId=iId
+        self.iId = iId
         # see if it's already there
         if iId not in self._dCharts:
             self._lCharts.append(self)
             self._dCharts[iId] = self
             self._dChartNames[self.sChartName] = self
-        
+
     def vRemove(self, iId):
         if iId in self._dCharts:
             self._lCharts.remove(self)
             del self._dCharts[iId]
             del self._dChartNames[self.sChartName]
 
-    def vReInit(**dKeys):
+    def vReInit(self, **dKeys):
         self.dParams.update(**dKeys)
 
-        
-def oMakeChart( sSymbol, iPeriod, iIsEA, dParams):
+
+def oMakeChart(sSymbol, iPeriod, iIsEA, dParams):
     """
     Make an instance of a Mq4Chart object to encapsulate a Mt4 chart.
     It will reuse an existing chart or create it needed.
@@ -69,7 +69,7 @@ def oMakeChart( sSymbol, iPeriod, iIsEA, dParams):
     return Mq4Chart(sSymbol, iPeriod, iIsEA, dParams)
 
 
-def iFindChart( sSymbol, iPeriod, iIsEa):
+def iFindChart(sSymbol, iPeriod, iIsEa):
     sChartName = "oChart"+"_"+sSafeSymbol(sSymbol) + "_"+str(iPeriod)+"_"+str(iIsEa)
     oLOG.info("Looking for "+sChartName)
     if sChartName in Mq4Chart._dChartNames.keys():
@@ -88,13 +88,13 @@ def iFindExpert(sSymbol, iPeriod):
     for sElt in Mq4Chart._dChartNames.keys():
         if sElt.startswith(sChartName):
             iRetval = int(sElt[iLen:])
-            if iRetval > 0: 
+            if iRetval > 0:
                 return iRetval
     oLOG.info("Couldn't find "+sChartName+" in "+
               str(Mq4Chart._dChartNames.keys()))
     return iRetval
 
-def iChartExists( sSymbol, iPeriod, iExpNumber):
+def iChartExists(sSymbol, iPeriod, iExpNumber):
     sChartName = "oChart"+"_"+sSafeSymbol(sSymbol) + "_"+str(iPeriod)+"_"+str(iExpNumber)
     oLOG.info("Looking for "+sChartName)
     if sChartName in sys.modules['__main__'].__dict__:

@@ -1,4 +1,4 @@
-// -*-mode: c; c-style: stroustrup; c-basic-offset: 4; coding: utf-8-dos -*-
+// -*-mode: c; c-style: stroustrup; c-basic-offset: 4; coding: utf-8; encoding: utf-8-dos -*-
 
 /*
 This will provide our logging functions that work with Python.

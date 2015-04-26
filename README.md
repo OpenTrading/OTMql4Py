@@ -165,14 +165,14 @@ until Python is unloaded, and everything takes place in the worker thread.
 The worker thread can start more threads.
 
 You can send commands from Mt4 to Python, but Python can't send commands
-to Mt4. So what you can do is queue if things for Mt4 to do, and
+to Mt4. So what you can do is queue up things for Mt4 to do, and
 periodically get Mt4 to ask Python if it has anything it wants Mt4 to do.
-It's easiest to think of registering an EventTimer with you expert, and
+It's easiest to think of registering an EventTimer with your expert, and
 to have `OnTimer` function periodically ask Python if it has any work.
-(Remeber that `EventTimer` events fire even if the market is closed or
+(Remember that `EventTimer` events fire even if the market is closed or
 you have no connection, unlike `OnTick` events.)
 
-The problem is that Mt4 does not have an eval command, so if Python wants
+The problem is that Mt4 does not have an `Eval` command, so if Python wants
 Mt4 to do something, like `OrderSend`, we can't just pass a string to Mt4
 that says `OrderSend(...)` and expect Mt4 to eval it. So what we have done
 is write a simplistic replacement to what should be an `Eval` command in
@@ -184,18 +184,19 @@ See also `OTLibProcessCmd.mq4` for an example of how to extend
 
 This is not a proper replacement to an `Eval` function. It only executes
 commands that it knows about, and has no ability to decipher complex commands.
-Still, it allows Python to make decisions and ask Mt4 to do thinngs,
+Still, it allows Python to make decisions and ask Mt4 to do things,
 which is enough for order and account processing. You can use this for
 bi-directional interaction with a program outside of Mt4. For example,
 you could use a call from `OnTick` into Python to send tick and bar info
 to another program, and then use a call from `OnTimer` into Python to
-ask if there is is any request back from the program that it wants Mt4
+ask if there are any requests back from the program that it wants Mt4
 to evaluate.
 
 You may also want to use threads and queues within Python to make sure
 that any command that you ask Python to execute is accomplished within
-the time it takes to get the next tick. It is untested as to whether
-the Python dispatched from `OnTick` can block the chart or not.
+the time it takes to get the next tick: programming with Python iterators
+is probably a good idea. It is untested as to whether
+the Python code dispatched from `OnTick` can block the chart or not.
 ## PyZmq
 
 PyZMQ is the official Python binding for the ZeroMQ Messaging Library

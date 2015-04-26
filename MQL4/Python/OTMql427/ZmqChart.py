@@ -1,4 +1,4 @@
-# -*-mode: python; py-indent-offset: 4; tab-width: 8; coding: utf-8-dos -*-
+# -*-mode: python; py-indent-offset: 4; indent-tabs-mode: nil; encoding: utf-8-dos; coding: utf-8 -*-
 
 """
 A ZmqChart object is a simple abstraction to encapsulate a Mt4 chart
@@ -10,11 +10,11 @@ such as bin/OTZmqSubscribe.py. Give the message you want to publish
 as arguments to this script, or --help to see the options.
 """
 
-import sys, traceback, logging
+import sys, logging
 import time
 import zmq
 
-oLOG=logging
+oLOG = logging
 
 # There's only one context in zmq
 oCONTEXT = None
@@ -22,10 +22,10 @@ oCONTEXT = None
 from Mq4Chart import Mq4Chart
 
 class ZmqChart(Mq4Chart):
-        
+
     def __init__(self, sSymbol, iPeriod, iIsEA, **dParams):
         global oCONTEXT
-        
+
         Mq4Chart.__init__(self, sSymbol, iPeriod, iIsEA, dParams)
         if oCONTEXT is None:
             oCONTEXT = zmq.Context()
@@ -63,7 +63,7 @@ class ZmqChart(Mq4Chart):
         assert self.oSpeakerPubsubSocket
         self.oSpeakerPubsubSocket.send_multipart([sTopic, sMsg])
         return ""
-    
+
     def sRecvOnListener(self):
         if self.oListenerReqrepSocket is None:
             self.eBindListener()
@@ -71,14 +71,14 @@ class ZmqChart(Mq4Chart):
         # non-blocking
         sRetval = self.oListenerReqrepSocket.recv()
         return sRetval
-    
+
     def eSendOnListener(self, sMsg):
         if self.oListenerReqrepSocket is None:
             self.eBindListener()
         assert self.oSpeakerPubsubSocket
         self.oListenerReqrepSocket.send(sMsg)
         return ""
-    
+
     def bCloseContextSockets(self, lOptions):
         global oCONTEXT
         if self.oListenerReqrepSocket:
@@ -97,7 +97,26 @@ class ZmqChart(Mq4Chart):
         oCONTEXT = None
         return True
 
-def iMain(oParser):
+def iMain():
+    from optparse import OptionParser
+    oParser = OptionParser(usage=__doc__.strip())
+    oParser.add_option("-p", "--pubport", action="store",
+                       dest="sPubPort", type="string",
+                       default="2027",
+                       help="the TCP port number to publish to (default 2027)")
+    oParser.add_option("-a", "--address", action="store",
+                       dest="sIpAddress", type="string",
+                       default="127.0.0.1",
+                       help="the TCP address to subscribe on (default 127.0.0.1)")
+    oParser.add_option("-v", "--verbose", action="store",
+                       dest="iVerbose", type="string",
+                       default="1",
+                       help="the verbosity, 0 for silent 4 max (default 1)")
+    oParser.add_option("-t", "--topic", action="store",
+                       dest="sTopic", type="string",
+                       default="retval",
+                       help="the topic the subcriber will be lokking for (default retval)")
+
     (lOptions, lArgs) = oParser.parse_args()
 
     assert lArgs
@@ -112,12 +131,13 @@ def iMain(oParser):
                 " with topic: " +lOptions.sTopic +" ".join(lArgs)
         o = ZmqChart('USDUSD', 0, 0, iSpeakerPort=iSpeakerPort, sIpAddress=sIpAddress)
         sMsg = 'Hello'
-        iMax=10; i=0
+        iMax = 10
+        i = 0
         print "Sending: %s %d times " % (sMsg, iMax,)
         while i < iMax:
             # send a burst of 10 copies
             o.eSendOnSpeaker(lOptions.sTopic, lArgs[0])
-            i+=1
+            i += 1
         # print "Waiting for message queues to flush..."
         time.sleep(1.0)
     except KeyboardInterrupt:
@@ -126,23 +146,4 @@ def iMain(oParser):
         o.bCloseContextSockets(lOptions)
 
 if __name__ == '__main__':
-     from optparse import OptionParser
-     sUsage = __doc__.strip()
-     oParser = OptionParser(usage=sUsage)
-     oParser.add_option("-p", "--pubport", action="store",
-                        dest="sPubPort", type="string",
-                        default="2027",
-                        help="the TCP port number to publish to (default 2027)")
-     oParser.add_option("-a", "--address", action="store",
-                        dest="sIpAddress", type="string",
-                        default="127.0.0.1",
-                        help="the TCP address to subscribe on (default 127.0.0.1)")
-     oParser.add_option("-v", "--verbose", action="store",
-                        dest="iVerbose", type="string",
-                        default="1",
-                        help="the verbosity, 0 for silent 4 max (default 1)")
-     oParser.add_option("-t", "--topic", action="store",
-                        dest="sTopic", type="string",
-                        default="retval",
-                        help="the topic the subcriber will be lokking for (default retval)")
-     iMain(oParser)
+    iMain()
