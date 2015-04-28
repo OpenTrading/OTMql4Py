@@ -1,3 +1,9 @@
+commit 059e5a33bc7e7386fef2aba07453941361c89c34
+Date:   Sun Apr 26 22:38:43 2015 +0300
+
+    Cleaned things up for pylint. The rcfile that we use
+    is checked in at etc/pylint.rc.
+
 commit 15053ebb820a9b7953acbb0a1aee8649d4e85b20
 Date:   Fri Apr 24 18:13:13 2015 +0300
 
