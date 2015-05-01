@@ -1,6 +1,6 @@
 # -*-mode: python; py-indent-offset: 4; indent-tabs-mode: nil; encoding: utf-8-dos; coding: utf-8 -*-
 
-import sys, os, thread, threading
+import sys, os, thread, threading, traceback
 
 # import rpdb2; rpdb2.start_embedded_debugger('foobar')
 
@@ -44,6 +44,8 @@ def sPySafeEval(sPyCode):
         k = compile(s, '<string>', 'exec')
     except Exception, e:
         sRetval = "ERROR: Python error compiling " + sPyCode+ ': '+str(e)
+        sys.stderr.write(sRetval+'\n')
+        traceback.print_exc(None, sys.stderr)
         sys.exc_clear()
         return sRetval
 
@@ -55,11 +57,13 @@ def sPySafeEval(sPyCode):
             sRetval = ""
     except Exception, e:
         sRetval = "ERROR: Python error evaling " + sPyCode+ ': '+str(e)
+        sys.stderr.write(sRetval+'\n')
+        traceback.print_exc(None, sys.stderr)
         sys.exc_clear()
         return sRetval
 
-    if sRetval.find('ERROR:') == 0:
-        sys.exc_clear()
+    #? if sRetval.find('ERROR:') == 0: sys.exc_clear()
+    
     return sRetval
 
 

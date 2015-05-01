@@ -1,3 +1,16 @@
+commit 43b2f2289e28836bd82b3918a4ce106ec548a799
+Date:   Tue Apr 28 16:36:06 2015 +0300
+
+    Moved share/doc/05PyZmq.txt to
+    https://github.com/OpenTrading/OTMql4Zmq
+
+commit 4f673ad5d60d3e2c7caaa85c797cfca45aa328cd
+Date:   Tue Apr 28 12:38:42 2015 +0300
+
+    Moved MQL4/Python/OTMql427/ZmqChart.py to
+    https://github.com/OpenTrading/OTMql4Zmq/
+    so now OTMql4Zmq will be both the C-coded and Python Zmq.
+
 commit 059e5a33bc7e7386fef2aba07453941361c89c34
 Date:   Sun Apr 26 22:38:43 2015 +0300
 
