@@ -1,3 +1,8 @@
+commit f5e046f003ba2f4ef63ab7297933d341278e47b9
+Date:   Fri May 1 17:50:16 2015 +0300
+
+    Moved MQL4/Experts/OTMql4/OTPyTestZmqEA.mq4 to OTMql4Zmq
+
 commit 43b2f2289e28836bd82b3918a4ce106ec548a799
 Date:   Tue Apr 28 16:36:06 2015 +0300
 

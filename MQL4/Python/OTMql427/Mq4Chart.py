@@ -26,11 +26,8 @@ class Mq4Chart(object):
     _dCharts = dict()
     _dChartNames = dict()
 
-    def __init__(self, sSymbol, iPeriod, iIsEA, dParams=None):
-        self.sChartName = "oChart"+"_"+sSafeSymbol(sSymbol) + "_"+str(iPeriod)+"_"+str(iIsEA)
-        self.sSymbol = sSymbol
-        self.iPeriod = iPeriod
-        self.iIsEA = iIsEA
+    def __init__(self, sChartId, dParams=None):
+        self.sChartId = sChartId
 
         if dParams is None: dParams = dict()
         self.dParams = dParams
@@ -44,62 +41,59 @@ class Mq4Chart(object):
         if iId not in self._dCharts:
             self._lCharts.append(self)
             self._dCharts[iId] = self
-            self._dChartNames[self.sChartName] = self
+            self._dChartNames[self.sChartId] = self
 
     def vRemove(self, iId):
         if iId in self._dCharts:
             self._lCharts.remove(self)
             del self._dCharts[iId]
-            del self._dChartNames[self.sChartName]
+            del self._dChartNames[self.sChartId]
 
     def vReInit(self, **dKeys):
         self.dParams.update(**dKeys)
 
 
-def oMakeChart(sSymbol, iPeriod, iIsEA, dParams):
+def oMakeChart(sChartId, dParams):
     """
     Make an instance of a Mq4Chart object to encapsulate a Mt4 chart.
     It will reuse an existing chart or create it needed.
     """
-    sChartName = "oChart"+"_"+sSafeSymbol(sSymbol) +"_"+str(iPeriod)+"_"+str(iIsEA)
-    if sChartName in sys.modules['__main__'].__dict__:
-        oLOG.info("Reusing "+sChartName)
-        return sys.modules['__main__'].__dict__[sChartName]
-    oLOG.info("Creating "+sChartName)
-    return Mq4Chart(sSymbol, iPeriod, iIsEA, dParams)
+    if sChartId in sys.modules['__main__'].__dict__:
+        oLOG.info("Reusing "+sChartId)
+        return sys.modules['__main__'].__dict__[sChartId]
+    oLOG.info("Creating "+sChartId)
+    return Mq4Chart(sChartId, dParams)
 
 
-def iFindChart(sSymbol, iPeriod, iIsEa):
-    sChartName = "oChart"+"_"+sSafeSymbol(sSymbol) + "_"+str(iPeriod)+"_"+str(iIsEa)
-    oLOG.info("Looking for "+sChartName)
-    if sChartName in Mq4Chart._dChartNames.keys():
-        oLOG.info("Found "+sChartName)
-        return Mq4Chart._dChartNames[sChartName].iId
-    oLOG.info("Couldn't find "+sChartName+" in "+
+def iFindChart(sChartId):
+    oLOG.info("Looking for "+sChartId)
+    if sChartId in Mq4Chart._dChartNames.keys():
+        oLOG.info("Found "+sChartId)
+        return Mq4Chart._dChartNames[sChartId].iId
+    oLOG.info("Couldn't find "+sChartId+" in "+
               str(Mq4Chart._dChartNames.keys()))
     return 0
 
 
 def iFindExpert(sSymbol, iPeriod):
     iRetval = -1
-    sChartName = "oChart"+"_"+sSafeSymbol(sSymbol) + "_"+str(iPeriod)+"_"
-    oLOG.info("Looking for "+sChartName)
-    iLen = len(sChartName)
+    sChartId = "oChart"+"_"+sSafeSymbol(sSymbol) + "_"+str(iPeriod)+"_"
+    oLOG.info("Looking for "+sChartId)
+    iLen = len(sChartId)
     for sElt in Mq4Chart._dChartNames.keys():
-        if sElt.startswith(sChartName):
+        if sElt.startswith(sChartId):
             iRetval = int(sElt[iLen:])
             if iRetval > 0:
                 return iRetval
-    oLOG.info("Couldn't find "+sChartName+" in "+
+    oLOG.info("Couldn't find "+sChartId+" in "+
               str(Mq4Chart._dChartNames.keys()))
     return iRetval
 
-def iChartExists(sSymbol, iPeriod, iExpNumber):
-    sChartName = "oChart"+"_"+sSafeSymbol(sSymbol) + "_"+str(iPeriod)+"_"+str(iExpNumber)
-    oLOG.info("Looking for "+sChartName)
-    if sChartName in sys.modules['__main__'].__dict__:
-        oLOG.info("Found "+sChartName)
+def iChartExists(sChartId):
+    oLOG.info("Looking for "+sChartId)
+    if sChartId in sys.modules['__main__'].__dict__:
+        oLOG.info("Found "+sChartId)
         return 1
-    oLOG.info("Couldn't find "+sChartName+" in "+
+    oLOG.info("Couldn't find "+sChartId+" in "+
               str(sys.modules['__main__'].__dict__.keys()))
     return 0

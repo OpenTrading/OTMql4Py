@@ -7,7 +7,7 @@
 #define INDICATOR_NAME          "PyTestNullEA"
 
 #include <OTMql4/OTLibLog.mqh>
-#include <OTMql4/OTPy27.mqh>
+#include <OTMql4/OTLibPy27.mqh>
 
 extern string sStdOutFile="../../Logs/_test_PyTestNullEA.txt";
 

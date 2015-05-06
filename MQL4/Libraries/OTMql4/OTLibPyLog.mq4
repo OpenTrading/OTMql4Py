@@ -1,4 +1,4 @@
-// -*-mode: c; c-style: stroustrup; c-basic-offset: 4; coding: utf-8; encoding: utf-8-dos -*-
+// -*-mode: c; c-style: stroustrup; c-basic-offset: 4; coding: utf-8-dos -*-
 
 /*
 This will provide our logging functions that work with Python.
@@ -19,7 +19,7 @@ The Python code can use vLog(iLevel, sMsg) to log accordingly.
 #property link      "https://github.com/OpenTrading/"
 #property library
 
-#include <OTMql4/OTPy27.mqh>
+#include <OTMql4/OTLibPy27.mqh>
 
 /* we override vLog from OTLibLog */
 #include <OTMql4/OTLibLog.mqh>

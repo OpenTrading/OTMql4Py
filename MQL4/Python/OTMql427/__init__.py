@@ -1,8 +1,11 @@
 # -*-mode: python; py-indent-offset: 4; indent-tabs-mode: nil; encoding: utf-8-dos; coding: utf-8 -*-
 
 import sys, os, thread, threading, traceback
+import logging
 
 # import rpdb2; rpdb2.start_embedded_debugger('foobar')
+
+from Mt4SafeEval import sPySafeEval
 
 # There are/were(2.4) some atexit handlers that were crashing Mt4
 # at exit because thay were killing the process, so Mt4 got killed
@@ -10,62 +13,13 @@ import sys, os, thread, threading, traceback
 import atexit
 atexit._exithandlers = atexit._exithandlers[:-1]
 
+oLOG = logging
 # There are/were(2.4) some logging handlers that were polluting Mt4
 # at shutdown
-import logging
-oLOG = logging
+
 def vShutupShutdown(*args, **dArgs):
     pass
 oLOG.shutdown = vShutupShutdown
-
-def sPySafeEval(sPyCode):
-    """
-    This wraps its string argument in a try:/except:
-    so that it always succeeds. If there was an error,
-    then the string returned starts with ERROR:
-    followed by a description of the error.
-
-    In the caller you should have something like:
-
-      if (StringFind(uRetval, "ERROR:", 0) == 0) {
-        Print("Error in Python evaluating: " + uSource + "\n" + res);
-        <do something as a result of the failure>
-      }
-
-    In fact, you should probably do ALL your calls into Python
-    using sPySafeEval unless you know what you are calling
-    traps errors, and calls sys.exc_clear() if there is an error.
-
-    """
-
-    dGlobals = sys.modules['__main__'].__dict__
-    s = "try:\n    sRetval=" + sPyCode + "\nexcept Exception,e:\n    sRetval='ERROR: '+str(e)"
-    try:
-        k = compile(s, '<string>', 'exec')
-    except Exception, e:
-        sRetval = "ERROR: Python error compiling " + sPyCode+ ': '+str(e)
-        sys.stderr.write(sRetval+'\n')
-        traceback.print_exc(None, sys.stderr)
-        sys.exc_clear()
-        return sRetval
-
-    try:
-        eval(k, dGlobals, dGlobals)
-        if dGlobals['sRetval']:
-            sRetval = str(dGlobals['sRetval'])
-        else:
-            sRetval = ""
-    except Exception, e:
-        sRetval = "ERROR: Python error evaling " + sPyCode+ ': '+str(e)
-        sys.stderr.write(sRetval+'\n')
-        traceback.print_exc(None, sys.stderr)
-        sys.exc_clear()
-        return sRetval
-
-    #? if sRetval.find('ERROR:') == 0: sys.exc_clear()
-    
-    return sRetval
-
 
 try:
     import win32ui, win32con

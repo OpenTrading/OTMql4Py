@@ -72,6 +72,7 @@ confidence=
 # --disable=W"
 ## added
 ##:eval-used (W0123)
+##:attribute-defined-outside-init (W0201)
 ##:protected-access (W0212)
 ##:fixme (W0511)
 ##:global-statement (W0603)
@@ -84,7 +85,8 @@ confidence=
 ##:too-many-ancestors (R0901)
 ##:too-many-instance-attributes (R0902)
 ##:trailing-whitespace (C0303)
-disable=E1608,W1627,E1601,E1603,E1602,E1605,E1604,E1607,E1606,W1621,W1620,W1623,W1622,W1625,W1624,W1609,W1608,W1607,W1606,W1605,W1604,W1603,W1602,W1601,W1639,W1640,I0021,W1638,I0020,W1618,W1619,W1630,W1626,W1637,W1634,W1635,W1610,W1611,W1612,W1613,W1614,W1615,W1616,W1617,W1632,W1633,W0704,W1628,W1629,W1636,W0123,W0212,W0511,W0603,W0613,W0702,W0703,C0111,C0303,C0325,R0201,R0901,R0902
+##:too-many-arguments (R0913)
+disable=E1608,W1627,E1601,E1603,E1602,E1605,E1604,E1607,E1606,W1621,W1620,W1623,W1622,W1625,W1624,W1609,W1608,W1607,W1606,W1605,W1604,W1603,W1602,W1601,W1639,W1640,I0021,W1638,I0020,W1618,W1619,W1630,W1626,W1637,W1634,W1635,W1610,W1611,W1612,W1613,W1614,W1615,W1616,W1617,W1632,W1633,W0201,W0704,W1628,W1629,W1636,W0123,W0212,W0511,W0603,W0613,W0702,W0703,C0111,C0303,C0325,R0201,R0901,R0902,R0913
 
 
 [REPORTS]
@@ -144,7 +146,7 @@ indent-string='    '
 indent-after-paren=4
 
 # Expected format of line ending, e.g. empty (any line ending), LF or CRLF.
-expected-line-ending-format=CRLF
+expected-line-ending-format=
 
 
 [TYPECHECK]
@@ -181,7 +183,7 @@ required-attributes=
 bad-functions=input
 
 # Good variable names which should always be accepted, separated by a comma
-good-names=a,d,e,i,j,k,s,o,u,_
+good-names=a,c,d,e,f,i,j,k,l,s,t,o,u,x,z,_
 
 # Bad variable names which should always be refused, separated by a comma
 bad-names=foo,bar,baz,toto,tutu,tata
@@ -329,7 +331,7 @@ spelling-store-unknown-words=no
 [DESIGN]
 
 # Maximum number of arguments for function / method
-max-args=5
+max-args=12
 
 # Argument names that match this expression will be ignored. Default to name
 # with leading underscore
