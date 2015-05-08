@@ -5,6 +5,8 @@ A Mq4Chart object is a simple abstraction to encapsulate a Mt4 chart.
 """
 
 import sys, logging
+import time
+import Queue
 
 oLOG = logging
 
@@ -34,7 +36,38 @@ class Mq4Chart(object):
 
         # FixMe: see if it's already there
         self.vAdd(id(self))
+        self.oQueue = Queue.Queue()
 
+    def zMq4PopQueue(self, sIgnored=""):
+        """
+        The PopQueue is usually called from the Mt4 OnTimer.
+        We use is a queue of things for the ProcessCommand in Mt4.
+        """
+        if self.oQueue.empty():
+            return ""
+        
+        # while we are here flush stdout so we can read the log file
+        # whilst the program is running
+        sys.stdout.flush()
+        sys.stderr.flush()
+
+        return self.oQueue.get()
+    
+    def eMq4PushQueue(self, sMessage):
+        """
+        """
+        self.oQueue.put(sMessage)
+        return ""
+    
+    def eMq4Retval(self, sMark, sType, sValue):
+        sTopic = 'retval'
+        if not sMark:
+            sMark = "%15.5f" % time.time()
+        # FixMe: the sMess must be in the right format
+        # FixMe: replace with sChartId
+        sMess = "retval|%s|%d|%s|%s|%s" % (self.iChartId, 0, sMark, sType, sValue,)
+        self.eMq4PushQueue(sMess)
+    
     def vAdd(self, iId):
         self.iId = iId
         # see if it's already there
@@ -43,7 +76,9 @@ class Mq4Chart(object):
             self._dCharts[iId] = self
             self._dChartNames[self.sChartId] = self
 
-    def vRemove(self, iId):
+    # FxiMe: put this on a __del__?
+    def vRemove(self, iId=None):
+        if not iId: iId = id(self)
         if iId in self._dCharts:
             self._lCharts.remove(self)
             del self._dCharts[iId]

@@ -447,6 +447,6 @@ string uChartName(string uSymbol, int iPeriod, long iWindowId, int iExtra=0) {
     */
     string uRetval="";
 
-    uRetval = StringFormat("o%s_%i_%X_%i", uSymbol, iPeriod, iWindowId, iExtra);
+    uRetval = StringFormat("oChart_%s_%i_%X_%i", uSymbol, iPeriod, iWindowId, iExtra);
     return(uRetval);
 }

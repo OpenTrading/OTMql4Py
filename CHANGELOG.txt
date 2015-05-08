@@ -1,3 +1,20 @@
+commit d80d90d6a98a398c542287f94f880e53172d0b0f
+Date:   Thu May 7 01:05:44 2015 +0300
+
+    Broke out functions from MQL4/Include/OTMql4/OTPy27.mqh
+    into a proper library file:
+    MQL4/Libraries/OTMql4/OTLibPy27.mq4
+    Include this in your work, and leave the other one for internal use.
+
+commit 2bd2e2c23546b33a57aa7213a2424242ee69a243
+Date:   Thu May 7 01:03:33 2015 +0300
+
+    Broke out some of the functionity of
+    MQL4/Python/OTMql427/__init__.py
+    into
+    MQL4/Python/OTMql427/Mt4SafeEval.py
+    MQL4/Python/OTMql427/Mt4Tkinter.py
+
 commit f5e046f003ba2f4ef63ab7297933d341278e47b9
 Date:   Fri May 1 17:50:16 2015 +0300
 

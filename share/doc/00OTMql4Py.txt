@@ -8,8 +8,8 @@ with contributions by C. Polymeris
 http://chiselapp.com/user/polymeris/repository/metatraderpy/index
 
 **This is a work in progress - a developers' pre-release version.**
-
-It works well on builds > 6xx, but the documentation of the changes to the
+The code is quite stable now, and there should be no major file or API changes.
+It works well on builds > 6xx, but the documentation of the additions to the
 original code still need writing, as well as more tests and testing on
 different versions. Only Python 2.7.x is supported.
 
