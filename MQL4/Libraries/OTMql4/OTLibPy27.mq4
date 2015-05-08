@@ -19,6 +19,7 @@ The Python code can use vLog(iLevel, sMsg) to log accordingly.
 #property link      "https://github.com/OpenTrading/"
 #property library
 
+#include <WinUser32.mqh>
 #include <OTMql4/OTPy27.mqh>
 
 /*
@@ -216,6 +217,34 @@ string uPySafeEval(string uSource) {
 
     return(uRetval);
 }
+
+void vPanic(string uReason) {
+    "A panic prints an error message and then aborts";
+    Print("PANIC: " + uReason);
+    MessageBox(uReason, "PANIC!", MB_OK|MB_ICONEXCLAMATION);
+}
+
+int iPySafeExec(string uArg) {
+    string uRetval;
+    
+    vPyExecuteUnicode(uArg);
+    vPyExecuteUnicode("sFoobar = '%s : %s' % (sys.last_type, sys.last_value,)");
+    uRetval=uPyEvalUnicode("sFoobar");
+    if (StringFind(uRetval, "exceptions.SystemError", 0) >= 0) {
+	// VERY IMPORTANT: if the ANYTHING fails with SystemError we MUST PANIC
+	// Were seeing this during testing after an uninit 2 reload
+	uRetval = "PANIC: " +uArg +" failed - we MUST restart Mt4:"  + uRetval;
+	vPanic(uRetval);
+	return(-2);
+    }
+    if (StringFind(uRetval, "Error", 0) >= 0) {
+	uRetval = "PANIC: " +uArg +" failed:"  + uRetval;
+	vPanic(uRetval);
+	return(-1);
+    }
+    return(0);
+}
+
 
 /**
 * Evaluate a python expression that will evaluate to an integer

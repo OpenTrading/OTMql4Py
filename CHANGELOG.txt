@@ -1,3 +1,8 @@
+commit 5241bee54c9bfe7ec626aa2d383f3667377e8d2c
+Date:   Fri May 8 16:46:51 2015 +0300
+
+    Refactored the Chart code from OTMql4Zmq and OTMql4AMQP into Mq4Chart.py.
+
 commit d80d90d6a98a398c542287f94f880e53172d0b0f
 Date:   Thu May 7 01:05:44 2015 +0300
 

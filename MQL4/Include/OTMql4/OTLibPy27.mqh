@@ -13,6 +13,8 @@ int iPyInit(string sStdOut);
 void vPyOutEmpty();
 void vPyPrintAndClearLastError();
 string uPySafeEval(string uSource);
+void vPanic(string uReason);
+int iPySafeExec(string uArg);
 int iPyEvalInt(string uSource);
 double fPyEvalDouble(string uSource);
 string uPyEvalUnicode(string uSource);
