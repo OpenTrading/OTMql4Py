@@ -1,3 +1,8 @@
+commit 28e134e2c0bb8f4707bf299c18fe7d5b5de55795
+Date:   Fri May 8 19:10:13 2015 +0300
+
+    Minor refactoring.
+
 commit 5241bee54c9bfe7ec626aa2d383f3667377e8d2c
 Date:   Fri May 8 16:46:51 2015 +0300
 

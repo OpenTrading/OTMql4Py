@@ -30,16 +30,15 @@ int OnInit() {
     Print("Called iPyInit");
     
     uArg="import os";
-    vPyExecuteUnicode(uArg);
-    // VERY IMPORTANT: if the import failed we MUST PANIC
-    vPyExecuteUnicode("sFoobar = '%s : %s' % (sys.last_type, sys.last_value,)");
-    uRetval=uPyEvalUnicode("sFoobar");
-    if (StringFind(uRetval, "exceptions.SystemError", 0) >= 0) {
-	// Were seeing this during testing after an uninit 2 reload
-	uRetval = "PANIC: import pika failed - we MUST restart Mt4:"  + uRetval;
-	vPanic(uRetval);
+    iRetval = iPySafeExec(uArg);
+    if (iRetval <= -2) {
+	// VERY IMPORTANT: if the ANYTHING fails with SystemError we MUST PANIC
+	ExpertRemove();
+	return(-2);
+    } else if (iRetval <= -1) {
 	return(-2);
     }
+	
 	
     /* sys.path is too long to fit a log line */
     uArg="str(sys.path[0])";
