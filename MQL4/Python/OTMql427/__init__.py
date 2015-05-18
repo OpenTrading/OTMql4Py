@@ -212,7 +212,7 @@ def eStartFile(sStdout):
             # dont delete it - it may be a pipe
             sSTDOUT_FD = open(sStdout, 'w', 1)
             sys.stdout = sys.stderr = sSTDOUT_FD
-            assert sys.stdout != sys.__stdout__
+            assert sys.stdout != sys.__stdout__, "eStartFile: sys.stdout != sys.__stdout__"
             # we should always see our version in the log
             print sys.version
             sys.stdout.flush()
@@ -275,10 +275,8 @@ def test():
     if os.path.isfile('test.txt'): os.remove('test.txt')
 
     vPyInit('test.txt')
-    assert os.path.isfile('test.txt')
+    assert os.path.isfile('test.txt'), "File not found: 'test.txt'"
 
-    vPyInit('test.txt')
-    assert os.path.isfile('test.txt')
     assert sys.stdout != sys.__stdout__
     assert sys.stderr != sys.__stderr__
 

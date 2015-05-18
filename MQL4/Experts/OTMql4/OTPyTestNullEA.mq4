@@ -25,21 +25,21 @@ int OnInit() {
 
     iRetval = iPyInit(sStdOutFile);
     if (iRetval != 0) {
-	return(iRetval);
+        return(iRetval);
     }
     Print("Called iPyInit");
     
     uArg="import os";
     iRetval = iPySafeExec(uArg);
     if (iRetval <= -2) {
-	// VERY IMPORTANT: if the ANYTHING fails with SystemError we MUST PANIC
-	ExpertRemove();
-	return(-2);
+        // VERY IMPORTANT: if the ANYTHING fails with SystemError we MUST PANIC
+        ExpertRemove();
+        return(-2);
     } else if (iRetval <= -1) {
-	return(-2);
+        return(-2);
     }
-	
-	
+        
+        
     /* sys.path is too long to fit a log line */
     uArg="str(sys.path[0])";
     uRetval = uPyEvalUnicode(uArg);

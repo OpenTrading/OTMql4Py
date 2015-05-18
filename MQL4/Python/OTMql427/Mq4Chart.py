@@ -24,7 +24,6 @@ def sSafeSymbol(s):
 
 class Mq4Chart(object):
 
-    _lCharts = list()
     _dCharts = dict()
     _dChartNames = dict()
 
@@ -72,7 +71,6 @@ class Mq4Chart(object):
         self.iId = iId
         # see if it's already there
         if iId not in self._dCharts:
-            self._lCharts.append(self)
             self._dCharts[iId] = self
             self._dChartNames[self.sChartId] = self
 
@@ -80,7 +78,6 @@ class Mq4Chart(object):
     def vRemove(self, iId=None):
         if not iId: iId = id(self)
         if iId in self._dCharts:
-            self._lCharts.remove(self)
             del self._dCharts[iId]
             del self._dChartNames[self.sChartId]
 
@@ -100,15 +97,28 @@ def oMakeChart(sChartId, dParams):
     return Mq4Chart(sChartId, dParams)
 
 
-def iFindChart(sChartId):
+def iFindChartByName(sChartId):
+    """
+    This is old code that doesnt make sense to me.
+    Why use is iId?-+
+ 
+    """
+    oRetval = oFindChartByName(sChartId)
+    if not oRetval: return 0
+    return oRetval.iId
+
+def oFindChartByName(sChartId):
+    """
+    This is old code that doesnt make sense to me.
+    Why use _dChartNames and _dCharts?
+    """
     oLOG.info("Looking for "+sChartId)
     if sChartId in Mq4Chart._dChartNames.keys():
         oLOG.info("Found "+sChartId)
-        return Mq4Chart._dChartNames[sChartId].iId
+        return Mq4Chart._dChartNames[sChartId]
     oLOG.info("Couldn't find "+sChartId+" in "+
               str(Mq4Chart._dChartNames.keys()))
-    return 0
-
+    return None
 
 def iFindExpert(sSymbol, iPeriod):
     iRetval = -1

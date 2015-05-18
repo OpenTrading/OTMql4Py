@@ -78,7 +78,7 @@ int iPyInit(string sStdOut) {
 
       A return value of -1 is a panic: remove the expert if it requires Python.
     */
-    string uRetval, sArg;
+    string uRetval, uArg;
     double fPythonUsers;
     double fDebugLevel;
 
@@ -91,29 +91,29 @@ int iPyInit(string sStdOut) {
         PyInitialize();
         Print("iPyInit: called PyInitialize ");
         // import the system modules that we will need
-        sArg="import os, sys, logging, traceback";
-        vPyExecuteUnicode(sArg);
+        uArg="import os, sys, logging, traceback";
+        vPyExecuteUnicode(uArg);
 
         // later we will use these to clear execution errors
         // but they are undefined in Python until the first error
-        sArg="sys.last_type=''";
-        vPyExecuteUnicode(sArg);
-        sArg="sys.last_value=''";
-        vPyExecuteUnicode(sArg);
+        uArg="sys.last_type=''";
+        vPyExecuteUnicode(uArg);
+        uArg="sys.last_value=''";
+        vPyExecuteUnicode(uArg);
 
         // we change to the metatrader directory to know where we are
         vPyExecuteUnicode("os.chdir(os.path.join(r'" + TerminalPath() + "'))");
-        // NOT sArg="sys.path.insert(0, os.getcwd())";
+        // NOT uArg="sys.path.insert(0, os.getcwd())";
         // we insert the MQL4\Python directory on the sys.path
-        sArg="sys.path.insert(0, os.path.join(r'" + TerminalPath() + "', 'MQL4', 'Python'))";
-        vPyExecuteUnicode(sArg);
+        uArg="sys.path.insert(0, os.path.join(r'" + TerminalPath() + "', 'MQL4', 'Python'))";
+        vPyExecuteUnicode(uArg);
         // this path should have been created on the install
         // and should have a file __init__.py in it
         /* ToDo: touch __init__.py */
 
         /* make sure OTMql427.py is there */
-        sArg="import OTMql427";
-        vPyExecuteUnicode(sArg);
+        uArg="import OTMql427";
+        vPyExecuteUnicode(uArg);
         // VERY IMPORTANT: if the import failed we MUST PANIC
         vPyExecuteUnicode("sFoobar = '%s : %s' % (sys.last_type, sys.last_value,)");
         uRetval=uPyEvalUnicode("sFoobar");
@@ -128,45 +128,48 @@ int iPyInit(string sStdOut) {
         GlobalVariableTemp("fPythonUsers");
         fPythonUsers = 0.0;
     } else {
-	fPythonUsers=GlobalVariableGet("fPythonUsers");
-	Print("PyInit: Incrementing fPythonUsers from: " + fPythonUsers);
-	fDebugLevel=GlobalVariableGet("fDebugLevel");
+        fPythonUsers=GlobalVariableGet("fPythonUsers");
+        Print("PyInit: Incrementing fPythonUsers from: " + fPythonUsers);
+        fDebugLevel=GlobalVariableGet("fDebugLevel");
     }
 
     if (fPythonUsers < 0.1) {
-	// OTMql427.ePyInit is idempotent
-	uRetval = uPyEvalUnicode("OTMql427.ePyInit('" + sStdOut + "')");
-	if (uRetval != "") {
-	    Print("ERROR: failed OTMql427.ePyInit - " + uRetval + "");
-	    // no panic
-	} else {
-	    Print("INFO: Python stdout to file: " + sStdOut);
-	    sArg="sys.stdout.flush()";
-	    vPyExecuteUnicode(sArg);
-	}
-	fPythonUsers = 1.0;
+        // OTMql427.ePyInit is idempotent
+        uRetval = uPyEvalUnicode("OTMql427.ePyInit('" + sStdOut + "')");
+        if (uRetval != "") {
+            uArg = "ERROR: failed OTMql427.ePyInit - " + uRetval + "";
+            vPyExecuteUnicode("sFoobar = '%s : %s' % (sys.last_type, sys.last_value,)");
+            uRetval=uPyEvalUnicode("sFoobar");
+            Alert(uArg +" " +uRetval);
+            return(-2);
+        }
+        Print("INFO: Python stdout to file: " + sStdOut);
+        uArg="sys.stdout.flush()";
+        vPyExecuteUnicode(uArg);
+
+        fPythonUsers = 1.0;
     } else {
-	fPythonUsers += 1.0;
+        fPythonUsers += 1.0;
     }
 
     GlobalVariableSet("fPythonUsers", fPythonUsers);
 
     /* not Tmp */
     if (GlobalVariableCheck("fDebugLevel") == false) {
-	/* 1= Error, 2 = Warn, 3 = Info, 4 = Debug, 5 = Trace */
-	fDebugLevel=2.0;
-	GlobalVariableSet("fDebugLevel", fDebugLevel);
+        /* 1= Error, 2 = Warn, 3 = Info, 4 = Debug, 5 = Trace */
+        fDebugLevel=2.0;
+        GlobalVariableSet("fDebugLevel", fDebugLevel);
     }
     return(0);
 }
 
 // empty the stdout file (where the redirected print output and errors go)
 void vPyOutEmpty() {
-    string sArg;
-    sArg="__outfile__.seek(0, os.SEEK_SET)";
-    vPyExecuteUnicode(sArg);
-    sArg="__outfile__.truncate(0)";
-    vPyExecuteUnicode(sArg);
+    string uArg;
+    uArg="__outfile__.seek(0, os.SEEK_SET)";
+    vPyExecuteUnicode(uArg);
+    uArg="__outfile__.truncate(0)";
+    vPyExecuteUnicode(uArg);
 }
 
 // You MUST do something to clear any error condition
@@ -178,9 +181,9 @@ void vPyPrintAndClearLastError() {
     string uSource="hasattr(sys, 'last_type') and str(sys.last_value) or ''";
     int p_res = iPyEvaluateUnicode(uSource);
     if (p_res <= 0) {
-	Print("ERROR: vPyPrintAndClearLastError - failed evaluating: " + uSource);
-	vPyExecuteUnicode("sys.exc_clear()");
-	return;
+        Print("ERROR: vPyPrintAndClearLastError - failed evaluating: " + uSource);
+        vPyExecuteUnicode("sys.exc_clear()");
+        return;
     }
     string res = uPyGetUnicodeFromPointer(p_res);
     PyDecRef(p_res);
@@ -231,16 +234,16 @@ int iPySafeExec(string uArg) {
     vPyExecuteUnicode("sFoobar = '%s : %s' % (sys.last_type, sys.last_value,)");
     uRetval=uPyEvalUnicode("sFoobar");
     if (StringFind(uRetval, "exceptions.SystemError", 0) >= 0) {
-	// VERY IMPORTANT: if the ANYTHING fails with SystemError we MUST PANIC
-	// Were seeing this during testing after an uninit 2 reload
-	uRetval = "PANIC: " +uArg +" failed - we MUST restart Mt4:"  + uRetval;
-	vPanic(uRetval);
-	return(-2);
+        // VERY IMPORTANT: if the ANYTHING fails with SystemError we MUST PANIC
+        // Were seeing this during testing after an uninit 2 reload
+        uRetval = "PANIC: " +uArg +" failed - we MUST restart Mt4:"  + uRetval;
+        vPanic(uRetval);
+        return(-2);
     }
     if (StringFind(uRetval, "Error", 0) >= 0) {
-	uRetval = "PANIC: " +uArg +" failed:"  + uRetval;
-	vPanic(uRetval);
-	return(-1);
+        uRetval = "PANIC: " +uArg +" failed:"  + uRetval;
+        vPanic(uRetval);
+        return(-1);
     }
     return(0);
 }
@@ -253,9 +256,9 @@ int iPySafeExec(string uArg) {
 int iPyEvalInt(string uSource) {
     int p_res = iPyEvaluateUnicode(uSource);
     if (p_res <= 0) {
-	Print("ERROR: PyEvalInt - failed evaluating: " + uSource);
-	vPyExecuteUnicode("sys.exc_clear()");
-	return (0);
+        Print("ERROR: PyEvalInt - failed evaluating: " + uSource);
+        vPyExecuteUnicode("sys.exc_clear()");
+        return (0);
     }
     int res = PyGetInt(p_res);
     PyDecRef(p_res);
@@ -269,10 +272,10 @@ int iPyEvalInt(string uSource) {
 double fPyEvalDouble(string uSource) {
     int p_res = iPyEvaluateUnicode(uSource);
     if (p_res <= 0) {
-	Print("ERROR: PyEvalDouble - failed evaluating: " + uSource);
-	vPyExecuteUnicode("sys.exc_clear()");
-	// FixMe: need NaN
-	return (0.0);
+        Print("ERROR: PyEvalDouble - failed evaluating: " + uSource);
+        vPyExecuteUnicode("sys.exc_clear()");
+        // FixMe: need NaN
+        return (0.0);
     }
     double res = PyGetDouble(p_res);
     PyDecRef(p_res);
@@ -281,19 +284,35 @@ double fPyEvalDouble(string uSource) {
 
 /**
 * Evaluate a python expression that will evaluate to a string
-* and return its value
+* and return its value. Better to use uPySafeEval where possible.
 */
 string uPyEvalUnicode(string uSource) {
     int p_res = iPyEvaluateUnicode(uSource);
     if (p_res <= 0) {
-	Print("ERROR: uPyEvalUnicode - failed evaluating: " + uSource);
-	vPyExecuteUnicode("sys.exc_clear()");
-	//vPyPrintAndClearLastError();
-	return ("");
+        Print("ERROR: uPyEvalUnicode - failed evaluating: " + uSource);
+        vPyExecuteUnicode("sys.exc_clear()");
+        //vPyPrintAndClearLastError();
+        return ("");
     }
-    string res = uPyGetUnicodeFromPointer(p_res);
+    string uRetval = uPyGetUnicodeFromPointer(p_res);
     PyDecRef(p_res);
-    return(res);
+    /* We are not sure what this is: perhaps when an unhandled exception
+       occurs in Python, it kills the thread that Mt4 is talking to?
+       It's serious error, and we should look to see where select
+       enters into the communications process.
+       Take the precaution of calling sys.exc_clear or
+       FixMe: call sys.exc_clear on any error?
+
+       Maybe provoked by and error in vPikaCallbackOnListener
+       which I assume is in the main thread?
+    */
+    if (StringFind(uRetval, "select.error", 0) >= 0) {
+	//? Panic (10038, "Windows Error 0x2736")
+        Print("ERROR: uPyEvalUnicode - select.error evaluating: " + uSource);
+        vPyExecuteUnicode("sys.exc_clear()");
+        return(uRetval);
+    }
+    return(uRetval);
 }
 
 /**
@@ -309,9 +328,9 @@ int iPyListAppendInt(string list_name, int &array[]) {
     list = iPyEvaluateUnicode(list_name);
     len = ArraySize(array);
     for (i=0; i<len; i++) {
-	item = PyNewInt(array[i]);
-	PyListAppend(list, item);
-	PyDecRef(item);
+        item = PyNewInt(array[i]);
+        PyListAppend(list, item);
+        PyDecRef(item);
     }
     len = PyListSize(list);
     PyDecRef(list);
@@ -327,9 +346,9 @@ int iPyListAppendDouble(string list_name, double &array[]) {
     list = iPyEvaluateUnicode(list_name);
     len = ArraySize(array);
     for (i=0; i<len; i++) {
-	item = PyNewDouble(array[i]);
-	PyListAppend(list, item);
-	PyDecRef(item);
+        item = PyNewDouble(array[i]);
+        PyListAppend(list, item);
+        PyDecRef(item);
     }
     len = PyListSize(list);
     PyDecRef(list);
@@ -345,9 +364,9 @@ int iPyListAppendString(string list_name, string &array[]) {
     list = iPyEvaluateUnicode(list_name);
     len = ArraySize(array);
     for (i=0; i<len; i++){
-	item = iPyNewStringUnicode(array[i]);
-	PyListAppend(list, item);
-	PyDecRef(item);
+        item = iPyNewStringUnicode(array[i]);
+        PyListAppend(list, item);
+        PyDecRef(item);
     }
     len = PyListSize(list);
     PyDecRef(list);
@@ -450,23 +469,23 @@ void vPyDeInit() {
     fPythonUsers -= 1.0;
 
     if (PyIsInitialized() && fPythonUsers < 0.1) {
-	vPyExecuteUnicode("OTMql427.vPyDeInit()");
-	fPythonUsers=0.0;
+        vPyExecuteUnicode("OTMql427.vPyDeInit()");
+        fPythonUsers=0.0;
     }
 
     if (fPythonUsers < 0.1) {
-	bool bRetval=GlobalVariableDel("fPythonUsers");
-	int iError=GetLastError();
-	if (!bRetval) {
-	    Print("ERROR vPyDeInit: deleting global variable fPythonUsers" +  iError);
-	}
-	bRetval=GlobalVariableDel("fDebugLevel");
-	iError=GetLastError();
-	if (!bRetval) {
-	    Print("ERROR vPyDeInit: deleting fDebugLevel" +  iError);
-	}
+        bool bRetval=GlobalVariableDel("fPythonUsers");
+        int iError=GetLastError();
+        if (!bRetval) {
+            Print("ERROR vPyDeInit: deleting global variable fPythonUsers" +  iError);
+        }
+        bRetval=GlobalVariableDel("fDebugLevel");
+        iError=GetLastError();
+        if (!bRetval) {
+            Print("ERROR vPyDeInit: deleting fDebugLevel" +  iError);
+        }
     } else {
-	GlobalVariableSet("fPythonUsers", fPythonUsers);
+        GlobalVariableSet("fPythonUsers", fPythonUsers);
     }
 }
 

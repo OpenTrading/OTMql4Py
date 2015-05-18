@@ -74,7 +74,7 @@ void vLog (int iLevel, string uMsg) {
     // a level of 0 is usually a panic and raises a messagebox
     if (iLevel <= 1 && !IsOptimization() && !IsTesting() ) {
       vPyExecuteUnicode("OTMql427.iMessageBox('''" + uMsg + "''', '"+Symbol()+Period()+
-		"', OTMql427.MB_OK, OTMql427.MB_ICONERROR)");
+                "', OTMql427.MB_OK, OTMql427.MB_ICONERROR)");
     }
   }
 }
