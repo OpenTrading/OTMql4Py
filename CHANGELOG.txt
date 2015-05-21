@@ -1,3 +1,9 @@
+commit b325b974eedef94eeb26618e0e2ca0461319cbaf
+Date:   Mon May 18 15:39:08 2015 +0300
+
+    Refactored out MQL4/Libraries/OTMql4/OTPyChart.mq4 for code
+    common to Pika and Zmq.
+
 commit 288780ecba5fd0a1a80b0361733c2e74365594d9
 Date:   Fri May 15 11:28:53 2015 +0300
 
