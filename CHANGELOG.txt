@@ -1,3 +1,9 @@
+commit faa9763780de8434eb6eb1f7e857fb59d1b8ffff
+Date:   Thu May 21 23:10:09 2015 +0300
+
+    Added MQL4/Python/OTMql427/cmd2plus.py which is a hacked version
+    of cmd2 - to support PikaCmd2.py in OTMql4AMQP.
+
 commit b325b974eedef94eeb26618e0e2ca0461319cbaf
 Date:   Mon May 18 15:39:08 2015 +0300
 
