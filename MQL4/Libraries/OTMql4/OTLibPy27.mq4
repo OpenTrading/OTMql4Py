@@ -41,7 +41,7 @@ int iPyEvaluateUnicode (string uSource) {
 }
 
 /* FixMe: this is a pointer to a string:
-   how do we do a pointer to a uchar[] pointer? 
+   how do we do a pointer to a uchar[] pointer?
 */
 int iPyNewStringUnicode(string &uSource) {
     int iRetval;
@@ -229,7 +229,7 @@ void vPanic(string uReason) {
 
 int iPySafeExec(string uArg) {
     string uRetval;
-    
+
     vPyExecuteUnicode(uArg);
     vPyExecuteUnicode("sFoobar = '%s : %s' % (sys.last_type, sys.last_value,)");
     uRetval=uPyEvalUnicode("sFoobar");
@@ -396,7 +396,7 @@ store them with all their state in variables named after the symbol
 
     Put your Python classes into Python modules, the import path
 is <metatrader>\MQL4\Experts, the same folder where your EAs mql code
-is located, so a simple vPyExecuteUnicode("import yourmodule"); 
+is located, so a simple vPyExecuteUnicode("import yourmodule");
 in your OnInit() will import the file yourmodule.py from this folder. Then
 instantiate an instance of your main class with something like
     vPyExecuteUnicode(Symbol() + Period() + " = yourmodule.yourclass()");

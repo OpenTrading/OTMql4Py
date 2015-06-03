@@ -21,7 +21,7 @@ string eSendOnSpeaker(string uChartId, string uType, string uMess) {
 
 string eReturnOnSpeaker(string uChartId, string uType, string uMess, string uOriginCmd) {
     string uRetval;
-    
+
     if (uOriginCmd == "") {
         uMess = uChartId +".eSendOnSpeaker('" +uType +"', '''" +uMess +"''')";
     } else {

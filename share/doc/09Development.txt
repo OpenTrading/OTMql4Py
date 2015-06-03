@@ -1,0 +1,38 @@
+### Development
+
+#### Python Coding Practices
+
+##### Type Prefixing
+
+We prefix all variable, function and method names with a lowercase letter
+that indicates the type; it helps you anticipate what type a quantity
+is, and to make explicit type conversions. This is not a rigid requirement,
+but it helps cut down on a very common type of mistake, pun intended.
+
+If the type changes, assign it to a new name with the initial letter changed.
+In Python, this scheme has the added advantage of avoiding any naming
+conflict with built-ins, or most Python standard library modules.
+
+Choose the initial letter from the following list:
+
+||'''Prefix Letter'''	||'''Variable Type'''					||
+|| a			|| numpy array 						||
+|| b			|| boolean						||
+|| c			|| complex						||
+|| d			|| alist or dictionary					||
+|| e			|| error string return value, empty for success		||
+|| f			|| double	       	      	    			||
+|| g			|| generic - unknown or mutable				||
+|| h			|| hypertext - HTML/XML entity encoded string		||
+|| i			|| integer		       	       			||
+|| l			|| list set or tuple					||
+|| o			|| instance or pointer to a class			||
+|| r			|| pandas series       	    				||
+|| m			|| pandas dataframe    	    				||
+|| p			|| pandas panel	       	    				||
+|| s			|| ASCII string	      	     				||
+|| t			|| date/time value					||
+|| u			|| Unicode string					||
+|| v			|| void - return value not to be used			||
+|| z			|| non-empty string return value - empty is failure	||
+

@@ -23,7 +23,7 @@ def sSafeSymbol(s):
     return s
 
 class Mq4Chart(object):
-
+    # should these be module level?
     _dCharts = dict()
     _dChartNames = dict()
 
@@ -55,18 +55,46 @@ class Mq4Chart(object):
     def eMq4PushQueue(self, sMessage):
         """
         """
+        # FixMe; dispatch to the right chart
         self.oQueue.put(sMessage)
         return ""
     
     def eMq4Retval(self, sMark, sType, sValue):
         sTopic = 'retval'
-        if not sMark:
-            sMark = "%15.5f" % time.time()
-        # FixMe: the sMess must be in the right format
         # FixMe: replace with sChartId
-        sMess = "retval|%s|%d|%s|%s|%s" % (self.iChartId, 0, sMark, sType, sValue,)
+        sChartId = self.iChartId
+        sMess = self.sFormatMessage(sTopic, sChartId, sMark, sType, sValue)
         self.eMq4PushQueue(sMess)
     
+    def sFormatMessage(self, sMsgType, sChartId, sMark, sType, sValue):
+        # FixMe: the sMess must be in the right format
+        iIgnore = 0
+        if not sMark:
+            sMark = "%15.5f" % time.time()
+        sMess = "%s|%s|%d|%s|%s|%s" % (sMsgType, sChartId, iIgnore, sMark, sType, sValue,)
+        return sMess
+  
+    def lUnFormatMessage(self, sBody):
+        # FixMe:
+        """
+        The messaging to and from OTMql4Py is still being done with a
+        very simple format:
+              sMsgType|sChartId|sIgnored|sMark|sPayload
+        where sMsgType is one of: cmd eval (outgoing), timer tick retval (incoming);
+              sChartId is the Mt4 chart sChartId the message is to or from;
+              sMark is a simple floating point timestamp, with milliseconds;
+        and   sPayload is command|arg1|arg2... (outgoing) or type|value (incoming),
+              where type is one of: bool int double string json.
+        This breaks if the sPayload args or value contain a | 
+        We will probably replace this with json or pickled serialization, or kombu.
+        """
+        lArgs = sBody.split('|')
+        sCmd = lArgs[0]
+        sChart = lArgs[1]
+        sIgnore = lArgs[2]
+        sMark = lArgs[3]
+        return lArgs
+
     def vAdd(self, iId):
         self.iId = iId
         # see if it's already there
@@ -120,7 +148,17 @@ def oFindChartByName(sChartId):
               str(Mq4Chart._dChartNames.keys()))
     return None
 
+def lFindAllChartNames():
+    return Mq4Chart._dChartNames.keys()
+
+def lFindAllCharts():
+    lRetval = Mq4Chart._dChartNames.values()
+    oLOG.info("Found " +repr(lRetval))
+    return lRetval
+    
+# unused
 def iFindExpert(sSymbol, iPeriod):
+    """old code"""
     iRetval = -1
     sChartId = "oChart"+"_"+sSafeSymbol(sSymbol) + "_"+str(iPeriod)+"_"
     oLOG.info("Looking for "+sChartId)

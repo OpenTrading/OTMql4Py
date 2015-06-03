@@ -24,7 +24,7 @@ The Python code can use vLog(iLevel, sMsg) to log accordingly.
 /* we override vLog from OTLibLog */
 #include <OTMql4/OTLibLog.mqh>
 
-/* 
+/*
  We introduce 6 levels of logging: 0 - 5
 */
 string dLogArray[] = {"PANIC", "ERROR", "WARNING", "INFO", "DEBUG", "TRACE"};
