@@ -1,3 +1,8 @@
+commit d32e66ebae7a0223709227fca056da56cc958181
+Date:   Wed Jun 3 09:52:21 2015 +0300
+
+    Minor extensions to Mq4Chart.py.
+
 commit 3953bf485970d79165f6db5cedf5d36fc634a831
 Date:   Wed May 27 12:11:55 2015 +0300
 
