@@ -1,3 +1,9 @@
+commit d97d429bca359953442143124314a3dc4043d3dc
+Date:   Thu Jun 4 16:42:23 2015 +0300
+
+    Moved MQL4/Python/OTMql427/cmd2plus.py to OpenTrader
+    added MQL4/Python/OTMql427/SimpleFormat.py
+
 commit d32e66ebae7a0223709227fca056da56cc958181
 Date:   Wed Jun 3 09:52:21 2015 +0300
 
