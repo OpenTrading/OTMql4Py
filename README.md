@@ -4,10 +4,16 @@
 ### OTMql4Py - MQL4 bindings for Python
 https://github.com/OpenTrading/OTMql4Py/
 
-Based in work by Bernd Kreuss
-https://sites.google.com/site/prof7bit/metatrader-python-integration
+This project provides that ability to run a complete Python interpreter
+under Metatrader4. Mt4 can make calls into Python, using any of Pythons
+commands or imported modules. When coupled with the 
+[[OTLibProcessCmd.mq4|https://github.com/OpenTrading/OTMql4Lib/raw/master/MQL4/Libraries/OTLibProcessCmd.mq4]]
+capabilities of the https://github.com/OpenTrading/OTMql4Lib/ libraries,
+Mt4 can poll Python for commands to be executed in Mt4 from Python.
 
-with contributions by C. Polymeris 
+This project is based in work by Bernd Kreuss:
+https://sites.google.com/site/prof7bit/metatrader-python-integration
+with contributions by C. Polymeris:
 http://chiselapp.com/user/polymeris/repository/metatraderpy/index
 
 **This is a work in progress - a developers' pre-release version.**
@@ -41,10 +47,8 @@ of your Python installation (e.g. `c:\Python27` ).
 
 The source code to generate the py27.dll are in the src directory.
 The sources have minor fixes to the original code other than the py26 -> py27
-syntactic conversion, and still need recompiling: the dll checked-in at the
-moment is from:
-http://chiselapp.com/user/polymeris/repository/metatraderpy/index
-
+syntactic conversion. The dll checked-in has been recompiled gainst the current
+source.
 
 ### Project
 

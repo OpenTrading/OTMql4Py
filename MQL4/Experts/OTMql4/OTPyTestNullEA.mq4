@@ -28,7 +28,7 @@ int OnInit() {
         return(iRetval);
     }
     Print("Called iPyInit");
-    
+
     uArg="import os";
     iRetval = iPySafeExec(uArg);
     if (iRetval <= -2) {
@@ -38,8 +38,8 @@ int OnInit() {
     } else if (iRetval <= -1) {
         return(-2);
     }
-        
-        
+
+
     /* sys.path is too long to fit a log line */
     uArg="str(sys.path[0])";
     uRetval = uPyEvalUnicode(uArg);
