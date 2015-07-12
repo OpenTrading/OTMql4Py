@@ -1,3 +1,8 @@
+commit 149c308afe95397e5d65f3e17cd7e761be08eddb
+Date:   Sun Jul 12 22:30:30 2015 +0300
+
+    Minor refactoring of Mql4Chart
+
 commit 5f97815adde4ae231ae0b6007e0a542b7fae48b2
 Date:   Sun Jun 21 16:40:48 2015 +0300
 

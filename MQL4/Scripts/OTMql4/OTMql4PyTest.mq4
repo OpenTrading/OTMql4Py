@@ -1,11 +1,12 @@
-// -*-mode: c; c-style: stroustrup; c-basic-offset: 4; coding: utf-8; encoding: utf-8-dos -*-
+// -*-mode: c; c-style: stroustrup; c-basic-offset: 4; coding: utf-8-dos -*-
 
 #property copyright "Copyright 2014 Open Trading"
 #property link      "https://github.com/OpenTrading/"
 
 #property show_inputs
 
-#include <OTMql4/OTPy27.mqh>
+#include <OTMql4/OTLibLog.mqh>
+#include <OTMql4/OTLibPy27.mqh>
 
 #include <WinUser32.mqh>
 
@@ -39,8 +40,8 @@ string eTestStdout(string uFile) {
     } else if (StringFind(uRetval, uFile, 0) < 0) {
       uRetval = "ERROR: " + uFile +" not in sys.stdout.name= " + uRetval;
     } else {
-      uRetval = "";
       Print("INFO: uPyEvalUnicode sys.stdout.name= " + uRetval);
+      uRetval = "";
     }
     return(uRetval);
 }
@@ -135,12 +136,12 @@ string eTestRuntimeError() {
     int iErr = 0;
     string uRetval = "";
 
-    uRetval=uPySafeEval("runtimeerror");
+    uRetval=uPySafeEval("provokeanerror");
     if (StringFind(uRetval, "ERROR:", 0) == 0) {
-	Print("INFO: runtimeerror detected:= " + uRetval);
+	Print("INFO: provokeanerror detected:= " + uRetval);
 	return("");
     } else {
-	uRetval ="ERROR: runtimeerror NOT detected:= " + uRetval;
+	uRetval ="ERROR: provokeanerror NOT detected:= " + uRetval;
 	Print(uRetval);
 	return(uRetval);
     }
