@@ -1,5 +1,8 @@
 # -*-mode: python; py-indent-offset: 4; indent-tabs-mode: nil; encoding: utf-8-dos; coding: utf-8 -*-
 
+# json was in here
+lKNOWN_TOPICS = ['tick', 'timer', 'retval', 'bar', 'cmd', 'eval'] # 'exec'
+
 def sFormatMessage(sMsgType, sChartId, sMark, sType, sValue):
     # FixMe: the sMess must be in the right format
     iIgnore = 0

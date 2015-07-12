@@ -11,6 +11,6 @@ This will provide the interface from Mql to our Chart class in Python.
 
 #import "OTMql4/OTPyChart.ex4"
 
-string eSendOnSpeaker(string uChartId, string uType, string uMess);
-
-string eReturnOnSpeaker(string uChartId, string uType, string uMess, string uOriginCmd);
+string eSendOnSpeaker(string uChartId, string uType, string uMess, string uOriginCmd="");
+string eReturnOnSpeaker(string uChartId, string uType, string uMess, string uOriginCmd="");
+string eReturnOnListener(string uChartId, string uType, string uMess, string uOriginCmd="");

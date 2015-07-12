@@ -1,3 +1,8 @@
+commit 5f97815adde4ae231ae0b6007e0a542b7fae48b2
+Date:   Sun Jun 21 16:40:48 2015 +0300
+
+    Doc updates.
+
 commit d6f34f97eba81a38780b5a457cb2b162f5a7e7bd
 Date:   Tue Jun 16 23:22:49 2015 +0300
 

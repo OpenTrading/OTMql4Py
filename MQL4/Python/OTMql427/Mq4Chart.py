@@ -28,7 +28,7 @@ class Mq4Chart(object):
     _dCharts = dict()
     _dChartNames = dict()
 
-    def __init__(self, sChartId, dParams=None):
+    def __init__(self, sChartId, **dParams):
         self.sChartId = sChartId
 
         if dParams is None: dParams = dict()
@@ -85,7 +85,7 @@ class Mq4Chart(object):
         self.dParams.update(**dKeys)
 
 
-def oMakeChart(sChartId, dParams):
+def oMakeChart(sChartId, **dParams):
     """
     Make an instance of a Mq4Chart object to encapsulate a Mt4 chart.
     It will reuse an existing chart or create it needed.
@@ -94,7 +94,7 @@ def oMakeChart(sChartId, dParams):
         oLOG.info("Reusing "+sChartId)
         return sys.modules['__main__'].__dict__[sChartId]
     oLOG.info("Creating "+sChartId)
-    return Mq4Chart(sChartId, dParams)
+    return Mq4Chart(sChartId, **dParams)
 
 
 def iFindChartByName(sChartId):
