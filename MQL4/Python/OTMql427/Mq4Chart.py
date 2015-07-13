@@ -31,7 +31,6 @@ class Mq4Chart(object):
     def __init__(self, sChartId, **dParams):
         self.sChartId = sChartId
 
-        if dParams is None: dParams = dict()
         self.dParams = dParams
 
         # FixMe: see if it's already there
@@ -85,7 +84,7 @@ class Mq4Chart(object):
         self.dParams.update(**dKeys)
 
 
-def oMakeChart(sChartId, **dParams):
+def oMakeChart(sChartId, dParams):
     """
     Make an instance of a Mq4Chart object to encapsulate a Mt4 chart.
     It will reuse an existing chart or create it needed.

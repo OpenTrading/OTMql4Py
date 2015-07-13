@@ -39,7 +39,7 @@ string eReturnOnSpeaker(string uChartId, string uType, string uMess, string uOri
         return(uRetval);
     }
     if (StringFind(uRetval, "select.error", 0) >= 0) {
-        vPanic("eReturnOnSpeaker: select.error means our Rabbit connection died\n" +uRetval);
+        vError("eReturnOnSpeaker: select.error means our Rabbit connection died\n" +uRetval);
         return(uRetval);
     }
     if (uRetval != " : ") {
