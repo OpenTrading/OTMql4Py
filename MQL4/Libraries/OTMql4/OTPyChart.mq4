@@ -50,34 +50,34 @@ string eReturnOnSpeaker(string uChartId, string uType, string uMess, string uOri
     return("");
 }
 
-string eReturnOnListener(string uChartId, string uType, string uMess, string uOriginCmd="") {
+string eReturnOnReqRep(string uChartId, string uType, string uMess, string uOriginCmd="") {
     string uRetval;
 
     if (uOriginCmd == "") {
-        uMess = uChartId +".eSendOnListener('" +uType +"', '''" +uMess +"''')";
+        uMess = uChartId +".eReturnOnReqRep('" +uType +"', '''" +uMess +"''')";
     } else {
         // This message is a reply in a cmd
-        uMess = uChartId +".eSendOnListener('" +uType +"', '''" +uMess
+        uMess = uChartId +".eReturnOnReqRep('" +uType +"', '''" +uMess
             +"''', '''" +uOriginCmd +"''')";
     }
-    //vTrace("eReturnOnListener:  uMess: " +uMess);
+    //vTrace("eReturnOnReqRep:  uMess: " +uMess);
     // the retval should be empty - otherwise its an error
     vPyExecuteUnicode(uMess);
     vPyExecuteUnicode("sFoobar = '%s : %s' % (sys.last_type, sys.last_value,)");
     uRetval=uPyEvalUnicode("sFoobar");
     if (StringFind(uRetval, "exceptions", 0) >= 0) {
-        vWarn("eReturnOnListener: ERROR: " +uRetval);
+        vWarn("eReturnOnReqRep: ERROR: " +uRetval);
         return(uRetval);
     }
     if (StringFind(uRetval, "select.error", 0) >= 0) {
-        vPanic("eReturnOnListener: select.error means our Rabbit connection died\n" +uRetval);
+        vPanic("eReturnOnReqRep: select.error means our Rabbit connection died\n" +uRetval);
         return(uRetval);
     }
     if (uRetval != " : ") {
-        vDebug("eReturnOnListener:  WTF?" +uRetval);
+        vDebug("eReturnOnReqRep:  WTF?" +uRetval);
         return(uRetval);
     }
-    // vTrace("eReturnOnListener: sent " +uMess);
+    // vTrace("eReturnOnReqRep: sent " +uMess);
     return("");
 }
 

@@ -112,7 +112,7 @@ From OFLibLogging.mqh:
         # [Errno 28] No space left on device - is that IOError?
         # probably filled the disk
         pass
-    except Exception, e:
+    except Exception as e:
         print str(iId) + " ERROR: in vLog ", str(e), iLevel, sMsg
         sys.exc_clear()
 
@@ -137,7 +137,7 @@ def bStartTkinter():
             # should start this in a thread and leave it running?
             oTKINTER_ROOT = Tkinter.Tk()
             oTKINTER_ROOT.withdraw()
-        except Exception, e:
+        except Exception as e:
             sShowError('bStartTkinter', "Error starting Tkinter\n%s" % (e,))
             return False
 
@@ -158,7 +158,7 @@ def bStartTkinter():
                 sys.stderr = frame.shell
                 print "INFO: bStartTkinter: Started TkFileIO"
                 oTop.update()
-            except Exception, e:
+            except Exception as e:
                 sShowError('bStartTkinter', "Error starting TkFileIO\n%s" % (e,))
                 # return False
 
@@ -217,7 +217,7 @@ def eStartFile(sStdout):
             print sys.version
             sys.stdout.flush()
             assert os.path.isfile(sStdout)
-        except Exception, e:
+        except Exception as e:
             # may be in trouble logging here if stdout was not opened
             sys.exc_clear()
             return str(e)
@@ -228,7 +228,7 @@ def eStartFile(sStdout):
             print "vPyInit - Thread " + threading.currentThread().getName() + \
                   " number " + str(thread.get_ident())
             return ""
-        except Exception, e:
+        except Exception as e:
             sMsg = "vPyInit - Error opening %s\n%s" % (sStdout, str(e),)
             sys.exc_clear()
             print sMsg
@@ -259,7 +259,7 @@ def vPyDeInit():
             sSTDOUT_FD.flush()
             sSTDOUT_FD.close()
             sSTDOUT_FD = None
-        except Exception, e:
+        except Exception as e:
             # You probably have not stdout so no point in logging it!
             print "Error closing %s\n%s" % (sSTDOUT_FD, str(e),)
             sys.exc_clear()

@@ -29,7 +29,7 @@ def sPySafeEval(sPyCode):
     s = "try:\n    sRetval=" + sPyCode + "\nexcept Exception,e:\n    sRetval='ERROR: '+str(e)"
     try:
         k = compile(s, '<string>', 'exec')
-    except Exception, e:
+    except Exception as e:
         sRetval = "ERROR: Python error compiling " + sPyCode+ ': '+str(e)
         # sys.stderr.write(sRetval+'\n')
         oLOG.warn(sRetval)
@@ -43,7 +43,7 @@ def sPySafeEval(sPyCode):
             sRetval = str(dGlobals['sRetval'])
         else:
             sRetval = ""
-    except Exception, e:
+    except Exception as e:
         sRetval = "ERROR: Python error evaling " +sPyCode +': ' +str(e)
         # sys.stderr.write(sRetval+'\n')
         oLOG.warn(sRetval)
@@ -52,5 +52,5 @@ def sPySafeEval(sPyCode):
         return sRetval
 
     #? if sRetval.find('ERROR:') == 0: sys.exc_clear()
-    
+
     return sRetval

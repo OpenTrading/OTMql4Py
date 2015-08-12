@@ -44,28 +44,28 @@ class Mq4Chart(object):
         """
         if self.oQueue.empty():
             return ""
-        
+
         # while we are here flush stdout so we can read the log file
         # whilst the program is running
         sys.stdout.flush()
         sys.stderr.flush()
 
         return self.oQueue.get()
-    
+
     def eMq4PushQueue(self, sMessage):
         """
         """
         # FixMe; dispatch to the right chart
         self.oQueue.put(sMessage)
         return ""
-    
+
     def eMq4Retval(self, sMark, sType, sValue):
         sTopic = 'retval'
         # FixMe: replace with sChartId
         sChartId = self.iChartId
         sMess = sFormatMessage(sTopic, sChartId, sMark, sType, sValue)
         self.eMq4PushQueue(sMess)
-    
+
     def vAdd(self, iId):
         self.iId = iId
         # see if it's already there
@@ -100,7 +100,7 @@ def iFindChartByName(sChartId):
     """
     This is old code that doesnt make sense to me.
     Why use is iId?-+
- 
+
     """
     oRetval = oFindChartByName(sChartId)
     if not oRetval: return 0
@@ -126,7 +126,7 @@ def lFindAllCharts():
     lRetval = Mq4Chart._dChartNames.values()
     oLOG.info("Found " +repr(lRetval))
     return lRetval
-    
+
 # unused
 def iFindExpert(sSymbol, iPeriod):
     """old code"""

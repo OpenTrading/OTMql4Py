@@ -1,3 +1,8 @@
+commit 0add369ef8a36b7ca7e0dfee0dbefa80318c479e
+Date:   Mon Jul 13 20:21:41 2015 +0300
+
+     Tried to fix communications for errors but it still needs a rewrite
+
 commit ff8291f5e3e0c65e5e8362360bb9d51ae87bf2f9
 Date:   Sun Jul 12 23:49:31 2015 +0300
 
