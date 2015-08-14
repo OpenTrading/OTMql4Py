@@ -15,38 +15,38 @@ This will provide the interface from Mql to our Chart class in Python.
 
 #include <OTMql4/OTLibLog.mqh>
 
-string eSendOnSpeaker(string uChartId, string uType, string uMess, string uOriginCmd="") {
-    return(eReturnOnSpeaker(uChartId, uType, uMess, uOriginCmd));
+string eSendOnPub(string uChartId, string uType, string uMess, string uOriginCmd="") {
+    return(eReturnOnPub(uChartId, uType, uMess, uOriginCmd));
 }
 
-string eReturnOnSpeaker(string uChartId, string uType, string uMess, string uOriginCmd="") {
+string eReturnOnPub(string uChartId, string uType, string uMess, string uOriginCmd="") {
     string uRetval;
 
     if (uOriginCmd == "") {
-        uMess = uChartId +".eSendOnSpeaker('" +uType +"', '''" +uMess +"''')";
+        uMess = uChartId +".eSendOnPub('" +uType +"', '''" +uMess +"''')";
     } else {
         // This message is a reply in a cmd
-        uMess = uChartId +".eReturnOnSpeaker('" +uType +"', '''" +uMess
+        uMess = uChartId +".eReturnOnPub('" +uType +"', '''" +uMess
             +"''', '''" +uOriginCmd +"''')";
     }
-    //vTrace("eReturnOnSpeaker:  uMess: " +uMess);
+    //vTrace("eReturnOnPub:  uMess: " +uMess);
     // the retval should be empty - otherwise its an error
     vPyExecuteUnicode(uMess);
     vPyExecuteUnicode("sFoobar = '%s : %s' % (sys.last_type, sys.last_value,)");
     uRetval=uPyEvalUnicode("sFoobar");
     if (StringFind(uRetval, "exceptions", 0) >= 0) {
-        vWarn("eReturnOnSpeaker: ERROR: " +uRetval);
+        vWarn("eReturnOnPub: ERROR: " +uRetval);
         return(uRetval);
     }
     if (StringFind(uRetval, "select.error", 0) >= 0) {
-        vError("eReturnOnSpeaker: select.error means our Rabbit connection died\n" +uRetval);
+        vError("eReturnOnPub: select.error means our Rabbit connection died\n" +uRetval);
         return(uRetval);
     }
     if (uRetval != " : ") {
-        vDebug("eReturnOnSpeaker:  WTF?" +uRetval);
+        vDebug("eReturnOnPub:  WTF?" +uRetval);
         return(uRetval);
     }
-    // vTrace("eReturnOnSpeaker: sent " +uMess);
+    // vTrace("eReturnOnPub: sent " +uMess);
     return("");
 }
 
