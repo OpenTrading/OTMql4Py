@@ -33,32 +33,6 @@ string dLogArray[] = {"PANIC", "ERROR", "WARNING", "INFO", "DEBUG", "TRACE"};
 // floating point rounding error
 double fEPSILON=0.01;
 
-void vSetLogLevel(int i) {
-
-  GlobalVariableSet("fDebugLevel", i);
-  double fPythonUsers;
-  fPythonUsers=GlobalVariableGet("fPythonUsers");
-  if (fPythonUsers > 0.0) {
-    // leave Python at max logging for now
-    // vPyExecuteUnicode("oLOG.setLevel(50 -10*"+i+")");
-  }
-
-}
-
-int iGetLogLevel() {
-  int iDebugLevel;
-  double fDebugLevel;
-
-  fDebugLevel=GlobalVariableGet("fDebugLevel");
-  if (fDebugLevel < fEPSILON) {
-    iDebugLevel=3;
-    GlobalVariableSet("fDebugLevel", 3.0);
-  } else {
-    iDebugLevel=MathRound(fDebugLevel);
-  }
-  return(iDebugLevel);
-}
-
 void vLog (int iLevel, string uMsg) {
 
   uMsg=Symbol()+Period()+" "+uMsg;

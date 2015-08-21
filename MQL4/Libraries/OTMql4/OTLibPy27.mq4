@@ -20,6 +20,7 @@ The Python code can use vLog(iLevel, sMsg) to log accordingly.
 #property library
 
 #include <WinUser32.mqh>
+#include <OTMql4/OTLibLog.mqh>
 #include <OTMql4/OTPy27.mqh>
 
 /*
@@ -83,6 +84,7 @@ int iPyInit(string sStdOut) {
     double fDebugLevel;
 
     if (!PyIsInitialized()) {
+	vLogInit();
         Print("iPyInit: Starting OTPy27.mqh in " +  TerminalPath());
         // Thread specific??
         if (GlobalVariableCheck("fPythonUsers") == true) {
@@ -91,32 +93,32 @@ int iPyInit(string sStdOut) {
         PyInitialize();
         Print("iPyInit: called PyInitialize ");
         // import the system modules that we will need
-        uArg="import os, sys, logging, traceback";
+        uArg = "import os, sys, logging, traceback";
         vPyExecuteUnicode(uArg);
 
         // later we will use these to clear execution errors
         // but they are undefined in Python until the first error
-        uArg="sys.last_type=''";
+        uArg = "sys.last_type=''";
         vPyExecuteUnicode(uArg);
-        uArg="sys.last_value=''";
+        uArg = "sys.last_value=''";
         vPyExecuteUnicode(uArg);
 
         // we change to the metatrader directory to know where we are
         vPyExecuteUnicode("os.chdir(os.path.join(r'" + TerminalPath() + "'))");
         // NOT uArg="sys.path.insert(0, os.getcwd())";
         // we insert the MQL4\Python directory on the sys.path
-        uArg="sys.path.insert(0, os.path.join(r'" + TerminalPath() + "', 'MQL4', 'Python'))";
+        uArg = "sys.path.insert(0, os.path.join(r'" + TerminalPath() + "', 'MQL4', 'Python'))";
         vPyExecuteUnicode(uArg);
         // this path should have been created on the install
         // and should have a file __init__.py in it
         /* ToDo: touch __init__.py */
 
         /* make sure OTMql427.py is there */
-        uArg="import OTMql427";
+        uArg = "import OTMql427";
         vPyExecuteUnicode(uArg);
         // VERY IMPORTANT: if the import failed we MUST PANIC
         vPyExecuteUnicode("sFoobar = '%s : %s' % (sys.last_type, sys.last_value,)");
-        uRetval=uPyEvalUnicode("sFoobar");
+        uRetval = uPyEvalUnicode("sFoobar");
         if (StringFind(uRetval, "exceptions.SystemError", 0) >= 0) {
             uRetval = "PANIC: import OTMql427 failed - we MUST restart Mt4"  + uRetval;
             Alert(uRetval);
@@ -128,9 +130,9 @@ int iPyInit(string sStdOut) {
         GlobalVariableTemp("fPythonUsers");
         fPythonUsers = 0.0;
     } else {
-        fPythonUsers=GlobalVariableGet("fPythonUsers");
+        fPythonUsers = GlobalVariableGet("fPythonUsers");
         Print("PyInit: Incrementing fPythonUsers from: " + fPythonUsers);
-        fDebugLevel=GlobalVariableGet("fDebugLevel");
+        fDebugLevel = iGetLogLevel();
     }
 
     if (fPythonUsers < 0.1) {
@@ -139,12 +141,12 @@ int iPyInit(string sStdOut) {
         if (uRetval != "") {
             uArg = "ERROR: failed OTMql427.ePyInit - " + uRetval + "";
             vPyExecuteUnicode("sFoobar = '%s : %s' % (sys.last_type, sys.last_value,)");
-            uRetval=uPyEvalUnicode("sFoobar");
+            uRetval = uPyEvalUnicode("sFoobar");
             Alert(uArg +" " +uRetval);
             return(-2);
         }
         Print("INFO: Python stdout to file: " + sStdOut);
-        uArg="sys.stdout.flush()";
+        uArg = "sys.stdout.flush()";
         vPyExecuteUnicode(uArg);
 
         fPythonUsers = 1.0;
@@ -157,7 +159,7 @@ int iPyInit(string sStdOut) {
     /* not Tmp */
     if (GlobalVariableCheck("fDebugLevel") == false) {
         /* 1= Error, 2 = Warn, 3 = Info, 4 = Debug, 5 = Trace */
-        fDebugLevel=2.0;
+        fDebugLevel = 2.0;
         GlobalVariableSet("fDebugLevel", fDebugLevel);
     }
     return(0);
@@ -166,9 +168,9 @@ int iPyInit(string sStdOut) {
 // empty the stdout file (where the redirected print output and errors go)
 void vPyOutEmpty() {
     string uArg;
-    uArg="__outfile__.seek(0, os.SEEK_SET)";
+    uArg = "__outfile__.seek(0, os.SEEK_SET)";
     vPyExecuteUnicode(uArg);
-    uArg="__outfile__.truncate(0)";
+    uArg = "__outfile__.truncate(0)";
     vPyExecuteUnicode(uArg);
 }
 
@@ -178,7 +180,7 @@ void vPyPrintAndClearLastError() {
     // PyErrPrint();
     vPyExecuteUnicode("sys.exc_clear()");
 
-    string uSource="hasattr(sys, 'last_type') and str(sys.last_value) or ''";
+    string uSource = "hasattr(sys, 'last_type') and str(sys.last_value) or ''";
     int p_res = iPyEvaluateUnicode(uSource);
     if (p_res <= 0) {
         Print("ERROR: vPyPrintAndClearLastError - failed evaluating: " + uSource);
@@ -207,7 +209,7 @@ string uPySafeEval(string uSource) {
 
     string uRetval="";
     string sSrc;
-    sSrc="OTMql427.sPySafeEval('''"+uSource+"''')";
+    sSrc = "OTMql427.sPySafeEval('''"+uSource+"''')";
 
     int p_res = iPyEvaluateUnicode(sSrc);
     if (p_res <= 0) {
@@ -232,7 +234,7 @@ int iPySafeExec(string uArg) {
 
     vPyExecuteUnicode(uArg);
     vPyExecuteUnicode("sFoobar = '%s : %s' % (sys.last_type, sys.last_value,)");
-    uRetval=uPyEvalUnicode("sFoobar");
+    uRetval = uPyEvalUnicode("sFoobar");
     if (StringFind(uRetval, "exceptions.SystemError", 0) >= 0) {
         // VERY IMPORTANT: if the ANYTHING fails with SystemError we MUST PANIC
         // Were seeing this during testing after an uninit 2 reload
@@ -463,14 +465,14 @@ python interpreter will be frozen and then immediately unloaded.
 void vPyDeInit() {
     double fPythonUsers;
 
-    fPythonUsers=GlobalVariableGet("fPythonUsers");
+    fPythonUsers = GlobalVariableGet("fPythonUsers");
     // FixMe: this is not showing up in the log
     Print("INFO vPyDeInit: Decrementing fPythonUsers from: " + fPythonUsers);
     fPythonUsers -= 1.0;
 
     if (PyIsInitialized() && fPythonUsers < 0.1) {
         vPyExecuteUnicode("OTMql427.vPyDeInit()");
-        fPythonUsers=0.0;
+        fPythonUsers = 0.0;
     }
 
     if (fPythonUsers < 0.1) {
@@ -479,11 +481,8 @@ void vPyDeInit() {
         if (!bRetval) {
             Print("ERROR vPyDeInit: deleting global variable fPythonUsers" +  iError);
         }
-        bRetval=GlobalVariableDel("fDebugLevel");
-        iError=GetLastError();
-        if (!bRetval) {
-            Print("ERROR vPyDeInit: deleting fDebugLevel" +  iError);
-        }
+	// leave this so that it's saved for the next run
+        // bRetval = GlobalVariableDel("fDebugLevel");
     } else {
         GlobalVariableSet("fPythonUsers", fPythonUsers);
     }
