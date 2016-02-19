@@ -7,8 +7,6 @@
 // This will provide the interface from Mql to our Chart class in Python.
 
 #include <OTMql4/OTLibPy27.mqh>
-#include <OTMql4/OTZmqProcessCmd.mqh>
-#include <OTMql4/OTLibSimpleFormatCmd.mqh>
 
 #include <OTMql4/OTLibLog.mqh>
 
@@ -30,7 +28,7 @@ string eReturnOnPub(string uChartId, string uType, string uMess, string uOriginC
     // the retval should be empty - otherwise its an error
     vPyExecuteUnicode(uMess);
     vPyExecuteUnicode("sFoobar = '%s : %s' % (sys.last_type, sys.last_value,)");
-    uRetval=uPyEvalUnicode("sFoobar");
+    uRetval = uPyEvalUnicode("sFoobar");
     if (StringFind(uRetval, "exceptions", 0) >= 0) {
         vWarn("eReturnOnPub: ERROR: " +uRetval);
         return(uRetval);
@@ -61,7 +59,7 @@ string eReturnOnReqRep(string uChartId, string uType, string uMess, string uOrig
     // the retval should be empty - otherwise its an error
     vPyExecuteUnicode(uMess);
     vPyExecuteUnicode("sFoobar = '%s : %s' % (sys.last_type, sys.last_value,)");
-    uRetval=uPyEvalUnicode("sFoobar");
+    uRetval = uPyEvalUnicode("sFoobar");
     if (StringFind(uRetval, "exceptions", 0) >= 0) {
         vWarn("eReturnOnReqRep: ERROR: " +uRetval);
         return(uRetval);
