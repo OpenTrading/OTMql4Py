@@ -26,7 +26,7 @@ def sPySafeEval(sPyCode):
     """
 
     dGlobals = sys.modules['__main__'].__dict__
-    s = "try:\n    sRetval=" + sPyCode + "\nexcept Exception,e:\n    sRetval='ERROR: '+str(e)"
+    s = "try:\n    sRetval=" + sPyCode + "\nexcept StandardError, e:\n    sRetval='ERROR: '+str(e)"
     try:
         k = compile(s, '<string>', 'exec')
     except Exception as e:

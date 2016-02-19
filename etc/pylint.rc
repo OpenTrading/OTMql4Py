@@ -7,12 +7,9 @@
 # pygtk.require().
 #init-hook=
 
-# Profiled execution.
-profile=no
-
 # Add files or directories to the blacklist. They should be base names, not
 # paths.
-ignore=CVS
+ignore=CVS,deps,junk,_junk
 
 # Pickle collected data for later comparisons.
 persistent=yes
@@ -70,24 +67,7 @@ confidence=
 # --enable=similarities". If you want to run only the classes checker, but have
 # no Warning level messages displayed, use"--disable=all --enable=classes
 # --disable=W"
-## added
-##:eval-used (W0123)
-##:attribute-defined-outside-init (W0201)
-##:protected-access (W0212)
-##:fixme (W0511)
-##:global-statement (W0603)
-##:unused-argument (W0613)
-##:bare-except (W0702)
-##:broad-except (W0703)
-##:superfluous-parens (C0325)
-##:missing-docstring (C0111)
-##:no-self-use (R0201)
-##:too-many-ancestors (R0901)
-##:too-many-instance-attributes (R0902)
-##:trailing-whitespace (C0303)
-##:too-many-arguments (R0913)
-##:pointless-string-statement (W0105)
-disable=E1608,W1627,E1601,E1603,E1602,E1605,E1604,E1607,E1606,W1621,W1620,W1623,W1622,W1625,W1624,W1609,W1608,W1607,W1606,W1605,W1604,W1603,W1602,W1601,W1639,W1640,I0021,W1638,I0020,W1618,W1619,W1630,W1626,W1637,W1634,W1635,W1610,W1611,W1612,W1613,W1614,W1615,W1616,W1617,W1632,W1633,W0201,W0704,W1628,W1629,W1636,W0105,W0123,W0212,W0511,W0603,W0613,W0702,W0703,C0111,C0303,C0325,R0201,R0901,R0902,R0913
+#disable=
 
 
 [REPORTS]
@@ -95,7 +75,7 @@ disable=E1608,W1627,E1601,E1603,E1602,E1605,E1604,E1607,E1606,W1621,W1620,W1623,
 # Set the output format. Available formats are text, parseable, colorized, msvs
 # (visual studio) and html. You can also give a reporter class, eg
 # mypackage.mymodule.MyReporterClass.
-output-format=text
+output-format=parseable
 
 # Put messages in a separate file for each module / package specified on the
 # command line instead of printing them on stdout. Reports (if any) will be
@@ -103,18 +83,14 @@ output-format=text
 files-output=no
 
 # Tells whether to display a full report or only the messages
-reports=yes
+reports=no
 
 # Python expression which should return a note less than 10 (10 is the highest
 # note). You have access to the variables errors warning, statement which
 # respectively contain the number of errors / warnings messages and the total
 # number of statements analyzed. This is used by the global evaluation report
 # (RP0004).
-evaluation=10.0 - ((float(5 * error + warning + refactor + convention) / statement) * 10)
-
-# Add a comment according to your evaluation note. This is used by the global
-# evaluation report (RP0004).
-comment=no
+evaluation=10.0 - ((float(5 * error + warning + refactor + 0.0 * convention) / statement) * 10)
 
 # Template used to display messages. This is a python new-style format string
 # used to format the message information. See doc for all details
@@ -124,7 +100,7 @@ comment=no
 [FORMAT]
 
 # Maximum number of characters on a single line.
-max-line-length=100
+max-line-length=120
 
 # Regexp for a line that is allowed to be longer than the limit.
 ignore-long-lines=^\s*(# )?<?https?://\S+>?$|^# -\*-mode:.*$
@@ -159,15 +135,11 @@ ignore-mixin-members=yes
 # List of module names for which member attributes should not be checked
 # (useful for modules/projects where namespaces are manipulated during runtime
 # and thus existing member attributes cannot be deduced by static analysis
-ignored-modules=
+ignored-modules=junk,_junk
 
 # List of classes names for which member attributes should not be checked
 # (useful for classes with attributes dynamically set).
 ignored-classes=SQLObject
-
-# When zope mode is activated, add a predefined set of Zope acquired attributes
-# to generated-members.
-zope=no
 
 # List of members which are set dynamically and missed by pylint inference
 # system, and so shouldn't trigger E0201 when accessed. Python regular
@@ -177,14 +149,11 @@ generated-members=REQUEST,acl_users,aq_parent
 
 [BASIC]
 
-# Required attributes for module, separated by a comma
-required-attributes=
-
 # List of builtins function names that should not be used, separated by a comma
 bad-functions=input
 
 # Good variable names which should always be accepted, separated by a comma
-good-names=a,c,d,e,f,i,j,k,l,s,t,o,u,x,z,_
+good-names=a,c,d,e,f,i,j,k,l,m,r,s,t,o,u,x,z,_
 
 # Bad variable names which should always be refused, separated by a comma
 bad-names=foo,bar,baz,toto,tutu,tata
@@ -245,10 +214,10 @@ class-rgx=[A-Z_][a-zA-Z0-9]+$
 class-name-hint=[A-Z_][a-zA-Z0-9]+$
 
 # Regular expression matching correct module names
-module-rgx=(([a-z_][a-z0-9_]*)|([A-Z][a-zA-Z0-9]+))$
+module-rgx=(([a-z_][a-z0-9_]*)|([A-Z][a-zA-Z0-9_]+))$
 
 # Naming hint for module names
-module-name-hint=(([a-z_][a-z0-9_]*)|([A-Z][a-zA-Z0-9]+))$
+module-name-hint=(([a-z_][a-z0-9_]*)|([A-Z][a-zA-Z0-9_]+))$
 
 # Regular expression matching correct method names
 method-rgx=[a-z_][A-Za-z0-9_]{2,30}$
@@ -365,10 +334,6 @@ max-public-methods=20
 
 [CLASSES]
 
-# List of interface methods to ignore, separated by a comma. This is used for
-# instance to not check methods defines in Zope's Interface base class.
-ignore-iface-methods=isImplementedBy,deferred,extends,names,namesAndDescriptions,queryDescriptionFor,getBases,getDescriptionFor,getDoc,getName,getTaggedValue,getTaggedValueTags,isEqualOrExtendedBy,setTaggedValue,isImplementedByInstancesOf,adaptWith,is_implemented_by
-
 # List of method names used to declare (i.e. assign) instance attributes.
 defining-attr-methods=__init__,__new__,setUp
 
@@ -405,4 +370,4 @@ int-import-graph=
 
 # Exceptions that will emit a warning when being caught. Defaults to
 # "Exception"
-overgeneral-exceptions=Exception
+overgeneral-exceptions=
