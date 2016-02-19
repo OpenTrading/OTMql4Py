@@ -1,23 +1,21 @@
 // -*-mode: c; c-style: stroustrup; c-basic-offset: 4; coding: utf-8-dos -*-
 
-/*
-This will provide our logging functions that work with Python.
-See OTLibLog for just a skeleton logging.
-
-We introduce a global variable fDebugLevel which ranges from 0 to 5:
-"PANIC", "ERROR", "WARNING", "INFO", "DEBUG", "TRACE"
-
-If you set the variable to 1, you will only see errors; if you set
-it to 2 you will see warnings and errors...
-
-The Mt4 code can use vLog(iLevel, uMsg) to log accordingly.
-The Python code can use vLog(iLevel, sMsg) to log accordingly.
-
-*/
-
 #property copyright "Copyright 2014 Open Trading"
 #property link      "https://github.com/OpenTrading/"
 #property library
+
+//  This will provide our logging functions that work with Python.
+//  See OTLibLog for just a skeleton logging.
+//  
+//  We introduce a global variable fDebugLevel which ranges from 0 to 5:
+//  "PANIC", "ERROR", "WARNING", "INFO", "DEBUG", "TRACE"
+//  
+//  If you set the variable to 1, you will only see errors; if you set
+//  it to 2 you will see warnings and errors...
+//  
+//  The Mt4 code can use vLog(iLevel, uMsg) to log accordingly.
+//  The Python code can use vLog(iLevel, sMsg) to log accordingly.
+//
 
 #include <WinUser32.mqh>
 #include <OTMql4/OTLibLog.mqh>
@@ -61,24 +59,19 @@ int iPyLookupDictUnicode(int p_dict, string uName) {
 }
 
 
-/*
-* below are some higher level abstractions, here you dont have to
-* care about reference counting when using the functions, you will
-* not be exposed to handles of python objects
-*/
-
+//  Below are some higher level abstractions, here you dont have to
+//  care about reference counting when using the functions, you will
+//  not be exposed to handles of python objects.
 
 
 int iPyInit(string sStdOut) {
-    /*
-      Initializes the Python environment. This should be called
-      from your OnInit() function. It is safe to call it a second time;
-      subsequent calls will just be ignored.
-
-      It should return 0.
-
-      A return value of -1 is a panic: remove the expert if it requires Python.
-    */
+    //  Initializes the Python environment. This should be called
+    //  from your OnInit() function. It is safe to call it a second time;
+    //  subsequent calls will just be ignored.
+    //  
+    //  It should return 0.
+    //  
+    //  A return value of -1 is a panic: remove the expert if it requires Python.
     string uRetval, uArg;
     double fPythonUsers;
     double fDebugLevel;
@@ -165,8 +158,8 @@ int iPyInit(string sStdOut) {
     return(0);
 }
 
-// empty the stdout file (where the redirected print output and errors go)
 void vPyOutEmpty() {
+    //  empty the stdout file (where the redirected print output and errors go)
     string uArg;
     uArg = "__outfile__.seek(0, os.SEEK_SET)";
     vPyExecuteUnicode(uArg);
@@ -174,9 +167,9 @@ void vPyOutEmpty() {
     vPyExecuteUnicode(uArg);
 }
 
-// You MUST do something to clear any error condition
-// or the system will crash, as documented in the Python manual.
 void vPyPrintAndClearLastError() {
+    //  You MUST do something to clear any error condition
+    //  or the system will crash, as documented in the Python manual.
     // PyErrPrint();
     vPyExecuteUnicode("sys.exc_clear()");
 
@@ -194,18 +187,16 @@ void vPyPrintAndClearLastError() {
 }
 
 string uPySafeEval(string uSource) {
-    /*
-      Evaluate a python expression that will evaluate to a string
-      and return its value
-
-      In the caller you should have something like:
-
-      if (StringFind(uRetval, "ERROR:", 0) == 0) {
-        Print("Error in Python evaluating: " + uSource + "\n" + res);
-        <do something as a result of the failure>
-      }
-
-      */
+    //  Evaluate a python expression that will evaluate to a string
+    //  and return its value
+    //  
+    //  In the caller you should have something like:
+    //  {{{
+    //  if (StringFind(uRetval, "ERROR:", 0) == 0) {
+    //  Print("Error in Python evaluating: " + uSource + "\n" + res);
+    //  <do something as a result of the failure>
+    //  }
+    //  }}}
 
     string uRetval="";
     string sSrc;
@@ -224,7 +215,7 @@ string uPySafeEval(string uSource) {
 }
 
 void vPanic(string uReason) {
-    "A panic prints an error message and then aborts";
+    //  A panic prints an error message and then aborts
     Print("PANIC: " + uReason);
     MessageBox(uReason, "PANIC!", MB_OK|MB_ICONEXCLAMATION);
 }
@@ -251,11 +242,9 @@ int iPySafeExec(string uArg) {
 }
 
 
-/**
-* Evaluate a python expression that will evaluate to an integer
-* and return its value
-*/
 int iPyEvalInt(string uSource) {
+    //  Evaluate a python expression that will evaluate to an integer
+    //  and return its value
     int p_res = iPyEvaluateUnicode(uSource);
     if (p_res <= 0) {
         Print("ERROR: PyEvalInt - failed evaluating: " + uSource);
@@ -267,11 +256,10 @@ int iPyEvalInt(string uSource) {
     return(res);
 }
 
-/**
-* Evaluate a python expression that will evaluate to a double
-* and return its value
-*/
 double fPyEvalDouble(string uSource) {
+    //  Evaluate a python expression that will evaluate to a double
+    //  and return its value
+    //  
     int p_res = iPyEvaluateUnicode(uSource);
     if (p_res <= 0) {
         Print("ERROR: PyEvalDouble - failed evaluating: " + uSource);
@@ -317,15 +305,14 @@ string uPyEvalUnicode(string uSource) {
     return(uRetval);
 }
 
-/**
-* append the array of int to the python list given by its name.
-* the list must already exist. The same could be achieved
-* by putting vPyExecuteUnicode() calls with generated python code
-* into a loop but this would invoke parser and compiler for
-* every new list item, directly accessing the python objects
-* like it is done here is far more effective.
-*/
 int iPyListAppendInt(string list_name, int &array[]) {
+    //  append the array of int to the python list given by its name.
+    //  the list must already exist. The same could be achieved
+    //  by putting vPyExecuteUnicode() calls with generated python code
+    //  into a loop but this would invoke parser and compiler for
+    //  every new list item, directly accessing the python objects
+    //  like it is done here is far more effective.
+
     int list,item,len,i;
     list = iPyEvaluateUnicode(list_name);
     len = ArraySize(array);
@@ -339,11 +326,11 @@ int iPyListAppendInt(string list_name, int &array[]) {
     return(len);
 }
 
-/**
-* append the array of double to the python list given by its name.
-* the list must already exist.
-*/
 int iPyListAppendDouble(string list_name, double &array[]) {
+    //  append the array of double to the python list given by its name.
+    //  the list must already exist.
+    //  
+
     int list,item,len,i;
     list = iPyEvaluateUnicode(list_name);
     len = ArraySize(array);
@@ -357,11 +344,10 @@ int iPyListAppendDouble(string list_name, double &array[]) {
     return(len);
 }
 
-/**
-* append the array of string to the python list given by its name.
-* the list must already exist.
-*/
 int iPyListAppendString(string list_name, string &array[]) {
+    //  Append the array of string to the python list given by its name.
+    //  the list must already exist.
+    //  
     int list,item,len,i;
     list = iPyEvaluateUnicode(list_name);
     len = ArraySize(array);
@@ -375,92 +361,6 @@ int iPyListAppendString(string list_name, string &array[]) {
     return(len);
 }
 
-
-
-/*
-Some notes:
-*************
-
-
-* One Interpreter
-    ===============
-
-    All expert advisors and indicators share the same
-Python interpreter with the same global namespace, so you should
-separate them by encapsulating all in classes and instantiate and
-store them with all their state in variables named after the symbol
-(or maybe even symbol + timeframe).
-*/
-
-/*
-* Init
-    ====
-
-    Put your Python classes into Python modules, the import path
-is <metatrader>\MQL4\Experts, the same folder where your EAs mql code
-is located, so a simple vPyExecuteUnicode("import yourmodule");
-in your OnInit() will import the file yourmodule.py from this folder. Then
-instantiate an instance of your main class with something like
-    vPyExecuteUnicode(Symbol() + Period() + " = yourmodule.yourclass()");
-This way each instance of your EA can keep track of its own
-Python counterpart by accessing it via this global variable.
-
-    Your init() function may look similar to this:
-
-int init(){
-    // initialize Python
-    PyInit();
-
-    // import my module
-    vPyExecuteUnicode("import mymodule");
-
-    // instantiate some objects
-    vPyExecuteUnicode("myFoo_" + Symbol() + Period() + " = mymodule.Foo()");
-    vPyExecuteUnicode("myBar_" + Symbol() + Period() + " = mymodule.Bar()");
-
-    return(0);
-}
-*/
-
-/*
-* OnDeinit
-    ======
-
-    Use the OnDeinit() function of the EA or Indicator to destroy
-these instances, be sure to terminate all threads they may have
-started, make sure you can terminate them fast within less than a
-second because Metatrader has a timeout here, wait inside python
-in a tight loop with time.sleep() until they are terminated before
-returning to prevent Metatrader from proceding with its OnDeinit
-while your threads are stll not all ended!
-
-    Your OnDeinit() function may look like this:
-
-int OnDeinit(){
-    // tell my objects they should commit suicide by
-    // calling their self destruction method
-    vPyExecuteUnicode("myFoo_" + Symbol() + Period() + ".stopAndDestroy()");
-    vPyExecuteUnicode("myBar_" + Symbol() + Period() + ".stopAndDestroy()");
-
-    return(0);
-}
-*/
-/*
-* Global unload hook
-    ==================
-
-    If the last EA that used Python has been removed the Python
-interpreter itself will be terminated and unloaded.
-
-    You can register cleanup functions (do it per imported module, not
-per instance!) with the atexit module, it will be called after the
-last EAs OnDeinit(), again as above make it wait for all cleaning
-action to be finished before returning, these are the last clock
-cycles that will be spent inside Python because at this time there
-is only one system thread left and if this function returns the
-python interpreter will be frozen and then immediately unloaded.
-
-*/
 
 void vPyDeInit() {
     double fPythonUsers;
@@ -489,9 +389,7 @@ void vPyDeInit() {
 }
 
 string uChartName(string uSymbol, int iPeriod, long iWindowId, int iExtra=0) {
-    /*
-      We will need a unique identifier for each chart
-    */
+    //  We will need a unique identifier for each chart
     string uRetval="";
 
     uRetval = StringFormat("oChart_%s_%i_%X_%i", uSymbol, iPeriod, iWindowId, iExtra);

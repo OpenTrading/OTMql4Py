@@ -1,3 +1,8 @@
+commit 029a8e2190d4bde31eb287abf2b9e738a8e93ac4
+Date:   Fri Feb 19 22:36:14 2016 +0200
+
+    Moved documentation to a creole format
+
 commit 883fc8545737c8def0b453b5ad2d6082658fbf5f
 Date:   Fri Feb 19 22:28:20 2016 +0200
 

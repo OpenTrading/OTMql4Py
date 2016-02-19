@@ -1,0 +1,9 @@
+===  MQL4/Libraries/OTMql4/OTPyChart.mq4
+
+
+
+{{{string eSendOnPub(string uChartId, string uType, string uMess, string uOriginCmd="") }}}
+
+{{{string eReturnOnPub(string uChartId, string uType, string uMess, string uOriginCmd="") }}}
+
+{{{string eReturnOnReqRep(string uChartId, string uType, string uMess, string uOriginCmd="") }}}

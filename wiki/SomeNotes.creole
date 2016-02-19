@@ -1,0 +1,81 @@
+
+These are some some notes from the original version of the source code.
+The points will be still valids, but the documentation needs updating.
+
+=== One Interpreter
+
+All expert advisors and indicators share the same Python interpreter
+with the same global namespace, so you should separate them by
+encapsulating all in classes and instantiate and store them with all
+their state in variables named after the symbol (or maybe even symbol
++ timeframe). 
+
+=== Init
+
+Put your Python classes into Python modules, the import path is
+{{{<metatrader>\MQL4\Experts}}}, the same folder where your EAs mql
+code is located, so a simple {{{vPyExecuteUnicode("import
+yourmodule");}}} in your {{{OnInit()}}} will import the file
+{{{yourmodule.py}}} from this folder.
+
+Then instantiate an instance of your main class with something like
+{{{
+    vPyExecuteUnicode(Symbol() + Period() + " = yourmodule.yourclass()");
+}}}
+
+This way each instance of your EA can keep track of its own
+Python counterpart by accessing it via this global variable.
+
+Your init() function may look similar to this:
+{{{
+int init(){
+    // initialize Python
+    PyInit();
+
+    // import my module
+    vPyExecuteUnicode("import mymodule");
+
+    // instantiate some objects
+    vPyExecuteUnicode("myFoo_" + Symbol() + Period() + " = mymodule.Foo()");
+    vPyExecuteUnicode("myBar_" + Symbol() + Period() + " = mymodule.Bar()");
+
+    return(0);
+}
+}}}
+
+=== OnDeinit
+
+Use the OnDeinit() function of the EA or Indicator to destroy
+these instances, be sure to terminate all threads they may have
+started, make sure you can terminate them fast within less than a
+second because Metatrader has a timeout here, wait inside python
+in a tight loop with time.sleep() until they are terminated before
+returning to prevent Metatrader from proceding with its OnDeinit
+while your threads are still not all ended!
+
+Your OnDeinit() function may look like this:
+{{{
+int OnDeinit(){
+    // tell my objects they should commit suicide by
+    // calling their self destruction method
+    vPyExecuteUnicode("myFoo_" + Symbol() + Period() + ".stopAndDestroy()");
+    vPyExecuteUnicode("myBar_" + Symbol() + Period() + ".stopAndDestroy()");
+
+    return(0);
+}
+}}}
+
+=== Global unload hook
+
+If the last EA that used Python has been removed the Python
+interpreter itself will be terminated and unloaded.
+
+You can register cleanup functions (do it per imported module, not
+per instance!) with the Python {{{atexit}}} module, it will be called after the
+last EAs {{{OnDeinit()}}}, again as above make it wait for all cleaning
+action to be finished before returning, these are the last clock
+cycles that will be spent inside Python because at this time there
+is only one system thread left and if this function returns the
+python interpreter will be frozen and then immediately unloaded.
+
+

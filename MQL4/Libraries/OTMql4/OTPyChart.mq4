@@ -1,13 +1,10 @@
 // -*-mode: c; c-style: stroustrup; c-basic-offset: 4; coding: utf-8-dos -*-
 
-/*
-This will provide the interface from Mql to our Chart class in Python.
-
-*/
-
 #property copyright "Copyright 2014 Open Trading"
 #property link      "https://github.com/OpenTrading/"
 #property library
+
+// This will provide the interface from Mql to our Chart class in Python.
 
 #include <OTMql4/OTLibPy27.mqh>
 #include <OTMql4/OTZmqProcessCmd.mqh>

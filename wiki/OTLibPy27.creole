@@ -1,0 +1,92 @@
+===  MQL4/Libraries/OTMql4/OTLibPy27.mq4
+
+
+This will provide our logging functions that work with Python.
+See OTLibLog for just a skeleton logging.
+
+We introduce a global variable fDebugLevel which ranges from 0 to 5:
+"PANIC", "ERROR", "WARNING", "INFO", "DEBUG", "TRACE"
+
+If you set the variable to 1, you will only see errors; if you set
+it to 2 you will see warnings and errors...
+
+The Mt4 code can use vLog(iLevel, uMsg) to log accordingly.
+The Python code can use vLog(iLevel, sMsg) to log accordingly.
+
+{{{void vPyExecuteUnicode (string uSource) }}}
+
+{{{int iPyEvaluateUnicode (string uSource) }}}
+
+{{{int iPyNewStringUnicode(string &uSource) }}}
+
+{{{int iPyLookupDictUnicode(int p_dict, string uName) }}}
+Below are some higher level abstractions, here you dont have to
+care about reference counting when using the functions, you will
+not be exposed to handles of python objects.
+
+{{{int iPyInit(string sStdOut) }}}
+    Initializes the Python environment. This should be called
+    from your OnInit() function. It is safe to call it a second time;
+    subsequent calls will just be ignored.
+    
+    It should return 0.
+    
+    A return value of -1 is a panic: remove the expert if it requires Python.
+
+{{{void vPyOutEmpty() }}}
+    empty the stdout file (where the redirected print output and errors go)
+
+{{{void vPyPrintAndClearLastError() }}}
+    You MUST do something to clear any error condition
+    or the system will crash, as documented in the Python manual.
+
+{{{string uPySafeEval(string uSource) }}}
+    Evaluate a python expression that will evaluate to a string
+    and return its value
+    
+    In the caller you should have something like:
+    {{{
+    if (StringFind(uRetval, "ERROR:", 0) == 0) {
+    Print("Error in Python evaluating: " + uSource + "\n" + res);
+    <do something as a result of the failure>
+    }
+    }}}
+
+{{{void vPanic(string uReason) }}}
+    A panic prints an error message and then aborts
+
+{{{int iPySafeExec(string uArg) }}}
+
+{{{int iPyEvalInt(string uSource) }}}
+    Evaluate a python expression that will evaluate to an integer
+    and return its value
+
+{{{double fPyEvalDouble(string uSource) }}}
+    Evaluate a python expression that will evaluate to a double
+    and return its value
+    
+
+{{{string uPyEvalUnicode(string uSource) }}}
+
+{{{int iPyListAppendInt(string list_name, int &array[]) }}}
+    append the array of int to the python list given by its name.
+    the list must already exist. The same could be achieved
+    by putting vPyExecuteUnicode() calls with generated python code
+    into a loop but this would invoke parser and compiler for
+    every new list item, directly accessing the python objects
+    like it is done here is far more effective.
+
+{{{int iPyListAppendDouble(string list_name, double &array[]) }}}
+    append the array of double to the python list given by its name.
+    the list must already exist.
+    
+
+{{{int iPyListAppendString(string list_name, string &array[]) }}}
+    Append the array of string to the python list given by its name.
+    the list must already exist.
+    
+
+{{{void vPyDeInit() }}}
+
+{{{string uChartName(string uSymbol, int iPeriod, long iWindowId, int iExtra=0) }}}
+    We will need a unique identifier for each chart
