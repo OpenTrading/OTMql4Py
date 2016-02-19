@@ -1,0 +1,61 @@
+==== Initialization Code
+
+The initialization code {{{iPyInit}}} in {{{MQL4/Include/OTMql4/OTPy27.mqh}}}
+initializes the Python environment. This should be called from your
+{{{OnInit()}}} function. It is safe to call it a second time; subsequent
+calls will just be ignored.
+
+It has an integer return value, and should return 0. 
+A return value of -1 is a panic: remove the expert if it requires Python.
+
+It calls the compiled {{{PyInitialize()}}} and then imports some
+standard system modules. Then it prepends the {{{sys.path}}} with the
+directory {{{MQL4/Python}}}, which should have been created when you
+installed {{{OTMql4Py}}}.  In that directory should be a (possibly
+empty) file {{{__init__.py}}}, so that you can import modules found in
+that directory into Python.
+
+The intialization code will import the module {{{OTMql427}}} found in
+that directory to give some added functionality. If it can't import
+the module {{{OTMql427}}} it will signal a panic by returning -1: you
+should fix the problem before going any futher.
+
+==== Global Variables
+
+The {{{iPyInit}}} initialization creates a temporary global veriable
+called {{{fPythonUsers}}} and increments it by one each time it is
+called.  {{{vPyDeInit}}} decrements it by one each time it is called,
+and if {{{fPythonUsers}}} is zero, then it calls
+{{{OTMql427.vPyDeInit}}} to unload the Python interpreter.
+{{{fPythonUsers}}} should always be equal to the number of charts and
+scripts Python is being used on. Unfortunately, if your recompile your
+expert while Python is loaded, then Mt4 will deinit your expert and
+re-init the expert. If you only had one chart using Python
+(fPythonUsers=1), then this will unload Python when Mt4 deinits the
+expert, and when Mt4 re-inits the Python, it will fail to initialize
+the {{{py27.dll}}} properly. If Mt4 {{{OnInit}}} had a required
+{{{reason}}} argument the way {{{OnDeinit}}} does, we could work
+around this, but it doesn't. Suggestions welcome...
+
+The {{{iPyInit}}} initialization also creates a persistent global
+veriable called "fDebugLevel" which is used by the logging code, and
+it ranges from 0 to 5: 0 : quiet, 1 : +errors, 2 : +warnings, 3 =
++info, 4 : +debug, 5 : +trace.
+
+==== Added Python Functionality
+
+In many cases, you should use {{{uPySafeEval}}} to evaluate a python
+expression that will evaluate to a string and return its value. It calls
+{{{OTMql427.sPySafeEval}}} in Python which wraps the code to be evaluated
+in a {{{try:/except:}}} clause and catches the error. If there's an error,
+the error is returned as a string, prepended with {{{ERROR: }}}.
+
+In the caller you should have something like:
+{{{
+    if (StringFind(uSource, "ERROR:", 0) == 0) {
+      Print("Error in Python evaluating: " + uSource + "\n" + res);
+      <do something as a result of the failure>
+    }
+}}}
+
+

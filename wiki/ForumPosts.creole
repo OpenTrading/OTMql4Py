@@ -1,0 +1,12 @@
+On the pages we can gather together the links to any pages or forum postings that discuss the original code.
+We can add followups to forum postings that point back to this project.
+
+https://sites.google.com/site/prof7bit/metatrader-python-integration/
+
+http://chiselapp.com/user/polymeris/repository/metatraderpy/index
+
+http://www.forexfactory.com/showthread.php?t=190534
+"embedding python"
+7bit Aug 13, 2009 2:51pm
+
+

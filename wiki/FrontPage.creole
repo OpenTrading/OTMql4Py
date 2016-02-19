@@ -1,8 +1,9 @@
-### OTMql4Py - MQL4 bindings for Python
+
+OTMql4Py - Open Trading Metaquotes4 Python Bridge
 https://github.com/OpenTrading/OTMql4Py/
 
 This project provides that ability to run a complete Python interpreter
-under Metatrader4. Mt4 can make calls into Python, using any of Pythons
+under Metatrader4. Mt4 can make calls into Python, using any of Python's
 commands or imported modules. When coupled with the 
 [[OTLibProcessCmd.mq4|https://github.com/OpenTrading/OTMql4Lib/raw/master/MQL4/Libraries/OTLibProcessCmd.mq4]]
 capabilities of the https://github.com/OpenTrading/OTMql4Lib/ libraries,
@@ -14,6 +15,7 @@ with contributions by C. Polymeris:
 http://chiselapp.com/user/polymeris/repository/metatraderpy/index
 
 **This is a work in progress - a developers' pre-release version.**
+
 The code is quite stable now, and there should be no major file or API changes.
 It works well on builds > 6xx, but the documentation of the additions to the
 original code still need writing, as well as more tests and testing on
@@ -26,28 +28,41 @@ the Windows version, and the Python version and origin of the Python.**
 This code in known to run under Linux Wine (1.7.x), so this project
 bridges Metatrader to Python under Linux.
 
-### Installation
+=== Installation
 
 For the moment there is no installer: just "git clone" or download the
 zip from github.com and unzip into an empty directory. Then recursively copy
 the folder MQL4 over the MQL4 folder of your Metatrader installation. It will
 not overwrite any Mt4 system files.
 
+This project requires the prior installation of our
+MQL4 trading library: https://github.com/OpenTrading/OTMql4Lib.
+Again, {{{git clone}}} this from https://github.com and recursively copy
+it's folder MQL4 over the MQL4 folder of your Metatrader installation.
+
 You already should have the python27.dll and any other Python dlls
-that you will call (e.g. `pythoncom27.dll` `pythoncomloader27.dll` `pywintypes.dll`)
-installed into your windows system folder (e.g. `c:\windows\system32`)
+that you will call (e.g. {{{pythoncom27.dll}}} {{{pythoncomloader27.dll}}}
+{{{pywintypes.dll}}}) installed into your Windows system folder
+(e.g. {{{c:\windows\system32}}})
 
 You may have to set the environment variable PYTHONHOME to the root
-of your Python installation (e.g. `c:\Python27` ).
+of your Python installation (e.g. {{{c:\Python27}}} ).
 
-### Source
+Parts of the code require Mark Hammond's excellent Pywin32 additions:
+you can download these from http://pywin32.sourceforge.net - it's good
+to have these in your Python anyway:
+* http://prdownloads.sourceforge.net/pywin32/pywin32/Build 219/pywin32-219.win32-py2.7.exe (32 bit)
+* http://prdownloads.sourceforge.net/pywin32/pywin32/Build 219/pywin32-219.win-amd64-py2.7.exe (64 bit)
+
+=== Source
 
 The source code to generate the py27.dll are in the src directory.
-The sources have minor fixes to the original code other than the py26 -> py27
-syntactic conversion. The dll checked-in has been recompiled gainst the current
-source.
 
-### Project
+The sources have minor fixes to the original code other than the py26
+-> py27 syntactic conversion. The dll checked-in has been recompiled
+gainst the current source.
+
+=== Project
 
 Please file any bugs in the issues tracker:
 https://github.com/OpenTrading/OTMql4Py/issues
@@ -61,3 +76,8 @@ You will need to be signed into github.com to see or edit in the wiki.
 If you know of any threads in the forums that discuss this code,
 please post a message to say this project is now on github.com at
 https://github.com/OpenTrading/OTMql4Py/
+
+
+* [[Home|https://github.com/OpenTrading/OTMql4Zmq/wiki/Home]]
+
+* [[TitleIndex|https://github.com/OpenTrading/OTMql4Zmq/wiki/TitleIndex]]

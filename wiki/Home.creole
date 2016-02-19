@@ -1,0 +1,27 @@
+Welcome to the OTMql4Py wiki!
+
+This project provides the ability to run a complete Python interpreter
+under Metatrader4. Mt4 can make calls into Python, using any of Python's
+commands or imported modules.
+
+Please file any bugs in the issues tracker:
+https://github.com/OpenTrading/OTMql4Py/issues
+
+Use the Wiki to start topics for discussion:
+https://github.com/OpenTrading/OTMql4Py/wiki
+It's better to use the wiki for knowledge capture, and then we can pull
+the important pages back into the documentation in the share/doc directory.
+You will need to be signed into github.com to see or edit in the wiki.
+
+If you know of any threads in the forums that discuss this code,
+please post a message to say this project is now on github.com at
+https://github.com/OpenTrading/OTMql4Py/
+
+* [[FrontPage]]
+* [[MetatraderWithPython]]
+* [[ProjectHistory]]
+* [[Usage]]
+* [[Architecture]]
+* [[Testing]]
+
+* [[TitleIndex]]

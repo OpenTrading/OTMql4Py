@@ -1,0 +1,15 @@
+Use the RoadMap page in the wiki to plan the future of the project.
+
+1) Testing
+Write a Mt4 sctipt that can run a series of tests.
+
+2) More testing
+Write Python scripts that can test Python under Mt4.
+
+3) Use pyzmq to open up Mt4 to publishing ZeroMq nessages
+on ticks and bars.
+
+4) Use pyzmq to open up Mt4 to subscribing to ZeroMq nessages
+for orders and account manipulation.
+
+

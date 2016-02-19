@@ -1,0 +1,18 @@
+=== Testing
+
+There are some initial tests in the file
+{{{MQL4/Scripts/OTMql4/OTMql4PyTest.mq4}}}
+Attach this script to a chart and it will run a series of simple tests;
+you can choose which tests to run as inputs when you attach the script.
+Look at the Experts log window for messages; errors will start with the
+word {{{ERROR:}}} and should pop up a MessageBox.
+
+
+=== Known Issues
+
+During testing, we have noticed an error when you are repeatedly
+initilizing and uninitializing the Python interpreter. Any call of
+Python generates a {{{exceptions.SystemError}}}. You must restart
+Metatrader if this happens.
+
+

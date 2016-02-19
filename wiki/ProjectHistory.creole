@@ -1,0 +1,26 @@
+
+The original work was done by Bernd Kreuss in 2009:
+https://sites.google.com/site/prof7bit/metatrader-python-integration
+
+There are contributions by C. Polymeris
+http://chiselapp.com/user/polymeris/repository/metatraderpy/index
+
+
+OTMql4Py has some changes to how the compiled dll code is used,
+and includes a Python file {{{OTMql427.py}}} with extra functionality.
+
+=== Unicode Functions
+
+Build 600 of Metatrader4 changed the definition of the fundamental datatype
+{{{string}}} from being ASCII to being Unicode, and broke every compiled
+library called by Mt4 that sent or received a string. The basic change
+with implemented as a minor patch release rolled out on live systems.
+
+Metaquotes should have left the existing string definition to be
+ASCII, and introduced a new {{{unicode}}} datatype, along with Unicode
+aware functions, usually with the same function name, but with a
+{{{W}}} appended, like Windows does. You can still use ASCII strings
+in Metatrader4 >600: they are simply arrays of {{{uchar}}}, and there
+are conversion functions such as {{{StringToCharArray}}}.
+
+ 
