@@ -77,7 +77,8 @@ If you know of any threads in the forums that discuss this code,
 please post a message to say this project is now on github.com at
 https://github.com/OpenTrading/OTMql4Py/
 
+For the project documentation, see the Wiki:
 
-* Home (https://github.com/OpenTrading/OTMql4Zmq/wiki/Home)
+* Home (https://github.com/OpenTrading/OTMql4Py/wiki/Home)
 
-* TitleIndex (https://github.com/OpenTrading/OTMql4Zmq/wiki/TitleIndex)
+* TitleIndex (https://github.com/OpenTrading/OTMql4Py/wiki/TitleIndex)

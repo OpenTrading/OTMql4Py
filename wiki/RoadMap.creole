@@ -1,15 +1,14 @@
-Use the RoadMap page in the wiki to plan the future of the project.
+== Road Map
+
+There are a lot of directions we can take this project, and a lot
+of things we can do. For the moment, code developments are being driven by
+OpenTrader at https://github.com/OpenTrading/OpenTrader
 
 1) Testing
-Write a Mt4 sctipt that can run a series of tests.
+Write Mt4 sctipts that can run a series of tests; see [[Testing]].
 
 2) More testing
 Write Python scripts that can test Python under Mt4.
 
-3) Use pyzmq to open up Mt4 to publishing ZeroMq nessages
-on ticks and bars.
-
-4) Use pyzmq to open up Mt4 to subscribing to ZeroMq nessages
-for orders and account manipulation.
 
 
