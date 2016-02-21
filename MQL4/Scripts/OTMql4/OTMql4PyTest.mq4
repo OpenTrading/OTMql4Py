@@ -3,6 +3,10 @@
 #property copyright "Copyright 2014 Open Trading"
 #property link      "https://github.com/OpenTrading/"
 
+//  A simple test Script that doesn't do much, but it's a start.
+//  Attach it to a chart, select the tests you want to run,
+//  and a MessageBox will pop up to tell you if it passed or failed.
+
 #property show_inputs
 
 #include <OTMql4/OTLibLog.mqh>
@@ -12,10 +16,9 @@
 
 extern string sStdOutFile="_test_OTMql4PyTest.txt";
 
-/*
-We will put each test as a boolean external input so the user
-can select which tests to run.
-*/
+//  We will put each test as a boolean external input so the user
+//  can select which tests to run.
+
 extern bool bTestStdout=true;
 extern bool bTestDatatypes=true;
 extern bool bTestImport=true;
@@ -181,8 +184,8 @@ void OnStart() {
 }
 
 void OnDeinit(const int iReason) {
-    // FixMe: we dont really want to deinit for all reasons;
-    // It is untested as to whether this will cause access violations.
+    //  FixMe: we dont really want to deinit for all reasons;
+    //  It is untested as to whether this will cause access violations.
 
     /*
       See http://docs.mql4.com/check/UninitializeReason
@@ -195,11 +198,11 @@ void OnDeinit(const int iReason) {
       REASON_ACCOUNT	6	Other account activated.
     */
 
-    // recompiling and reloading should not require reinitializing.
-    // if (iReason == 2) {return;}
-    // BUT we have no way of telling if the OnStart is called from a recompile.
+    //  recompiling and reloading should not require reinitializing.
+    //  if (iReason == 2) {return;}
+    //  BUT we have no way of telling if the OnStart is called from a recompile.
 
-    // We are also seeing iReason == 0 when Mt4 sees a script has been recompiled.
+    //  We are also seeing iReason == 0 when Mt4 sees a script has been recompiled.
 
     vPyDeInit();
 }

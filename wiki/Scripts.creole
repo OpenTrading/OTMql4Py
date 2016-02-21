@@ -1,0 +1,7 @@
+===  Scripts
+
+
+See [[MQL4/Scripts/OTMql4/|https://github.com/OpenTrading/OTMql4Py/raw/master/MQL4/Scripts/OTMql4]]
+
+
+*  [[OTMql4PyTest]]

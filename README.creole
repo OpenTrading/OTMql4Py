@@ -14,7 +14,7 @@ https://sites.google.com/site/prof7bit/metatrader-python-integration
 with contributions by C. Polymeris:
 http://chiselapp.com/user/polymeris/repository/metatraderpy/index
 
-**This is a work in progress - a developers' pre-release version.**
+**This is a work in progress - a developers' version.**
 
 The code is quite stable now, and there should be no major file or API changes.
 It works well on builds > 6xx, but the documentation of the additions to the

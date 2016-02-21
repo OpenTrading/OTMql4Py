@@ -1,3 +1,13 @@
+commit fe4e64e3a8900c7bbf9bd90a5a6eba7b4eb32baf
+Date:   Sat Feb 20 08:08:10 2016 +0200
+
+    Updated documentation
+
+commit cf7d608d6e1b1164231f509f61ddca40f0304048
+Date:   Fri Feb 19 23:29:23 2016 +0200
+
+    Fixed issue #6
+
 commit b9492355059eb8329c59f664bb40a36c9fd388e0
 Date:   Fri Feb 19 23:03:18 2016 +0200
 

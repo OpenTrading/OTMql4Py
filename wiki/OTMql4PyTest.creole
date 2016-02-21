@@ -1,0 +1,36 @@
+===  MQL4/Scripts/OTMql4/OTMql4PyTest.mq4
+
+
+A simple test Script that doesn't do much, but it's a start.
+Attach it to a chart, and a MessageBox will pop up to tell you
+if it passed or failed.
+We will put each test as a boolean external input so the user
+can select which tests to run.
+
+{{{void vAlert(string uText) }}}
+
+{{{string eTestStdout(string uFile) }}}
+
+{{{string eTestDatatypes() }}}
+
+{{{string eTestImport() }}}
+
+{{{string eTestMessageBox() }}}
+
+{{{string eTestSyntaxError() }}}
+
+{{{string eTestRuntimeError() }}}
+
+{{{void OnStart() }}}
+
+{{{void OnDeinit(const int iReason) }}}
+    FixMe: we dont really want to deinit for all reasons;
+    It is untested as to whether this will cause access violations.
+    recompiling and reloading should not require reinitializing.
+    if (iReason == 2) {return;}
+    BUT we have no way of telling if the OnStart is called from a recompile.
+    We are also seeing iReason == 0 when Mt4 sees a script has been recompiled.
+
+Source code: [[MQL4/Scripts/OTMql4/OTMql4PyTest.mq4|https://github.com/OpenTrading/OTMql4Py/raw/master/MQL4/Scripts/OTMql4/OTMql4PyTest.mq4]]
+
+
