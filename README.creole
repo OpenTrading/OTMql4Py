@@ -28,7 +28,7 @@ the Windows version, and the Python version and origin of the Python.**
 This code is known to run under Linux Wine (1.7.x), so this project
 bridges Metatrader to Python under Linux.
 
-=== Installation
+=== Installation ===
 
 For the moment there is no installer: just "git clone" or download the
 zip from github.com and unzip into an empty directory. Then recursively copy
@@ -54,7 +54,7 @@ to have these in your Python anyway:
 * http://prdownloads.sourceforge.net/pywin32/pywin32/Build%20219/pywin32-219.win32-py2.7.exe (32 bit)
 * http://prdownloads.sourceforge.net/pywin32/pywin32/Build%20219/pywin32-219.win-amd64-py2.7.exe (64 bit)
 
-=== Source
+=== Source ===
 
 The source code to generate the py27.dll are in the src directory.
 
@@ -62,7 +62,7 @@ The sources have minor fixes to the original code other than the py26
 -> py27 syntactic conversion. The dll checked-in has been recompiled
 gainst the current source.
 
-=== Project
+=== Project ===
 
 Please file any bugs in the issues tracker:
 https://github.com/OpenTrading/OTMql4Py/issues
