@@ -14,9 +14,8 @@ their state in variables named after the symbol (or maybe even symbol
 
 Put your Python classes into Python modules, the import path is
 {{{<metatrader>\MQL4\Experts}}}, the same folder where your EAs mql
-code is located, so a simple {{{vPyExecuteUnicode("import
-yourmodule");}}} in your {{{OnInit()}}} will import the file
-{{{yourmodule.py}}} from this folder.
+code is located, so a simple {{{vPyExecuteUnicode("import yourmodule");}}}
+in your {{{OnInit()}}} will import the file {{{yourmodule.py}}} from this folder.
 
 Then instantiate an instance of your main class with something like
 {{{

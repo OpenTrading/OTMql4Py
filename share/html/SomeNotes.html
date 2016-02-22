@@ -22,9 +22,8 @@ their state in variables named after the symbol (or maybe even symbol<br />
 
 <p>Put your Python classes into Python modules, the import path is<br />
 <tt>&lt;metatrader&gt;\MQL4\Experts</tt>, the same folder where your EAs mql<br />
-code is located, so a simple {{{vPyExecuteUnicode("import<br />
-yourmodule");}}} in your <tt>OnInit()</tt> will import the file<br />
-<tt>yourmodule.py</tt> from this folder.</p>
+code is located, so a simple <tt>vPyExecuteUnicode("import yourmodule");</tt><br />
+in your <tt>OnInit()</tt> will import the file <tt>yourmodule.py</tt> from this folder.</p>
 
 <p>Then instantiate an instance of your main class with something like</p>
 <pre>

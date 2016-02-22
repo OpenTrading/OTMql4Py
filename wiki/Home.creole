@@ -6,7 +6,6 @@ commands or imported modules.
 
 === Documentation ===
 
-* [[FrontPage]]
 * [[MetatraderWithPython]]
 * [[ProjectHistory]]
 * [[Usage]]
