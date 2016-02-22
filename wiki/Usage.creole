@@ -41,7 +41,7 @@ around this, but it doesn't. Suggestions welcome...
 
 The {{{iPyInit}}} initialization also creates a persistent global
 veriable called "fDebugLevel" which is used by the logging code, and
-it ranges from 0 to 5: 0 : quiet, 1 : +errors, 2 : +warnings, 3 =
+it ranges from 0 to 5: 0 : quiet, 1 : +errors, 2 : +warnings, 3
 +info, 4 : +debug, 5 : +trace.
 
 === Added Python Functionality ===
