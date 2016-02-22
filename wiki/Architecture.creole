@@ -1,5 +1,5 @@
 
-=== Mt4 and Python Architecture
+=== Mt4 and Python Architecture ===
 
 Mt4 runs an expert attached to a chart in a thread.
 Python in a Mt4 expert starts a main thread that is unique to the
@@ -47,3 +47,7 @@ In our demo experts, we have set the timer interval to be quite high:
 to what you want.  It's set high for testing; obviously if you have a
 lot of charts with OTMqlPy and set the interval low, it may add a lot
 of work to Mt4.
+
+
+----
+Parent: [[Home]]

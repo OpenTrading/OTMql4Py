@@ -2,11 +2,12 @@
 == Title Index
 
 * [[Architecture]]
+* [[CodeLibraries]]
+* [[CodeScripts]]
 * [[DevelopmentStyle]]
 * [[ForumPosts]]
 * [[FrontPage]]
 * [[Home]]
-* [[Libraries]]
 * [[MetatraderWithPython]]
 * [[OTLibPy27]]
 * [[OTLibPyLog]]
@@ -14,7 +15,6 @@
 * [[OTPyChart]]
 * [[ProjectHistory]]
 * [[RoadMap]]
-* [[Scripts]]
 * [[SomeNotes]]
 * [[TestedVersions]]
 * [[Testing]]

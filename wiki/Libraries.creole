@@ -1,9 +1,0 @@
-===  Libraries
-
-
-See MQL4/Libraries/OTMql4/
-
-
-*  [[OTLibPy27]]
-*  [[OTLibPyLog]]
-*  [[OTPyChart]]

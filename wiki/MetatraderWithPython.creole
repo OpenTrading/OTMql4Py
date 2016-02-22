@@ -40,3 +40,6 @@ be also used to feed standard high-speed financial message buses to
 distributed applications (e.g. FITS or ZeroMq): see our OTMlq4Zmq
 project at https://github.com/OpenTrading/OTMql4Zmq and its usage by
 OpenTrader at https://github.com/OpenTrading/OpenTrader
+
+----
+Parent: [[Home]]

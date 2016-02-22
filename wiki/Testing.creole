@@ -1,4 +1,4 @@
-=== Testing
+== Testing
 
 There are some initial tests in the file
 {{{MQL4/Scripts/OTMql4/OTMql4PyTest.mq4}}}
@@ -16,3 +16,6 @@ Python generates a {{{exceptions.SystemError}}}. You must restart
 Metatrader if this happens.
 
 
+
+----
+Parent: [[Home]]

@@ -2,7 +2,7 @@
 These are some some notes from the original version of the source code.
 The points will be still valids, but the documentation needs updating.
 
-=== One Interpreter
+=== One Interpreter ===
 
 All expert advisors and indicators share the same Python interpreter
 with the same global namespace, so you should separate them by
@@ -10,7 +10,7 @@ encapsulating all in classes and instantiate and store them with all
 their state in variables named after the symbol (or maybe even symbol
 + timeframe). 
 
-=== Init
+=== Init ===
 
 Put your Python classes into Python modules, the import path is
 {{{<metatrader>\MQL4\Experts}}}, the same folder where your EAs mql
@@ -43,7 +43,7 @@ int init(){
 }
 }}}
 
-=== OnDeinit
+=== OnDeinit ===
 
 Use the OnDeinit() function of the EA or Indicator to destroy
 these instances, be sure to terminate all threads they may have
@@ -65,7 +65,7 @@ int OnDeinit(){
 }
 }}}
 
-=== Global unload hook
+=== Global unload hook ===
 
 If the last EA that used Python has been removed the Python
 interpreter itself will be terminated and unloaded.
@@ -79,3 +79,5 @@ is only one system thread left and if this function returns the
 python interpreter will be frozen and then immediately unloaded.
 
 
+----
+Parent: [[ProjectHistory]]

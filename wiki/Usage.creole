@@ -1,4 +1,6 @@
-==== Initialization Code
+
+
+=== Initialization Code ===
 
 The initialization code {{{iPyInit}}} in {{{MQL4/Include/OTMql4/OTPy27.mqh}}}
 initializes the Python environment. This should be called from your
@@ -20,7 +22,7 @@ that directory to give some added functionality. If it can't import
 the module {{{OTMql427}}} it will signal a panic by returning -1: you
 should fix the problem before going any futher.
 
-==== Global Variables
+=== Global Variables ===
 
 The {{{iPyInit}}} initialization creates a temporary global veriable
 called {{{fPythonUsers}}} and increments it by one each time it is
@@ -42,7 +44,7 @@ veriable called "fDebugLevel" which is used by the logging code, and
 it ranges from 0 to 5: 0 : quiet, 1 : +errors, 2 : +warnings, 3 =
 +info, 4 : +debug, 5 : +trace.
 
-==== Added Python Functionality
+=== Added Python Functionality ===
 
 In many cases, you should use {{{uPySafeEval}}} to evaluate a python
 expression that will evaluate to a string and return its value. It calls
@@ -59,3 +61,5 @@ In the caller you should have something like:
 }}}
 
 
+----
+Parent: [[Home]]

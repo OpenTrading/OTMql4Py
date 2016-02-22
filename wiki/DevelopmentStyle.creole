@@ -1,6 +1,6 @@
-=== Python Coding Practices
+=== Python Coding Style ===
 
-==== Type Prefixing
+==== Type Prefixing ====
 
 We prefix all variable, function and method names with a lowercase letter
 that indicates the type; it helps you anticipate what type a quantity
@@ -36,3 +36,7 @@ Choose the initial letter from the following list:
 
 We use a similar prefix notation in theMQL4 library code:
 https://github.com/OpenTrading/OTMql4Py/wiki/DevelopmentStyle
+
+
+----
+Parent: [[Home]]
