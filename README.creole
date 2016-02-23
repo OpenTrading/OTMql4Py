@@ -28,31 +28,8 @@ the Windows version, and the Python version and origin of the Python.**
 This code is known to run under Linux Wine (1.7.x), so this project
 bridges Metatrader to Python under Linux.
 
-=== Installation ===
-
-For the moment there is no installer: just "git clone" or download the
-zip from github.com and unzip into an empty directory. Then recursively copy
-the folder MQL4 over the MQL4 folder of your Metatrader installation. It will
-not overwrite any Mt4 system files.
-
-This project requires the prior installation of our
-MQL4 trading library: https://github.com/OpenTrading/OTMql4Lib.
-Again, {{{git clone}}} this from https://github.com and recursively copy
-it's folder MQL4 over the MQL4 folder of your Metatrader installation.
-
-You already should have the python27.dll and any other Python dlls
-that you will call (e.g. {{{pythoncom27.dll}}} {{{pythoncomloader27.dll}}}
-{{{pywintypes.dll}}}) installed into your Windows system folder
-(e.g. {{{c:\windows\system32}}})
-
-You may have to set the environment variable PYTHONHOME to the root
-of your Python installation (e.g. {{{c:\Python27}}} ).
-
-Parts of the code require Mark Hammond's excellent Pywin32 additions:
-you can download these from http://pywin32.sourceforge.net - it's good
-to have these in your Python anyway:
-* http://prdownloads.sourceforge.net/pywin32/pywin32/Build%20219/pywin32-219.win32-py2.7.exe (32 bit)
-* http://prdownloads.sourceforge.net/pywin32/pywin32/Build%20219/pywin32-219.win-amd64-py2.7.exe (64 bit)
+See https://github.com/OpenTrading/OTMql4Py/wiki/Installation
+for how to install the compiled files.
 
 === Source ===
 
@@ -60,7 +37,7 @@ The source code to generate the py27.dll are in the src directory.
 
 The sources have minor fixes to the original code other than the py26
 -> py27 syntactic conversion. The dll checked-in has been recompiled
-gainst the current source.
+against the current source using MS VC 2010 Express.
 
 === Project ===
 
