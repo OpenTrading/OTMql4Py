@@ -15,6 +15,7 @@
 * [[OTMql4PyTest]]
 * [[OTPyChart]]
 * [[ProjectHistory]]
+* [[Python32Or64Bit]]
 * [[RoadMap]]
 * [[SomeNotes]]
 * [[TestedVersions]]

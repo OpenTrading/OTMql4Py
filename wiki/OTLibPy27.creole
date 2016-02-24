@@ -3,15 +3,14 @@
 
 This will provide our logging functions that work with Python.
 See OTLibLog for just a skeleton logging.
-
 We introduce a global variable fDebugLevel which ranges from 0 to 5:
 "PANIC", "ERROR", "WARNING", "INFO", "DEBUG", "TRACE"
-
 If you set the variable to 1, you will only see errors; if you set
 it to 2 you will see warnings and errors...
-
 The Mt4 code can use vLog(iLevel, uMsg) to log accordingly.
 The Python code can use vLog(iLevel, sMsg) to log accordingly.
+Wrappers around the imported funtions for strings:
+they expect uchar[] arrays, not unicode strings.
 
 {{{void vPyExecuteUnicode (string uSource) }}}
 
@@ -28,9 +27,7 @@ not be exposed to handles of python objects.
     Initializes the Python environment. This should be called
     from your OnInit() function. It is safe to call it a second time;
     subsequent calls will just be ignored.
-    
     It should return 0.
-    
     A return value of -1 is a panic: remove the expert if it requires Python.
 
 {{{void vPyOutEmpty() }}}
@@ -43,7 +40,6 @@ not be exposed to handles of python objects.
 {{{string uPySafeEval(string uSource) }}}
     Evaluate a python expression that will evaluate to a string
     and return its value
-    
     In the caller you should have something like:
     {{{
     if (StringFind(uRetval, "ERROR:", 0) == 0) {
@@ -64,7 +60,6 @@ not be exposed to handles of python objects.
 {{{double fPyEvalDouble(string uSource) }}}
     Evaluate a python expression that will evaluate to a double
     and return its value
-    
 
 {{{string uPyEvalUnicode(string uSource) }}}
 
@@ -79,12 +74,10 @@ not be exposed to handles of python objects.
 {{{int iPyListAppendDouble(string list_name, double &array[]) }}}
     append the array of double to the python list given by its name.
     the list must already exist.
-    
 
 {{{int iPyListAppendString(string list_name, string &array[]) }}}
     Append the array of string to the python list given by its name.
     the list must already exist.
-    
 
 {{{void vPyDeInit() }}}
 

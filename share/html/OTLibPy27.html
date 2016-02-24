@@ -10,16 +10,15 @@
 <h3>MQL4/Libraries/OTMql4/OTLibPy27.mq4</h3>
 
 <p>This will provide our logging functions that work with Python.<br />
-See OTLibLog for just a skeleton logging.</p>
-
-<p>We introduce a global variable fDebugLevel which ranges from 0 to 5:<br />
-"PANIC", "ERROR", "WARNING", "INFO", "DEBUG", "TRACE"</p>
-
-<p>If you set the variable to 1, you will only see errors; if you set<br />
-it to 2 you will see warnings and errors...</p>
-
-<p>The Mt4 code can use vLog(iLevel, uMsg) to log accordingly.<br />
-The Python code can use vLog(iLevel, sMsg) to log accordingly.</p>
+See OTLibLog for just a skeleton logging.<br />
+We introduce a global variable fDebugLevel which ranges from 0 to 5:<br />
+"PANIC", "ERROR", "WARNING", "INFO", "DEBUG", "TRACE"<br />
+If you set the variable to 1, you will only see errors; if you set<br />
+it to 2 you will see warnings and errors...<br />
+The Mt4 code can use vLog(iLevel, uMsg) to log accordingly.<br />
+The Python code can use vLog(iLevel, sMsg) to log accordingly.<br />
+Wrappers around the imported funtions for strings:<br />
+they expect uchar[] arrays, not unicode strings.</p>
 
 <p><tt>void vPyExecuteUnicode (string uSource) </tt></p>
 
@@ -35,11 +34,9 @@ not be exposed to handles of python objects.</p>
 <p><tt>int iPyInit(string sStdOut) </tt><br />
     Initializes the Python environment. This should be called<br />
     from your OnInit() function. It is safe to call it a second time;<br />
-    subsequent calls will just be ignored.</p>
-
-<p>    It should return 0.</p>
-
-<p>    A return value of -1 is a panic: remove the expert if it requires Python.</p>
+    subsequent calls will just be ignored.<br />
+    It should return 0.<br />
+    A return value of -1 is a panic: remove the expert if it requires Python.</p>
 
 <p><tt>void vPyOutEmpty() </tt><br />
     empty the stdout file (where the redirected print output and errors go)</p>
@@ -50,9 +47,8 @@ not be exposed to handles of python objects.</p>
 
 <p><tt>string uPySafeEval(string uSource) </tt><br />
     Evaluate a python expression that will evaluate to a string<br />
-    and return its value</p>
-
-<p>    In the caller you should have something like:<br />
+    and return its value<br />
+    In the caller you should have something like:<br />
     {{{<br />
     if (StringFind(uRetval, "ERROR:", 0) == 0) {<br />
     Print("Error in Python evaluating: " + uSource + "\n" + res);<br />

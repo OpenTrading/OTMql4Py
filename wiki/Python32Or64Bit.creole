@@ -1,0 +1,17 @@
+
+Metatrader is a 32bit executable, and our Python will be running under it,
+so it needs 32bit libraries to load, especially the {{{python27.dll}}}.
+The easiest, and in our opinion the only thing to do, is to install
+a 32 Python distribution on your 64bit machine. It runs fine, and although
+it may run a lttle slower, it avoids nightmares.
+
+You **could** install OPMql4Py on a machine with a 64 bit Python installed,
+if you put a {{{python27.dll}}} alongside the Mt4 {{{terminal.exe}}}
+in the {{{Metatrader}}} directory of {{{c:\Program Files}}}.
+Not just in {{{MQL4\Libraries} - it won't work.
+Not in {{{SystemWOW64} either - it won't work. OPMql4Py will run,
+but you are likely to run into trouble if the Python then calls any
+64bit executable code (DLL or PYD) in your Python library code.
+So for now, we expect that you are installing OPMql4Py for a 32bit Python,
+even on 64bit machines.
+

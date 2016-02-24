@@ -1,19 +1,14 @@
 ===  MQL4/Libraries/OTMql4/OTLibPyLog.mq4 ===
 
 
-
 This will provide our logging functions that work with Python.
 See OTLibLog for just a skeleton logging.
-
 We introduce a global variable fDebugLevel which ranges from 0 to 5:
 "PANIC", "ERROR", "WARNING", "INFO", "DEBUG", "TRACE"
-
 If you set the variable to 1, you will only see errors; if you set
 it to 2 you will see warnings and errors...
-
 The Mt4 code can use vLog(iLevel, uMsg) to log accordingly.
 The Python code can use vLog(iLevel, sMsg) to log accordingly.
-
 string dLogArray[] = {"PANIC", "ERROR", "WARNING", "INFO", "DEBUG", "TRACE"};
 
 {{{void vLog (int iLevel, string uMsg) }}}

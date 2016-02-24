@@ -6,13 +6,13 @@
 
 //  This will provide our logging functions that work with Python.
 //  See OTLibLog for just a skeleton logging.
-//  
+//
 //  We introduce a global variable fDebugLevel which ranges from 0 to 5:
 //  "PANIC", "ERROR", "WARNING", "INFO", "DEBUG", "TRACE"
-//  
+//
 //  If you set the variable to 1, you will only see errors; if you set
 //  it to 2 you will see warnings and errors...
-//  
+//
 //  The Mt4 code can use vLog(iLevel, uMsg) to log accordingly.
 //  The Python code can use vLog(iLevel, sMsg) to log accordingly.
 //
@@ -21,10 +21,9 @@
 #include <OTMql4/OTLibLog.mqh>
 #include <OTMql4/OTPy27.mqh>
 
-/*
-   Wrappers around the imported funtions for strings:
-   they expect uchar[] arrays, not unicode strings.
-*/
+
+//  Wrappers around the imported funtions for strings:
+//  they expect uchar[] arrays, not unicode strings.
 void vPyExecuteUnicode (string uSource) {
     uchar sCharData[];
     StringToCharArray(uSource, sCharData);
@@ -68,17 +67,23 @@ int iPyInit(string sStdOut) {
     //  Initializes the Python environment. This should be called
     //  from your OnInit() function. It is safe to call it a second time;
     //  subsequent calls will just be ignored.
-    //  
+    //
     //  It should return 0.
-    //  
+    //
     //  A return value of -1 is a panic: remove the expert if it requires Python.
     string uRetval, uArg;
     double fPythonUsers;
     double fDebugLevel;
+    string uTerminalPath;
 
     if (!PyIsInitialized()) {
-	vLogInit();
-        Print("iPyInit: Starting OTPy27.mqh in " +  TerminalPath());
+        vLogInit();
+        // Old Mt4 layout:
+        // uTerminalPath = TerminalPath();
+        uTerminalPath = TerminalInfoString(TERMINAL_DATA_PATH);
+        //  See the explanation and notes in
+        //  https://github.com/OpenTrading/OTMql4Lib/wiki/Installation
+        Print("iPyInit: Starting OTPy27.mqh in " +  uTerminalPath);
         // Thread specific??
         if (GlobalVariableCheck("fPythonUsers") == true) {
             GlobalVariableDel("fPythonUsers");
@@ -97,10 +102,10 @@ int iPyInit(string sStdOut) {
         vPyExecuteUnicode(uArg);
 
         // we change to the metatrader directory to know where we are
-        vPyExecuteUnicode("os.chdir(os.path.join(r'" + TerminalPath() + "'))");
-        // NOT uArg="sys.path.insert(0, os.getcwd())";
+        vPyExecuteUnicode("os.chdir(os.path.join(r'" + uTerminalPath + "'))");
+        // NOT uArg = "sys.path.insert(0, os.getcwd())";
         // we insert the MQL4\Python directory on the sys.path
-        uArg = "sys.path.insert(0, os.path.join(r'" + TerminalPath() + "', 'MQL4', 'Python'))";
+        uArg = "sys.path.insert(0, os.path.join(r'" + uTerminalPath + "', 'MQL4', 'Python'))";
         vPyExecuteUnicode(uArg);
         // this path should have been created on the install
         // and should have a file __init__.py in it
@@ -189,7 +194,7 @@ void vPyPrintAndClearLastError() {
 string uPySafeEval(string uSource) {
     //  Evaluate a python expression that will evaluate to a string
     //  and return its value
-    //  
+    //
     //  In the caller you should have something like:
     //  {{{
     //  if (StringFind(uRetval, "ERROR:", 0) == 0) {
@@ -259,7 +264,7 @@ int iPyEvalInt(string uSource) {
 double fPyEvalDouble(string uSource) {
     //  Evaluate a python expression that will evaluate to a double
     //  and return its value
-    //  
+    //
     int p_res = iPyEvaluateUnicode(uSource);
     if (p_res <= 0) {
         Print("ERROR: PyEvalDouble - failed evaluating: " + uSource);
@@ -297,7 +302,7 @@ string uPyEvalUnicode(string uSource) {
        which I assume is in the main thread?
     */
     if (StringFind(uRetval, "select.error", 0) >= 0) {
-	//? Panic (10038, "Windows Error 0x2736")
+        //? Panic (10038, "Windows Error 0x2736")
         Print("ERROR: uPyEvalUnicode - select.error evaluating: " + uSource);
         vPyExecuteUnicode("sys.exc_clear()");
         return(uRetval);
@@ -329,7 +334,7 @@ int iPyListAppendInt(string list_name, int &array[]) {
 int iPyListAppendDouble(string list_name, double &array[]) {
     //  append the array of double to the python list given by its name.
     //  the list must already exist.
-    //  
+    //
 
     int list,item,len,i;
     list = iPyEvaluateUnicode(list_name);
@@ -347,7 +352,7 @@ int iPyListAppendDouble(string list_name, double &array[]) {
 int iPyListAppendString(string list_name, string &array[]) {
     //  Append the array of string to the python list given by its name.
     //  the list must already exist.
-    //  
+    //
     int list,item,len,i;
     list = iPyEvaluateUnicode(list_name);
     len = ArraySize(array);
@@ -381,7 +386,7 @@ void vPyDeInit() {
         if (!bRetval) {
             Print("ERROR vPyDeInit: deleting global variable fPythonUsers" +  iError);
         }
-	// leave this so that it's saved for the next run
+        // leave this so that it's saved for the next run
         // bRetval = GlobalVariableDel("fDebugLevel");
     } else {
         GlobalVariableSet("fPythonUsers", fPythonUsers);

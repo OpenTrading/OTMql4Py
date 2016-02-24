@@ -29,7 +29,7 @@ int OnInit() {
     }
     Print("Called iPyInit");
 
-    uArg="import os";
+    uArg = "import os";
     iRetval = iPySafeExec(uArg);
     if (iRetval <= -2) {
         // VERY IMPORTANT: if the ANYTHING fails with SystemError we MUST PANIC
@@ -41,7 +41,7 @@ int OnInit() {
 
 
     /* sys.path is too long to fit a log line */
-    uArg="str(sys.path[0])";
+    uArg = "str(sys.path[0])";
     uRetval = uPyEvalUnicode(uArg);
     Print("sys.path = "+uRetval);
 

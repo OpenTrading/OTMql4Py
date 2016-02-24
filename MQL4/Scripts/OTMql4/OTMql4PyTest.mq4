@@ -29,14 +29,14 @@ extern bool bTestRuntimeError=true;
 double fEps=0.000001;
 
 void vAlert(string uText) {
-  MessageBox(uText, "OTMql4PyTest.mq4", MB_OK|MB_ICONEXCLAMATION);
+    MessageBox(uText, "OTMql4PyTest.mq4", MB_OK|MB_ICONEXCLAMATION);
 }
 
 string eTestStdout(string uFile) {
     int iErr = 0;
     string uRetval = "";
 
-    uRetval=uPyEvalUnicode("sys.stdout.name");
+    uRetval = uPyEvalUnicode("sys.stdout.name");
     if (StringFind(uRetval, "<stdout>", 0) == 0) {
       uRetval = "ERROR: NOT opened sys.stdout.name= " + uRetval;
       Print(uRetval);
@@ -57,7 +57,7 @@ string eTestDatatypes() {
     string uArg;
 
     vPyExecuteUnicode("sFoobar = 'foobar'");
-    uRetval=uPyEvalUnicode("sFoobar");
+    uRetval = uPyEvalUnicode("sFoobar");
     if (StringFind(uRetval, "foobar", 0) != 0) {
       uRetval = "ERROR: sFoobar = " + uRetval;
       Print(uRetval);
@@ -90,20 +90,20 @@ string eTestImport() {
     string uRetval = "";
     string uArg;
 
-    uArg="import OTMql427";
+    uArg = "import OTMql427";
     vPyExecuteUnicode(uArg);
     // VERY IMPORTANT: if the import failed we MUST PANIC
     vPyExecuteUnicode("sFoobar = '%s : %s' % (sys.last_type, sys.last_value,)");
-    uRetval=uPyEvalUnicode("sFoobar");
+    uRetval = uPyEvalUnicode("sFoobar");
     if (StringFind(uRetval, "exceptions.SystemError", 0) >= 0) {
-	// Were seeing this during testing under adverse conditions
-	uRetval = "PANIC: import OTMql427 failed - we MUST restart Mt4"  + uRetval;
-	vAlert(uRetval);
-	return(uRetval);
+        // Were seeing this during testing under adverse conditions
+        uRetval = "PANIC: import OTMql427 failed - we MUST restart Mt4"  + uRetval;
+        vAlert(uRetval);
+        return(uRetval);
     }
 
     vPyExecuteUnicode("sFoobar = str(dir(OTMql427))");
-    uRetval=uPyEvalUnicode("sFoobar");
+    uRetval = uPyEvalUnicode("sFoobar");
     Print("INFO: dir(OTMql427) -> "+uRetval);
 
     return("");
@@ -114,7 +114,7 @@ string eTestMessageBox() {
     string uRetval = "";
     string uArg;
 
-    uArg="OTMql427.iMessageBox('Test of OTMql427.iMessageBox', 'Yes No Cancel', 3, 64)";
+    uArg = "OTMql427.iMessageBox('Test of OTMql427.iMessageBox', 'Yes No Cancel', 3, 64)";
     uRetval = uPyEvalUnicode(uArg);
 
     return("");
@@ -124,14 +124,14 @@ string eTestSyntaxError() {
     int iErr = 0;
     string uRetval = "";
 
-    uRetval=uPySafeEval("syntax : error");
+    uRetval = uPySafeEval("screw up on purpose");
     if (StringFind(uRetval, "ERROR:", 0) == 0) {
-	Print("INFO: syntax : error detected:= " + uRetval);
-	return("");
+        Print("INFO: syntax error on purpose detected -> " + uRetval);
+        return("");
     } else {
-	uRetval = "ERROR: syntax : error NOT detected:= " + uRetval;
-	Print(uRetval);
-	return(uRetval);
+        uRetval = "ERROR: syntax error NOT detected -> " + uRetval;
+        Print(uRetval);
+        return(uRetval);
     }
 }
 
@@ -139,14 +139,14 @@ string eTestRuntimeError() {
     int iErr = 0;
     string uRetval = "";
 
-    uRetval=uPySafeEval("provokeanerror");
+    uRetval = uPySafeEval("provokeanerror");
     if (StringFind(uRetval, "ERROR:", 0) == 0) {
-	Print("INFO: provokeanerror detected:= " + uRetval);
-	return("");
+        Print("INFO: eTestRuntimeError detected -> " + uRetval);
+        return("");
     } else {
-	uRetval ="ERROR: provokeanerror NOT detected:= " + uRetval;
-	Print(uRetval);
-	return(uRetval);
+        uRetval ="ERROR: eTestRuntimeError NOT detected -> " + uRetval;
+        Print(uRetval);
+        return(uRetval);
     }
 }
 
@@ -154,7 +154,7 @@ void OnStart() {
     string uRetval = "";
 
     if (iPyInit(sStdOutFile) != 0) {
-	return;
+        return;
     }
     // groan - need an Mt4 eval!
     if ( bTestStdout == true ) {
@@ -189,13 +189,13 @@ void OnDeinit(const int iReason) {
 
     /*
       See http://docs.mql4.com/check/UninitializeReason
-      0	Script finished its execution independently.
-      REASON_REMOVE	1	Expert removed from chart.
-      REASON_RECOMPILE	2	Expert recompiled.
-      REASON_CHARTCHANGE	3	symbol or timeframe changed on the chart.
-      REASON_CHARTCLOSE	4	Chart closed.
-      REASON_PARAMETERS	5	Inputs parameters was changed by user.
-      REASON_ACCOUNT	6	Other account activated.
+      0 Script finished its execution independently.
+      REASON_REMOVE     1       Expert removed from chart.
+      REASON_RECOMPILE  2       Expert recompiled.
+      REASON_CHARTCHANGE        3       symbol or timeframe changed on the chart.
+      REASON_CHARTCLOSE 4       Chart closed.
+      REASON_PARAMETERS 5       Inputs parameters was changed by user.
+      REASON_ACCOUNT    6       Other account activated.
     */
 
     //  recompiling and reloading should not require reinitializing.

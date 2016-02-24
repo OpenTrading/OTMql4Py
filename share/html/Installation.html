@@ -7,6 +7,33 @@
 </head>
 <body>
 <!-- <h1>Installation</h1> -->
+<p>If you are on a 64bit machine, see <a href="Python32Or64Bit.html">Python32Or64Bit</a><br />
+before going any farther.</p>
+
+<h3>Binary Installer</h3>
+
+<p>There is now an installer in the Releases section on github:<br />
+<a href="https://github.com/OpenTrading/OTMql4Lib/releases">https://github.com/OpenTrading/OTMql4Lib/releases</a><br />
+It's a simple installer that asks where you want the software installed,<br />
+and the location of your personal <tt>AppData</tt> Metatrader directory,<br />
+and copies the files to the right places; it installs a copy of the<br />
+documentation too.  Usually you could just overwrite old releases with<br />
+new ones, but for now, we recommend uninstalling old releases before<br />
+installing new ones in case the filenames or locations have changed.</p>
+
+<p>If you have a recent (2016) release of Mt4, the location of your personal<br />
+Metatrader directory to install into is no longer the <tt>Program Files</tt><br />
+directory (something like <tt>c:\Program Files\MetaTrader 4 Terminal</tt>)<br />
+but rather your personal <tt>AppData</tt> directory (something like<br />
+<tt>c:\Users\Administrator\AppData\Roaming\MetaQuotes\Terminal\LONGHEXNAME</tt>).</p>
+
+<p>When you start Metatrader, look for the <tt>Data Directory:</tt> message<br />
+in the Journal log.  Usually there are 2 possibilities: if you have a<br />
+subdirectory of your <tt>Users\AppData\Roaming\MetaQuotes\Terminal</tt> and<br />
+then a long hexadecimal name, use it. Otherwise look in <tt>c:\Program Files</tt><br />
+for the <tt>Metatrader directory</tt>.  Use the Browse button to select it,<br />
+then click Next.</p>
+
 <h3>Install from Source</h3>
 
 <p>You can just "git clone" or download the zip from github.com<br />
@@ -24,11 +51,6 @@ MQL4 trading library: <a href="https://github.com/OpenTrading/OTMql4Lib.">https:
 Again, <tt>git clone</tt> this from <a href="https://github.com">https://github.com</a> and recursively copy<br />
 it's folder MQL4 over the MQL4 folder of your Metatrader installation.</p>
 
-<p>You already should have the python27.dll and any other Python dlls<br />
-that you will call (e.g. <tt>pythoncom27.dll</tt> <tt>pythoncomloader27.dll</tt><br />
-<tt>pywintypes.dll</tt>) installed into your Windows system folder<br />
-(e.g. <tt>c:\windows\system32</tt>)</p>
-
 <p>You may have to set the environment variable PYTHONHOME to the root<br />
 of your Python installation (e.g. <tt>c:\Python27</tt> ).</p>
 
@@ -37,6 +59,13 @@ you can download these from <a href="http://pywin32.sourceforge.net">http://pywi
 to have these in your Python anyway:</p>
 <ul>
 	<li><a href="http://prdownloads.sourceforge.net/pywin32/pywin32/Build%20219/pywin32-219.win32-py2.7.exe">http://prdownloads.sourceforge.net/pywin32/pywin32/Build%20219/pywin32-219.win32-py2.7.exe</a> (32 bit)</li>
-	<li><a href="http://prdownloads.sourceforge.net/pywin32/pywin32/Build%20219/pywin32-219.win-amd64-py2.7.exe">http://prdownloads.sourceforge.net/pywin32/pywin32/Build%20219/pywin32-219.win-amd64-py2.7.exe</a> (64 bit)</li>
-</ul></body>
+</ul>
+<p>If you use the binary installer, you should find copies of these<br />
+dependencies in the <tt>deps</tt> subdirectory of your <img src="{Open Trading" title="{Open Trading" alt="{Open Trading" /><br />
+folder in <tt>c:\{Program Files</tt> or <tt>c:\{Program Files (x86)</tt>.<br />
+Make sure you have the python27.dll and any other Python dlls<br />
+that you will call (e.g. <tt>pythoncom27.dll</tt> <tt>pythoncomloader27.dll</tt><br />
+<tt>pywintypes.dll</tt>) installed into your Windows system folder (e.g.<br />
+<tt>c:\windows\system32</tt> on 32bit or <tt>c:\windows\SystemWOW64</tt> on 64bit).<br />
+We use 32bit installs even on 64bit machines: see <a href="Python32Or64Bit.html">Python32Or64Bit</a> .</p></body>
 </html>

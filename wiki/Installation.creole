@@ -1,4 +1,31 @@
 
+If you are on a 64bit machine, see [[Python32Or64Bit]]
+before going any farther.
+
+=== Binary Installer ===
+
+There is now an installer in the Releases section on github:
+https://github.com/OpenTrading/OTMql4Lib/releases
+It's a simple installer that asks where you want the software installed,
+and the location of your personal {{{AppData}}} Metatrader directory,
+and copies the files to the right places; it installs a copy of the
+documentation too.  Usually you could just overwrite old releases with
+new ones, but for now, we recommend uninstalling old releases before
+installing new ones in case the filenames or locations have changed.
+
+If you have a recent (2016) release of Mt4, the location of your personal
+Metatrader directory to install into is no longer the {{{Program Files}}}
+directory (something like {{{c:\Program Files\MetaTrader 4 Terminal}}})
+but rather your personal {{{AppData}}} directory (something like
+{{{c:\Users\Administrator\AppData\Roaming\MetaQuotes\Terminal\LONGHEXNAME}}}).
+
+When you start Metatrader, look for the {{{Data Directory:}}} message
+in the Journal log.  Usually there are 2 possibilities: if you have a
+subdirectory of your {{{Users\AppData\Roaming\MetaQuotes\Terminal}}} and
+then a long hexadecimal name, use it. Otherwise look in {{{c:\Program Files}}}
+for the {{{Metatrader directory}}}.  Use the Browse button to select it,
+then click Next.
+
 === Install from Source ===
 
 You can just "git clone" or download the zip from github.com
@@ -16,11 +43,6 @@ MQL4 trading library: https://github.com/OpenTrading/OTMql4Lib.
 Again, {{{git clone}}} this from https://github.com and recursively copy
 it's folder MQL4 over the MQL4 folder of your Metatrader installation.
 
-You already should have the python27.dll and any other Python dlls
-that you will call (e.g. {{{pythoncom27.dll}}} {{{pythoncomloader27.dll}}}
-{{{pywintypes.dll}}}) installed into your Windows system folder
-(e.g. {{{c:\windows\system32}}})
-
 You may have to set the environment variable PYTHONHOME to the root
 of your Python installation (e.g. {{{c:\Python27}}} ).
 
@@ -28,4 +50,12 @@ Parts of the code require Mark Hammond's excellent Pywin32 additions:
 you can download these from http://pywin32.sourceforge.net - it's good
 to have these in your Python anyway:
 * http://prdownloads.sourceforge.net/pywin32/pywin32/Build%20219/pywin32-219.win32-py2.7.exe (32 bit)
-* http://prdownloads.sourceforge.net/pywin32/pywin32/Build%20219/pywin32-219.win-amd64-py2.7.exe (64 bit)
+
+If you use the binary installer, you should find copies of these
+dependencies in the {{{deps}}} subdirectory of your {{{Open Trading}}
+folder in {{{c:\{Program Files}}} or {{{c:\{Program Files (x86)}}}.
+Make sure you have the python27.dll and any other Python dlls
+that you will call (e.g. {{{pythoncom27.dll}}} {{{pythoncomloader27.dll}}}
+{{{pywintypes.dll}}}) installed into your Windows system folder (e.g.
+{{{c:\windows\system32}}} on 32bit or {{{c:\windows\SystemWOW64}}} on 64bit).
+We use 32bit installs even on 64bit machines: see [[Python32Or64Bit]] .

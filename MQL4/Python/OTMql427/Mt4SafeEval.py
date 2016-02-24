@@ -24,33 +24,31 @@ def sPySafeEval(sPyCode):
     traps errors, and calls sys.exc_clear() if there is an error.
 
     """
-
-    dGlobals = sys.modules['__main__'].__dict__
+    if sPyCode == "": return ""
     s = "try:\n    sRetval=" + sPyCode + "\nexcept StandardError, e:\n    sRetval='ERROR: '+str(e)"
     try:
         k = compile(s, '<string>', 'exec')
     except Exception as e:
-        sRetval = "ERROR: Python error compiling " + sPyCode+ ': '+str(e)
+        sRetval = "ERROR: Python error compiling " + sPyCode +' -> '+str(e)
         # sys.stderr.write(sRetval+'\n')
         oLOG.warn(sRetval)
         traceback.print_exc(None, sys.stderr)
         sys.exc_clear()
         return sRetval
 
+    dGlobals = sys.modules['__main__'].__dict__
     try:
         eval(k, dGlobals, dGlobals)
         if dGlobals['sRetval']:
             sRetval = str(dGlobals['sRetval'])
         else:
             sRetval = ""
-    except Exception as e:
-        sRetval = "ERROR: Python error evaling " +sPyCode +': ' +str(e)
+    except StandardError as e:
+        sRetval = "ERROR: Python error evaling " +sPyCode +' -> ' +str(e)
         # sys.stderr.write(sRetval+'\n')
         oLOG.warn(sRetval)
         traceback.print_exc(None, sys.stderr)
         sys.exc_clear()
         return sRetval
-
-    #? if sRetval.find('ERROR:') == 0: sys.exc_clear()
 
     return sRetval
