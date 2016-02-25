@@ -45,6 +45,17 @@ not be exposed to handles of python objects.</p>
     You MUST do something to clear any error condition<br />
     or the system will crash, as documented in the Python manual.</p>
 
+<p><tt>string ePySafeExec(string uSource) </tt><br />
+    Evaluate a python expression has no return value<br />
+    and return any errors as a string, otherwise return ""<br />
+    In the caller you should have something like:<br />
+    {{{<br />
+    if (StringCompare(uRetval, "") != 0) {<br />
+    Print("Error in Python execing: " + uSource + "\n" + res);<br />
+    &lt;do something as a result of the failure&gt;<br />
+    }<br />
+    }}}</p>
+
 <p><tt>string uPySafeEval(string uSource) </tt><br />
     Evaluate a python expression that will evaluate to a string<br />
     and return its value<br />

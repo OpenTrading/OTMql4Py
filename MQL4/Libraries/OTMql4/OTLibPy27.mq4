@@ -191,6 +191,39 @@ void vPyPrintAndClearLastError() {
     Print("ERROR: " + res);
 }
 
+string ePySafeExec(string uSource) {
+    //  Evaluate a python expression has no return value
+    //  and return any errors as a string, otherwise return ""
+    //
+    //  In the caller you should have something like:
+    //  {{{
+    //  if (StringCompare(uRetval, "") != 0) {
+    //  Print("Error in Python execing: " + uSource + "\n" + res);
+    //  <do something as a result of the failure>
+    //  }
+    //  }}}
+
+    string uRetval="";
+    vPyExecuteUnicode(uSource);
+    vPyExecuteUnicode("sFoobar = '%s : %s' % (sys.last_type, sys.last_value,)");
+    uRetval = uPyEvalUnicode("sFoobar");
+    if (StringCompare(uRetval, " : ") == 0) {
+        //  success
+        return("");
+    }
+    // VERY IMPORTANT: if the import failed we MUST PANIC
+    if (StringFind(uRetval, "exceptions.SystemError", 0) >= 0) {
+        // Were seeing this during testing under adverse conditions
+        uRetval = "PANIC: exec failed - we MUST restart Mt4 -> "  + uRetval;
+        vPyPrintAndClearLastError();
+        MessageBox(uRetval, uSource, MB_OK|MB_ICONEXCLAMATION);
+        return(uRetval);
+    }
+    uRetval = "ERROR: "  + uRetval;
+    vPyPrintAndClearLastError();
+    return(uRetval);
+}
+
 string uPySafeEval(string uSource) {
     //  Evaluate a python expression that will evaluate to a string
     //  and return its value

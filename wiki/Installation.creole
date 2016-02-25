@@ -5,7 +5,7 @@ before going any farther.
 === Binary Installer ===
 
 There is now an installer in the Releases section on github:
-https://github.com/OpenTrading/OTMql4Lib/releases
+https://github.com/OpenTrading/OTMql4Py/releases
 It's a simple installer that asks where you want the software installed,
 and the location of your personal {{{AppData}}} Metatrader directory,
 and copies the files to the right places; it installs a copy of the

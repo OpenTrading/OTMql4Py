@@ -12,6 +12,7 @@ int iPyLookupDictUnicode(int p_dict, string uName);
 int iPyInit(string sStdOut);
 void vPyOutEmpty();
 void vPyPrintAndClearLastError();
+string ePySafeExec(string uSource);
 string uPySafeEval(string uSource);
 void vPanic(string uReason);
 int iPySafeExec(string uArg);

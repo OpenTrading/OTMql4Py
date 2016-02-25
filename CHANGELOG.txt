@@ -1,3 +1,8 @@
+commit cf85929708279f01e248c3cb827c314193aa4f8f
+Date:   Thu Feb 25 00:13:58 2016 +0200
+
+    Tagged 1.1.0.1
+
 commit e86c8f0a4b0fe0d5bd62b4b5e494754d35b358a7
 Date:   Thu Feb 25 00:11:26 2016 +0200
 

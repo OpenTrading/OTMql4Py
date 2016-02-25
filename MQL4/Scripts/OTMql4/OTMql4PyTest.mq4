@@ -86,26 +86,25 @@ string eTestDatatypes() {
 }
 
 string eTestImport() {
-    int iErr = 0;
-    string uRetval = "";
+    int iErr=0;
+    string uRetval="";
     string uArg;
 
     uArg = "import OTMql427";
-    vPyExecuteUnicode(uArg);
-    // VERY IMPORTANT: if the import failed we MUST PANIC
-    vPyExecuteUnicode("sFoobar = '%s : %s' % (sys.last_type, sys.last_value,)");
-    uRetval = uPyEvalUnicode("sFoobar");
-    if (StringFind(uRetval, "exceptions.SystemError", 0) >= 0) {
-        // Were seeing this during testing under adverse conditions
-        uRetval = "PANIC: import OTMql427 failed - we MUST restart Mt4"  + uRetval;
-        vAlert(uRetval);
-        return(uRetval);
+    uRetval = ePySafeExec(uArg);
+    if (StringCompare(uRetval, "") != 0) {
+	vAlert("Error in Python execing: " + uArg + " -> " + uRetval);
+	return(uRetval);
     }
 
-    vPyExecuteUnicode("sFoobar = str(dir(OTMql427))");
-    uRetval = uPyEvalUnicode("sFoobar");
-    Print("INFO: dir(OTMql427) -> "+uRetval);
-
+    uArg = "str(dir(OTMql427))";
+    uRetval = uPySafeEval(uArg);
+    if (StringFind(uRetval, "ERROR:", 0) == 0) {
+	vAlert("Error in Python execing: " + uArg + " -> " + uRetval);
+	return(uRetval);
+    }
+    
+    Print("INFO: " +uArg +" -> " +uRetval);
     return("");
 }
 
